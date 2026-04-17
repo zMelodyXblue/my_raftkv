@@ -161,6 +161,32 @@ raftkv_server/fast:
 .PHONY : raftkv_server/fast
 
 #=============================================================================
+# Target rules for targets named raft
+
+# Build rule for target.
+raft: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 raft
+.PHONY : raft
+
+# fast build rule for target.
+raft/fast:
+	$(MAKE) -f src/raft/CMakeFiles/raft.dir/build.make src/raft/CMakeFiles/raft.dir/build
+.PHONY : raft/fast
+
+#=============================================================================
+# Target rules for targets named test_persister
+
+# Build rule for target.
+test_persister: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_persister
+.PHONY : test_persister
+
+# fast build rule for target.
+test_persister/fast:
+	$(MAKE) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/build
+.PHONY : test_persister/fast
+
+#=============================================================================
 # Target rules for targets named test_smoke
 
 # Build rule for target.
@@ -293,6 +319,8 @@ help:
 	@echo "... proto_gen"
 	@echo "... raftkv_cli"
 	@echo "... raftkv_server"
+	@echo "... raft"
+	@echo "... test_persister"
 	@echo "... test_smoke"
 	@echo "... generated/kv.grpc.pb.o"
 	@echo "... generated/kv.grpc.pb.i"

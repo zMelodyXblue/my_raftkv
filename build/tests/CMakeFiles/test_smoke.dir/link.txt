@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/test_smoke.dir/smoke_test.cpp.o  -o ../bin/test_smoke  -Wl,-rpath,/usr/local/lib ../lib/libproto_gen.a /usr/local/lib/libprotobuf.so -lgrpc++ -lgrpc /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 
+/usr/bin/c++  -g   CMakeFiles/test_smoke.dir/smoke_test.cpp.o  -o ../bin/test_smoke  -Wl,-rpath,/usr/local/lib ../lib/libproto_gen.a /usr/local/lib/libprotobuf.so -lgrpc++ -lgrpc /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

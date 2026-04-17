@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "../src/CMakeLists.txt"
   "../src/common/CMakeLists.txt"
+  "../src/raft/CMakeLists.txt"
   "../tests/CMakeLists.txt"
   "/usr/lib/x86_64-linux-gnu/cmake/spdlog/spdlogConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/spdlog/spdlogConfigTargets-none.cmake"
@@ -57,6 +58,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/common/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/raft/CMakeFiles/CMakeDirectoryInformation.cmake"
   "tests/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
@@ -65,5 +67,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/proto_gen.dir/DependInfo.cmake"
   "src/CMakeFiles/raftkv_cli.dir/DependInfo.cmake"
   "src/CMakeFiles/raftkv_server.dir/DependInfo.cmake"
+  "src/raft/CMakeFiles/raft.dir/DependInfo.cmake"
+  "tests/CMakeFiles/test_persister.dir/DependInfo.cmake"
   "tests/CMakeFiles/test_smoke.dir/DependInfo.cmake"
   )

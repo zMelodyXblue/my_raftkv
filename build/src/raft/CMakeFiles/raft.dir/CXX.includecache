@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/raft/persister.h
+mutex
+-
+string
+-
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.cpp
+raft/persister.h
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft/persister.h
+cerrno
+-
+cstdio
+-
+cstring
+-
+fstream
+-
+stdexcept
+-
+sys/stat.h
+-
+

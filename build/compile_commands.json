@@ -1,37 +1,47 @@
 [
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build",
-  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -w -std=gnu++2a -o CMakeFiles/proto_gen.dir/generated/raft.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.pb.cc",
+  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -w -std=gnu++14 -o CMakeFiles/proto_gen.dir/generated/raft.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.pb.cc",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.pb.cc"
 },
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build",
-  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -w -std=gnu++2a -o CMakeFiles/proto_gen.dir/generated/raft.grpc.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.grpc.pb.cc",
+  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -w -std=gnu++14 -o CMakeFiles/proto_gen.dir/generated/raft.grpc.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.grpc.pb.cc",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/raft.grpc.pb.cc"
 },
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build",
-  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -w -std=gnu++2a -o CMakeFiles/proto_gen.dir/generated/kv.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.pb.cc",
+  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -w -std=gnu++14 -o CMakeFiles/proto_gen.dir/generated/kv.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.pb.cc",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.pb.cc"
 },
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build",
-  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -w -std=gnu++2a -o CMakeFiles/proto_gen.dir/generated/kv.grpc.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.grpc.pb.cc",
+  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -w -std=gnu++14 -o CMakeFiles/proto_gen.dir/generated/kv.grpc.pb.cc.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.grpc.pb.cc",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated/kv.grpc.pb.cc"
 },
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src",
-  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -std=gnu++2a -o CMakeFiles/raftkv_cli.dir/cli.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/cli.cpp",
+  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -std=gnu++14 -o CMakeFiles/raftkv_cli.dir/cli.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/cli.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/cli.cpp"
 },
 {
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src",
-  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -std=gnu++2a -o CMakeFiles/raftkv_server.dir/main.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/main.cpp",
+  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -std=gnu++14 -o CMakeFiles/raftkv_server.dir/main.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/main.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/main.cpp"
 },
 {
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/raft",
+  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -std=gnu++14 -o CMakeFiles/raft.dir/persister.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.cpp"
+},
+{
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests",
-  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated    -std=gnu++2a -o CMakeFiles/test_smoke.dir/smoke_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/smoke_test.cpp",
+  "command": "/usr/bin/c++  -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -std=gnu++14 -o CMakeFiles/test_persister.dir/persister_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/persister_test.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/persister_test.cpp"
+},
+{
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests",
+  "command": "/usr/bin/c++   -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/generated  -g   -std=gnu++14 -o CMakeFiles/test_smoke.dir/smoke_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/smoke_test.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/smoke_test.cpp"
 }
 ]

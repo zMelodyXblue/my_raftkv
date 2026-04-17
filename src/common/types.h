@@ -93,10 +93,10 @@ struct ApplyResult {
 
 // ── Error Codes ─────────────────────────────────────────────────
 namespace ErrCode {
-  inline constexpr const char* OK             = "";
-  inline constexpr const char* ErrNoKey       = "ErrNoKey";
-  inline constexpr const char* ErrWrongLeader = "ErrWrongLeader";
-  inline constexpr const char* ErrTimeout     = "ErrTimeout";
+  constexpr const char* OK             = "";
+  constexpr const char* ErrNoKey       = "ErrNoKey";
+  constexpr const char* ErrWrongLeader = "ErrWrongLeader";
+  constexpr const char* ErrTimeout     = "ErrTimeout";
 }
 
 // ── Internal Raft RPC DTOs ───────────────────────────────────────

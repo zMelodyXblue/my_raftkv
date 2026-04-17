@@ -21,11 +21,7 @@ condition_variable
 -
 mutex
 -
-optional
--
 queue
--
-stdexcept
 -
 
 ../src/common/types.h

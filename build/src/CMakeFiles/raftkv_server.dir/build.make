@@ -79,6 +79,7 @@ raftkv_server_EXTERNAL_OBJECTS =
 
 bin/raftkv_server: src/CMakeFiles/raftkv_server.dir/main.cpp.o
 bin/raftkv_server: src/CMakeFiles/raftkv_server.dir/build.make
+bin/raftkv_server: lib/libraft.a
 bin/raftkv_server: lib/libproto_gen.a
 bin/raftkv_server: /usr/lib/x86_64-linux-gnu/libspdlog.so.1.5.0
 bin/raftkv_server: /usr/local/lib/libprotobuf.so

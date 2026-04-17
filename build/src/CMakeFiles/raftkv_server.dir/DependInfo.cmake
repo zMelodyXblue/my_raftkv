@@ -22,6 +22,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/raft/CMakeFiles/raft.dir/DependInfo.cmake"
   "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles/proto_gen.dir/DependInfo.cmake"
   )
 

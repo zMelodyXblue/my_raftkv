@@ -1,51 +1,47 @@
-Start testing: Apr 17 00:50 CST
+Start testing: Apr 17 16:38 CST
 ----------------------------------------------------------
-1/1 Testing: smoke
-1/1 Test: smoke
-Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_smoke"
+2/2 Testing: persister
+2/2 Test: persister
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_persister"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"smoke" start time: Apr 17 00:50 CST
+"persister" start time: Apr 17 16:38 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
-[==========] Running 9 tests from 3 test suites.
+[==========] Running 10 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 4 tests from Types
-[ RUN      ] Types.LogEntryDefaultInit
-[       OK ] Types.LogEntryDefaultInit (0 ms)
-[ RUN      ] Types.ApplyMsgBothFlagsDefaultFalse
-[       OK ] Types.ApplyMsgBothFlagsDefaultFalse (0 ms)
-[ RUN      ] Types.StartResultDefaultNotLeader
-[       OK ] Types.StartResultDefaultNotLeader (0 ms)
-[ RUN      ] Types.RoleName
-[       OK ] Types.RoleName (0 ms)
-[----------] 4 tests from Types (0 ms total)
-
-[----------] 4 tests from TSQueue
-[ RUN      ] TSQueue.PushPop
-[       OK ] TSQueue.PushPop (0 ms)
-[ RUN      ] TSQueue.TryPopTimeout
-[       OK ] TSQueue.TryPopTimeout (10 ms)
-[ RUN      ] TSQueue.CloseUnblocksWaiter
-[       OK ] TSQueue.CloseUnblocksWaiter (0 ms)
-[ RUN      ] TSQueue.PushAfterCloseIsNoOp
-[       OK ] TSQueue.PushAfterCloseIsNoOp (0 ms)
-[----------] 4 tests from TSQueue (10 ms total)
-
-[----------] 1 test from Config
-[ RUN      ] Config.RaftConfigDefaults
-[       OK ] Config.RaftConfigDefaults (0 ms)
-[----------] 1 test from Config (0 ms total)
+[----------] 10 tests from PersisterTest
+[ RUN      ] PersisterTest.EmptyOnFirstLoad
+[       OK ] PersisterTest.EmptyOnFirstLoad (7 ms)
+[ RUN      ] PersisterTest.SaveAndLoadRaftState
+[       OK ] PersisterTest.SaveAndLoadRaftState (7 ms)
+[ RUN      ] PersisterTest.SaveAndLoadSnapshot
+[       OK ] PersisterTest.SaveAndLoadSnapshot (4 ms)
+[ RUN      ] PersisterTest.SaveBothAtomically
+[       OK ] PersisterTest.SaveBothAtomically (3 ms)
+[ RUN      ] PersisterTest.RaftStateSizeMatchesBytes
+[       OK ] PersisterTest.RaftStateSizeMatchesBytes (4 ms)
+[ RUN      ] PersisterTest.RaftStateSizeZeroWhenEmpty
+[       OK ] PersisterTest.RaftStateSizeZeroWhenEmpty (4 ms)
+[ RUN      ] PersisterTest.PersistsAcrossRestart
+[       OK ] PersisterTest.PersistsAcrossRestart (9 ms)
+[ RUN      ] PersisterTest.OverwriteUpdatesState
+[       OK ] PersisterTest.OverwriteUpdatesState (7 ms)
+[ RUN      ] PersisterTest.DifferentNodesDontShareFiles
+[       OK ] PersisterTest.DifferentNodesDontShareFiles (5 ms)
+[ RUN      ] PersisterTest.BinaryDataRoundTrip
+[       OK ] PersisterTest.BinaryDataRoundTrip (6 ms)
+[----------] 10 tests from PersisterTest (57 ms total)
 
 [----------] Global test environment tear-down
-[==========] 9 tests from 3 test suites ran. (10 ms total)
-[  PASSED  ] 9 tests.
+[==========] 10 tests from 1 test suite ran. (57 ms total)
+[  PASSED  ] 10 tests.
 <end of output>
-Test time =   0.01 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
 Test Passed.
-"smoke" end time: Apr 17 00:50 CST
-"smoke" time elapsed: 00:00:00
+"persister" end time: Apr 17 16:38 CST
+"persister" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Apr 17 00:50 CST
+End testing: Apr 17 16:38 CST

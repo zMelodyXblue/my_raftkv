@@ -34,31 +34,35 @@ TEST(Types, RoleName) {
 TEST(TSQueue, PushPop) {
   raftkv::ThreadSafeQueue<int> q;
   q.push(42);
-  auto v = q.pop();
-  ASSERT_TRUE(v.has_value());
-  EXPECT_EQ(*v, 42);
+  int v = 0;
+  bool ok = q.pop(v);
+  ASSERT_TRUE(ok);
+  EXPECT_EQ(v, 42);
 }
 
 TEST(TSQueue, TryPopTimeout) {
   raftkv::ThreadSafeQueue<int> q;
-  auto v = q.try_pop(std::chrono::milliseconds(10));
-  EXPECT_FALSE(v.has_value());
+  int v = 0;
+  bool ok = q.try_pop(v, std::chrono::milliseconds(10));
+  EXPECT_FALSE(ok);
 }
 
 TEST(TSQueue, CloseUnblocksWaiter) {
   raftkv::ThreadSafeQueue<int> q;
-  // Close immediately; pop() should return nullopt without blocking.
+  // Close immediately; pop() should return false without blocking.
   q.close();
-  auto v = q.pop();
-  EXPECT_FALSE(v.has_value());
+  int v = 0;
+  bool ok = q.pop(v);
+  EXPECT_FALSE(ok);
 }
 
 TEST(TSQueue, PushAfterCloseIsNoOp) {
   raftkv::ThreadSafeQueue<int> q;
   q.close();
   q.push(99);    // should not crash or block
-  auto v = q.pop();
-  EXPECT_FALSE(v.has_value());
+  int v = 0;
+  bool ok = q.pop(v);
+  EXPECT_FALSE(ok);
 }
 
 // ── RaftConfig defaults ───────────────────────────────────────────

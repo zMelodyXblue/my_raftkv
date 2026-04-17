@@ -122,6 +122,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+tests/CMakeFiles/test_persister.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_persister.dir/rule
+.PHONY : tests/CMakeFiles/test_persister.dir/rule
+
+# Convenience name for target.
+test_persister: tests/CMakeFiles/test_persister.dir/rule
+
+.PHONY : test_persister
+
+# fast build rule for target.
+test_persister/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/build
+.PHONY : test_persister/fast
+
+# Convenience name for target.
 tests/CMakeFiles/test_smoke.dir/rule:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_smoke.dir/rule
 .PHONY : tests/CMakeFiles/test_smoke.dir/rule
@@ -135,6 +150,33 @@ test_smoke: tests/CMakeFiles/test_smoke.dir/rule
 test_smoke/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f tests/CMakeFiles/test_smoke.dir/build.make tests/CMakeFiles/test_smoke.dir/build
 .PHONY : test_smoke/fast
+
+persister_test.o: persister_test.cpp.o
+
+.PHONY : persister_test.o
+
+# target to build an object file
+persister_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/persister_test.cpp.o
+.PHONY : persister_test.cpp.o
+
+persister_test.i: persister_test.cpp.i
+
+.PHONY : persister_test.i
+
+# target to preprocess a source file
+persister_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/persister_test.cpp.i
+.PHONY : persister_test.cpp.i
+
+persister_test.s: persister_test.cpp.s
+
+.PHONY : persister_test.s
+
+# target to generate assembly for a file
+persister_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/persister_test.cpp.s
+.PHONY : persister_test.cpp.s
 
 smoke_test.o: smoke_test.cpp.o
 
@@ -172,7 +214,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... test_persister"
 	@echo "... test_smoke"
+	@echo "... persister_test.o"
+	@echo "... persister_test.i"
+	@echo "... persister_test.s"
 	@echo "... smoke_test.o"
 	@echo "... smoke_test.i"
 	@echo "... smoke_test.s"

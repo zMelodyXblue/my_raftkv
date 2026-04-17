@@ -3,9 +3,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <mutex>
-#include <optional>
 #include <queue>
-#include <stdexcept>
 
 namespace raftkv {
 
@@ -24,14 +22,14 @@ namespace raftkv {
 //   thread.join();       // safe to join now
 //
 // After close(), push() is a no-op and pop() / try_pop() return
-// std::nullopt so callers can detect the shutdown and exit their loops.
+// false so callers can detect the shutdown and exit their loops.
 template <typename T>
 class ThreadSafeQueue {
  public:
   // Push an item.  No-op if the queue is already closed.
   void push(T item) {
     {
-      std::lock_guard lock(mu_);
+      std::lock_guard<std::mutex> lock(mu_);
       if (closed_) return;
       queue_.push(std::move(item));
     }
@@ -39,53 +37,55 @@ class ThreadSafeQueue {
   }
 
   // Blocking pop.
-  // Returns the next item, or std::nullopt if the queue is closed
-  // (and empty).  Callers should treat nullopt as a shutdown signal:
+  // Stores the next item in `out` and returns true.
+  // Returns false if the queue is closed (and empty) — treat as
+  // a shutdown signal and exit the consuming loop:
   //
-  //   while (auto msg = apply_channel->pop()) {
-  //     handle(*msg);
+  //   ApplyMsg msg;
+  //   while (apply_channel->pop(msg)) {
+  //     handle(msg);
   //   }
   //   // queue closed, exit loop
-  std::optional<T> pop() {
-    std::unique_lock lock(mu_);
+  bool pop(T& out) {
+    std::unique_lock<std::mutex> lock(mu_);
     cv_.wait(lock, [this] { return !queue_.empty() || closed_; });
-    if (queue_.empty()) return std::nullopt;  // closed
-    T item = std::move(queue_.front());
+    if (queue_.empty()) return false;  // closed
+    out = std::move(queue_.front());
     queue_.pop();
-    return item;
+    return true;
   }
 
   // Non-blocking pop with timeout.
-  // Returns std::nullopt on timeout OR if the queue is closed.
-  std::optional<T> try_pop(std::chrono::milliseconds timeout) {
-    std::unique_lock lock(mu_);
+  // Returns false on timeout OR if the queue is closed.
+  bool try_pop(T& out, std::chrono::milliseconds timeout) {
+    std::unique_lock<std::mutex> lock(mu_);
     if (!cv_.wait_for(lock, timeout,
                       [this] { return !queue_.empty() || closed_; })) {
-      return std::nullopt;  // timed out
+      return false;  // timed out
     }
-    if (queue_.empty()) return std::nullopt;  // closed
-    T item = std::move(queue_.front());
+    if (queue_.empty()) return false;  // closed
+    out = std::move(queue_.front());
     queue_.pop();
-    return item;
+    return true;
   }
 
   // Signal shutdown.  Unblocks all threads currently waiting in pop()
   // or try_pop().  Idempotent.
   void close() {
     {
-      std::lock_guard lock(mu_);
+      std::lock_guard<std::mutex> lock(mu_);
       closed_ = true;
     }
     cv_.notify_all();
   }
 
   bool is_closed() const {
-    std::lock_guard lock(mu_);
+    std::lock_guard<std::mutex> lock(mu_);
     return closed_;
   }
 
   bool empty() const {
-    std::lock_guard lock(mu_);
+    std::lock_guard<std::mutex> lock(mu_);
     return queue_.empty();
   }
 

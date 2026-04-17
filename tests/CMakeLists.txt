@@ -10,3 +10,12 @@ target_link_libraries(test_smoke PRIVATE
   GTest::Main
 )
 add_test(NAME smoke COMMAND test_smoke)
+
+# Phase 1: Persister unit tests
+add_executable(test_persister persister_test.cpp)
+target_link_libraries(test_persister PRIVATE
+  raft
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME persister COMMAND test_persister)
