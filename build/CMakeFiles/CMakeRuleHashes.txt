@@ -1,0 +1,3 @@
+# Hashes of file build rules.
+78c1f82ca3fb3f97d38832c1a35674d4 generated/kv.pb.cc
+4433302460721cd8cf89e8bcbcd662f6 generated/raft.pb.cc

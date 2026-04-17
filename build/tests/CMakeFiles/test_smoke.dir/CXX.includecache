@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/common/config.h
+chrono
+-
+string
+-
+vector
+-
+
+../src/common/thread_safe_queue.h
+chrono
+-
+condition_variable
+-
+mutex
+-
+optional
+-
+queue
+-
+stdexcept
+-
+
+../src/common/types.h
+string
+-
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/smoke_test.cpp
+gtest/gtest.h
+-
+common/types.h
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/common/types.h
+common/thread_safe_queue.h
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/common/thread_safe_queue.h
+common/config.h
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/common/config.h
+

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/raftkv_cli.dir/cli.cpp.o  -o ../bin/raftkv_cli  -Wl,-rpath,/usr/local/lib ../lib/libproto_gen.a /usr/lib/x86_64-linux-gnu/libspdlog.so.1.5.0 /usr/local/lib/libprotobuf.so -lgrpc++ -lgrpc -lpthread 

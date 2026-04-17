@@ -1,0 +1,32 @@
+syntax = "proto3";
+package raftkv.kv;
+
+// ── KV operations ───────────────────────────────────────────────
+message GetRequest {
+  string  key         = 1;
+  string  client_id   = 2;
+  int64   request_id  = 3;
+}
+
+message GetReply {
+  string  value = 1;
+  string  error = 2;  // "", "ErrNoKey", "ErrWrongLeader", "ErrTimeout"
+}
+
+message PutAppendRequest {
+  string  key         = 1;
+  string  value       = 2;
+  string  op          = 3;  // "Put" or "Append"
+  string  client_id   = 4;
+  int64   request_id  = 5;
+}
+
+message PutAppendReply {
+  string  error = 1;
+}
+
+// ── KV service (client-facing) ──────────────────────────────────
+service KvService {
+  rpc Get(GetRequest) returns (GetReply);
+  rpc PutAppend(PutAppendRequest) returns (PutAppendReply);
+}

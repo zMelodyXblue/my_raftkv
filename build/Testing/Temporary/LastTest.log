@@ -1,0 +1,51 @@
+Start testing: Apr 17 00:50 CST
+----------------------------------------------------------
+1/1 Testing: smoke
+1/1 Test: smoke
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_smoke"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"smoke" start time: Apr 17 00:50 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 9 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Types
+[ RUN      ] Types.LogEntryDefaultInit
+[       OK ] Types.LogEntryDefaultInit (0 ms)
+[ RUN      ] Types.ApplyMsgBothFlagsDefaultFalse
+[       OK ] Types.ApplyMsgBothFlagsDefaultFalse (0 ms)
+[ RUN      ] Types.StartResultDefaultNotLeader
+[       OK ] Types.StartResultDefaultNotLeader (0 ms)
+[ RUN      ] Types.RoleName
+[       OK ] Types.RoleName (0 ms)
+[----------] 4 tests from Types (0 ms total)
+
+[----------] 4 tests from TSQueue
+[ RUN      ] TSQueue.PushPop
+[       OK ] TSQueue.PushPop (0 ms)
+[ RUN      ] TSQueue.TryPopTimeout
+[       OK ] TSQueue.TryPopTimeout (10 ms)
+[ RUN      ] TSQueue.CloseUnblocksWaiter
+[       OK ] TSQueue.CloseUnblocksWaiter (0 ms)
+[ RUN      ] TSQueue.PushAfterCloseIsNoOp
+[       OK ] TSQueue.PushAfterCloseIsNoOp (0 ms)
+[----------] 4 tests from TSQueue (10 ms total)
+
+[----------] 1 test from Config
+[ RUN      ] Config.RaftConfigDefaults
+[       OK ] Config.RaftConfigDefaults (0 ms)
+[----------] 1 test from Config (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 3 test suites ran. (10 ms total)
+[  PASSED  ] 9 tests.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"smoke" end time: Apr 17 00:50 CST
+"smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 17 00:50 CST
