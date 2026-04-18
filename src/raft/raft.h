@@ -35,7 +35,7 @@ class RaftPeerClient;   // Forward declaration
 //   3. Applied commands arrive on apply_channel as ApplyMsg
 //   4. Call snapshot() when KV layer wants to compact the log
 //
-class Raft {
+class Raft : public std::enable_shared_from_this<Raft> {
  public:
   // ── Construction & Lifecycle ─────────────────────────────────
   Raft(const ServerConfig& config,
@@ -43,6 +43,10 @@ class Raft {
        std::shared_ptr<Persister> persister,
        std::shared_ptr<ThreadSafeQueue<ApplyMsg>> apply_channel);
   ~Raft();
+
+  // Must be called after make_shared<Raft>() so that shared_from_this()
+  // is valid.  Starts the background threads.
+  void start_threads();
 
   Raft(const Raft&) = delete;
   Raft& operator=(const Raft&) = delete;
@@ -84,6 +88,8 @@ class Raft {
 
   // ── Election ─────────────────────────────────────────────────
   void start_election();
+  void sendRequestVote(int server, std::shared_ptr<RequestVoteArgs> args,
+                       std::shared_ptr<int> voted_cnt);
   void become_follower(int term);   // Requires mu_ held
   void become_leader();             // Requires mu_ held
 

@@ -14,7 +14,7 @@ struct RaftConfig {
   int election_timeout_max_ms = 500;
 
   // Leader heartbeat interval (must be << election timeout)
-  int heartbeat_interval_ms = 100;
+  int heartbeat_interval_ms = 30;
 
   // How often the applier checks for new committed entries
   int apply_interval_ms = 10;

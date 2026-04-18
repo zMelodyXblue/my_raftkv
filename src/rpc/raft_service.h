@@ -4,6 +4,7 @@
 
 #include <grpcpp/grpcpp.h>
 #include "raft.grpc.pb.h"
+#include "common/types.h"
 
 namespace raftkv {
 
@@ -12,7 +13,7 @@ class Raft;  // Forward declaration
 // ═════════════════════════════════════════════════════════════════
 // RaftServiceImpl — gRPC server-side handler for Raft RPCs
 // ═════════════════════════════════════════════════════════════════
-// Translates incoming gRPC calls to Raft::handle_*() methods.
+// Translates incoming gRPC calls → internal DTOs → Raft::handle_*().
 //
 class RaftServiceImpl final : public raft::RaftService::Service {
  public:
@@ -40,20 +41,25 @@ class RaftServiceImpl final : public raft::RaftService::Service {
 // ═════════════════════════════════════════════════════════════════
 // RaftPeerClient — gRPC client stub for communicating with one peer
 // ═════════════════════════════════════════════════════════════════
+// Translates internal DTOs → proto → gRPC call → DTO reply.
+// Raft core calls this interface and never sees proto types.
+//
 class RaftPeerClient {
  public:
   explicit RaftPeerClient(const std::string& addr);
 
-  bool append_entries(const raft::AppendEntriesRequest& req,
-                      raft::AppendEntriesReply* reply,
+  // Returns true if the RPC succeeded (network-level).
+  // A false reply (vote denied / log mismatch) is still a success here.
+  bool append_entries(const AppendEntriesArgs& args,
+                      AppendEntriesReply*      reply,
                       int timeout_ms);
 
-  bool request_vote(const raft::RequestVoteRequest& req,
-                    raft::RequestVoteReply* reply,
+  bool request_vote(const RequestVoteArgs& args,
+                    RequestVoteReply*      reply,
                     int timeout_ms);
 
-  bool install_snapshot(const raft::InstallSnapshotRequest& req,
-                        raft::InstallSnapshotReply* reply,
+  bool install_snapshot(const InstallSnapshotArgs& args,
+                        InstallSnapshotReply*      reply,
                         int timeout_ms);
 
  private:

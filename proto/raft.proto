@@ -52,6 +52,15 @@ message InstallSnapshotReply {
   int32   term = 1;
 }
 
+// ── Raft persistent state (written to disk via Persister) ───────
+// Encodes the three fields that must survive crashes.
+// Used by Raft::persist() and Raft::restore().
+message RaftPersistState {
+  int32           current_term = 1;
+  int32           voted_for    = 2;  // -1 means "not voted"
+  repeated LogEntry logs       = 3;
+}
+
 // ── Raft internal RPC service ───────────────────────────────────
 service RaftService {
   rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesReply);

@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "../bin/raftkv_server"
   "../bin/raftkv_server.pdb"
   "CMakeFiles/raftkv_server.dir/main.cpp.o"
+  "CMakeFiles/raftkv_server.dir/main.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

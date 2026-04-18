@@ -1,47 +1,43 @@
-Start testing: Apr 17 16:38 CST
+Start testing: Apr 19 01:59 CST
 ----------------------------------------------------------
-2/2 Testing: persister
-2/2 Test: persister
-Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_persister"
+3/3 Testing: election
+3/3 Test: election
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_election"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"persister" start time: Apr 17 16:38 CST
+"election" start time: Apr 19 01:59 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
-[==========] Running 10 tests from 1 test suite.
+[==========] Running 5 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 10 tests from PersisterTest
-[ RUN      ] PersisterTest.EmptyOnFirstLoad
-[       OK ] PersisterTest.EmptyOnFirstLoad (7 ms)
-[ RUN      ] PersisterTest.SaveAndLoadRaftState
-[       OK ] PersisterTest.SaveAndLoadRaftState (7 ms)
-[ RUN      ] PersisterTest.SaveAndLoadSnapshot
-[       OK ] PersisterTest.SaveAndLoadSnapshot (4 ms)
-[ RUN      ] PersisterTest.SaveBothAtomically
-[       OK ] PersisterTest.SaveBothAtomically (3 ms)
-[ RUN      ] PersisterTest.RaftStateSizeMatchesBytes
-[       OK ] PersisterTest.RaftStateSizeMatchesBytes (4 ms)
-[ RUN      ] PersisterTest.RaftStateSizeZeroWhenEmpty
-[       OK ] PersisterTest.RaftStateSizeZeroWhenEmpty (4 ms)
-[ RUN      ] PersisterTest.PersistsAcrossRestart
-[       OK ] PersisterTest.PersistsAcrossRestart (9 ms)
-[ RUN      ] PersisterTest.OverwriteUpdatesState
-[       OK ] PersisterTest.OverwriteUpdatesState (7 ms)
-[ RUN      ] PersisterTest.DifferentNodesDontShareFiles
-[       OK ] PersisterTest.DifferentNodesDontShareFiles (5 ms)
-[ RUN      ] PersisterTest.BinaryDataRoundTrip
-[       OK ] PersisterTest.BinaryDataRoundTrip (6 ms)
-[----------] 10 tests from PersisterTest (57 ms total)
+[----------] 5 tests from ElectionTest
+[ RUN      ] ElectionTest.SingleNodeBecomesLeader
+[2026-04-19 01:59:32.691] [info] [0] became Leader, term=1
+[       OK ] ElectionTest.SingleNodeBecomesLeader (363 ms)
+[ RUN      ] ElectionTest.ThreeNodesElectOneLeader
+[2026-04-19 01:59:32.940] [info] [2] became Leader, term=1
+[       OK ] ElectionTest.ThreeNodesElectOneLeader (307 ms)
+[ RUN      ] ElectionTest.LeaderIsStable
+[2026-04-19 01:59:33.287] [info] [2] became Leader, term=1
+[       OK ] ElectionTest.LeaderIsStable (2365 ms)
+[ RUN      ] ElectionTest.ReElectionAfterLeaderCrash
+[2026-04-19 01:59:35.624] [info] [0] became Leader, term=1
+[2026-04-19 01:59:35.825] [info] [2] became Leader, term=2
+[       OK ] ElectionTest.ReElectionAfterLeaderCrash (459 ms)
+[ RUN      ] ElectionTest.FiveNodesElectOneLeader
+[2026-04-19 01:59:36.121] [info] [1] became Leader, term=1
+[       OK ] ElectionTest.FiveNodesElectOneLeader (457 ms)
+[----------] 5 tests from ElectionTest (3952 ms total)
 
 [----------] Global test environment tear-down
-[==========] 10 tests from 1 test suite ran. (57 ms total)
-[  PASSED  ] 10 tests.
+[==========] 5 tests from 1 test suite ran. (3952 ms total)
+[  PASSED  ] 5 tests.
 <end of output>
-Test time =   0.06 sec
+Test time =   4.00 sec
 ----------------------------------------------------------
 Test Passed.
-"persister" end time: Apr 17 16:38 CST
-"persister" time elapsed: 00:00:00
+"election" end time: Apr 19 01:59 CST
+"election" time elapsed: 00:00:04
 ----------------------------------------------------------
 
-End testing: Apr 17 16:38 CST
+End testing: Apr 19 01:59 CST

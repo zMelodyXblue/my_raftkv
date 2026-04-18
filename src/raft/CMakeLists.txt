@@ -1,6 +1,6 @@
 add_library(raft STATIC
   persister.cpp
-  # raft.cpp   # Phase 2
+  raft.cpp
 )
 
 target_link_libraries(raft PUBLIC
