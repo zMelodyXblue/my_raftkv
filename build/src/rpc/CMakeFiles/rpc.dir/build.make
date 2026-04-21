@@ -83,17 +83,33 @@ src/rpc/CMakeFiles/rpc.dir/raft_service.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/raft_service.cpp.s"
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/raft_service.cpp -o CMakeFiles/rpc.dir/raft_service.cpp.s
 
+src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o: src/rpc/CMakeFiles/rpc.dir/flags.make
+src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.cpp
+src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o: src/rpc/CMakeFiles/rpc.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o"
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o -MF CMakeFiles/rpc.dir/kv_service.cpp.o.d -o CMakeFiles/rpc.dir/kv_service.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.cpp
+
+src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rpc.dir/kv_service.cpp.i"
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.cpp > CMakeFiles/rpc.dir/kv_service.cpp.i
+
+src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rpc.dir/kv_service.cpp.s"
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.cpp -o CMakeFiles/rpc.dir/kv_service.cpp.s
+
 # Object files for target rpc
 rpc_OBJECTS = \
-"CMakeFiles/rpc.dir/raft_service.cpp.o"
+"CMakeFiles/rpc.dir/raft_service.cpp.o" \
+"CMakeFiles/rpc.dir/kv_service.cpp.o"
 
 # External object files for target rpc
 rpc_EXTERNAL_OBJECTS =
 
 lib/librpc.a: src/rpc/CMakeFiles/rpc.dir/raft_service.cpp.o
+lib/librpc.a: src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o
 lib/librpc.a: src/rpc/CMakeFiles/rpc.dir/build.make
 lib/librpc.a: src/rpc/CMakeFiles/rpc.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ../../lib/librpc.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library ../../lib/librpc.a"
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && $(CMAKE_COMMAND) -P CMakeFiles/rpc.dir/cmake_clean_target.cmake
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rpc.dir/link.txt --verbose=$(VERBOSE)
 

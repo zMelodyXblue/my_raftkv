@@ -87,13 +87,17 @@ src/all: src/CMakeFiles/raftkv_server.dir/all
 src/all: src/CMakeFiles/raftkv_cli.dir/all
 src/all: src/common/all
 src/all: src/raft/all
+src/all: src/kv_store/all
 src/all: src/rpc/all
+src/all: src/client/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
 src/preinstall: src/common/preinstall
 src/preinstall: src/raft/preinstall
+src/preinstall: src/kv_store/preinstall
 src/preinstall: src/rpc/preinstall
+src/preinstall: src/client/preinstall
 .PHONY : src/preinstall
 
 # Recursive "clean" directory target.
@@ -101,8 +105,25 @@ src/clean: src/CMakeFiles/raftkv_server.dir/clean
 src/clean: src/CMakeFiles/raftkv_cli.dir/clean
 src/clean: src/common/clean
 src/clean: src/raft/clean
+src/clean: src/kv_store/clean
 src/clean: src/rpc/clean
+src/clean: src/client/clean
 .PHONY : src/clean
+
+#=============================================================================
+# Directory level rules for directory src/client
+
+# Recursive "all" directory target.
+src/client/all: src/client/CMakeFiles/kv_client.dir/all
+.PHONY : src/client/all
+
+# Recursive "preinstall" directory target.
+src/client/preinstall:
+.PHONY : src/client/preinstall
+
+# Recursive "clean" directory target.
+src/client/clean: src/client/CMakeFiles/kv_client.dir/clean
+.PHONY : src/client/clean
 
 #=============================================================================
 # Directory level rules for directory src/common
@@ -118,6 +139,21 @@ src/common/preinstall:
 # Recursive "clean" directory target.
 src/common/clean:
 .PHONY : src/common/clean
+
+#=============================================================================
+# Directory level rules for directory src/kv_store
+
+# Recursive "all" directory target.
+src/kv_store/all: src/kv_store/CMakeFiles/kv_store.dir/all
+.PHONY : src/kv_store/all
+
+# Recursive "preinstall" directory target.
+src/kv_store/preinstall:
+.PHONY : src/kv_store/preinstall
+
+# Recursive "clean" directory target.
+src/kv_store/clean: src/kv_store/CMakeFiles/kv_store.dir/clean
+.PHONY : src/kv_store/clean
 
 #=============================================================================
 # Directory level rules for directory src/raft
@@ -177,7 +213,7 @@ tests/clean: tests/CMakeFiles/test_replication.dir/clean
 CMakeFiles/proto_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto_gen.dir/build.make CMakeFiles/proto_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto_gen.dir/build.make CMakeFiles/proto_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target proto_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=5,6,7,8,9 "Built target proto_gen"
 .PHONY : CMakeFiles/proto_gen.dir/all
 
 # Build rule for subdir invocation for target.
@@ -200,17 +236,18 @@ CMakeFiles/proto_gen.dir/clean:
 # Target rules for target src/CMakeFiles/raftkv_server.dir
 
 # All Build rule for target.
-src/CMakeFiles/raftkv_server.dir/all: src/rpc/CMakeFiles/rpc.dir/all
-src/CMakeFiles/raftkv_server.dir/all: CMakeFiles/proto_gen.dir/all
 src/CMakeFiles/raftkv_server.dir/all: src/raft/CMakeFiles/raft.dir/all
+src/CMakeFiles/raftkv_server.dir/all: src/kv_store/CMakeFiles/kv_store.dir/all
+src/CMakeFiles/raftkv_server.dir/all: CMakeFiles/proto_gen.dir/all
+src/CMakeFiles/raftkv_server.dir/all: src/rpc/CMakeFiles/rpc.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_server.dir/build.make src/CMakeFiles/raftkv_server.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_server.dir/build.make src/CMakeFiles/raftkv_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=11,12 "Built target raftkv_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=15,16 "Built target raftkv_server"
 .PHONY : src/CMakeFiles/raftkv_server.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/raftkv_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/raftkv_server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/raftkv_server.dir/rule
@@ -229,14 +266,15 @@ src/CMakeFiles/raftkv_server.dir/clean:
 
 # All Build rule for target.
 src/CMakeFiles/raftkv_cli.dir/all: CMakeFiles/proto_gen.dir/all
+src/CMakeFiles/raftkv_cli.dir/all: src/client/CMakeFiles/kv_client.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_cli.dir/build.make src/CMakeFiles/raftkv_cli.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_cli.dir/build.make src/CMakeFiles/raftkv_cli.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=9,10 "Built target raftkv_cli"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=13,14 "Built target raftkv_cli"
 .PHONY : src/CMakeFiles/raftkv_cli.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/raftkv_cli.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 9
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/raftkv_cli.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/raftkv_cli.dir/rule
@@ -257,7 +295,7 @@ src/CMakeFiles/raftkv_cli.dir/clean:
 src/raft/CMakeFiles/raft.dir/all: CMakeFiles/proto_gen.dir/all
 	$(MAKE) $(MAKESILENT) -f src/raft/CMakeFiles/raft.dir/build.make src/raft/CMakeFiles/raft.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/raft/CMakeFiles/raft.dir/build.make src/raft/CMakeFiles/raft.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=6,7,8 "Built target raft"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=10,11,12 "Built target raft"
 .PHONY : src/raft/CMakeFiles/raft.dir/all
 
 # Build rule for subdir invocation for target.
@@ -277,19 +315,47 @@ src/raft/CMakeFiles/raft.dir/clean:
 .PHONY : src/raft/CMakeFiles/raft.dir/clean
 
 #=============================================================================
+# Target rules for target src/kv_store/CMakeFiles/kv_store.dir
+
+# All Build rule for target.
+src/kv_store/CMakeFiles/kv_store.dir/all: src/raft/CMakeFiles/raft.dir/all
+src/kv_store/CMakeFiles/kv_store.dir/all: CMakeFiles/proto_gen.dir/all
+	$(MAKE) $(MAKESILENT) -f src/kv_store/CMakeFiles/kv_store.dir/build.make src/kv_store/CMakeFiles/kv_store.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/kv_store/CMakeFiles/kv_store.dir/build.make src/kv_store/CMakeFiles/kv_store.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=3,4 "Built target kv_store"
+.PHONY : src/kv_store/CMakeFiles/kv_store.dir/all
+
+# Build rule for subdir invocation for target.
+src/kv_store/CMakeFiles/kv_store.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/kv_store/CMakeFiles/kv_store.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
+.PHONY : src/kv_store/CMakeFiles/kv_store.dir/rule
+
+# Convenience name for target.
+kv_store: src/kv_store/CMakeFiles/kv_store.dir/rule
+.PHONY : kv_store
+
+# clean rule for target.
+src/kv_store/CMakeFiles/kv_store.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/kv_store/CMakeFiles/kv_store.dir/build.make src/kv_store/CMakeFiles/kv_store.dir/clean
+.PHONY : src/kv_store/CMakeFiles/kv_store.dir/clean
+
+#=============================================================================
 # Target rules for target src/rpc/CMakeFiles/rpc.dir
 
 # All Build rule for target.
-src/rpc/CMakeFiles/rpc.dir/all: CMakeFiles/proto_gen.dir/all
 src/rpc/CMakeFiles/rpc.dir/all: src/raft/CMakeFiles/raft.dir/all
+src/rpc/CMakeFiles/rpc.dir/all: src/kv_store/CMakeFiles/kv_store.dir/all
+src/rpc/CMakeFiles/rpc.dir/all: CMakeFiles/proto_gen.dir/all
 	$(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=13,14 "Built target rpc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=17,18,19 "Built target rpc"
 .PHONY : src/rpc/CMakeFiles/rpc.dir/all
 
 # Build rule for subdir invocation for target.
 src/rpc/CMakeFiles/rpc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 13
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/rpc/CMakeFiles/rpc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
 .PHONY : src/rpc/CMakeFiles/rpc.dir/rule
@@ -304,13 +370,39 @@ src/rpc/CMakeFiles/rpc.dir/clean:
 .PHONY : src/rpc/CMakeFiles/rpc.dir/clean
 
 #=============================================================================
+# Target rules for target src/client/CMakeFiles/kv_client.dir
+
+# All Build rule for target.
+src/client/CMakeFiles/kv_client.dir/all: CMakeFiles/proto_gen.dir/all
+	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/kv_client.dir/build.make src/client/CMakeFiles/kv_client.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/kv_client.dir/build.make src/client/CMakeFiles/kv_client.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=1,2 "Built target kv_client"
+.PHONY : src/client/CMakeFiles/kv_client.dir/all
+
+# Build rule for subdir invocation for target.
+src/client/CMakeFiles/kv_client.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 7
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/client/CMakeFiles/kv_client.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
+.PHONY : src/client/CMakeFiles/kv_client.dir/rule
+
+# Convenience name for target.
+kv_client: src/client/CMakeFiles/kv_client.dir/rule
+.PHONY : kv_client
+
+# clean rule for target.
+src/client/CMakeFiles/kv_client.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/kv_client.dir/build.make src/client/CMakeFiles/kv_client.dir/clean
+.PHONY : src/client/CMakeFiles/kv_client.dir/clean
+
+#=============================================================================
 # Target rules for target tests/CMakeFiles/test_smoke.dir
 
 # All Build rule for target.
 tests/CMakeFiles/test_smoke.dir/all: CMakeFiles/proto_gen.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_smoke.dir/build.make tests/CMakeFiles/test_smoke.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_smoke.dir/build.make tests/CMakeFiles/test_smoke.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=21,22 "Built target test_smoke"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=26,27 "Built target test_smoke"
 .PHONY : tests/CMakeFiles/test_smoke.dir/all
 
 # Build rule for subdir invocation for target.
@@ -333,11 +425,11 @@ tests/CMakeFiles/test_smoke.dir/clean:
 # Target rules for target tests/CMakeFiles/test_persister.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test_persister.dir/all: CMakeFiles/proto_gen.dir/all
 tests/CMakeFiles/test_persister.dir/all: src/raft/CMakeFiles/raft.dir/all
+tests/CMakeFiles/test_persister.dir/all: CMakeFiles/proto_gen.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=17,18 "Built target test_persister"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=22,23 "Built target test_persister"
 .PHONY : tests/CMakeFiles/test_persister.dir/all
 
 # Build rule for subdir invocation for target.
@@ -360,17 +452,18 @@ tests/CMakeFiles/test_persister.dir/clean:
 # Target rules for target tests/CMakeFiles/test_election.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test_election.dir/all: src/rpc/CMakeFiles/rpc.dir/all
-tests/CMakeFiles/test_election.dir/all: CMakeFiles/proto_gen.dir/all
 tests/CMakeFiles/test_election.dir/all: src/raft/CMakeFiles/raft.dir/all
+tests/CMakeFiles/test_election.dir/all: src/kv_store/CMakeFiles/kv_store.dir/all
+tests/CMakeFiles/test_election.dir/all: CMakeFiles/proto_gen.dir/all
+tests/CMakeFiles/test_election.dir/all: src/rpc/CMakeFiles/rpc.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_election.dir/build.make tests/CMakeFiles/test_election.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_election.dir/build.make tests/CMakeFiles/test_election.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=15,16 "Built target test_election"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=20,21 "Built target test_election"
 .PHONY : tests/CMakeFiles/test_election.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test_election.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_election.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test_election.dir/rule
@@ -388,17 +481,18 @@ tests/CMakeFiles/test_election.dir/clean:
 # Target rules for target tests/CMakeFiles/test_replication.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test_replication.dir/all: src/rpc/CMakeFiles/rpc.dir/all
-tests/CMakeFiles/test_replication.dir/all: CMakeFiles/proto_gen.dir/all
 tests/CMakeFiles/test_replication.dir/all: src/raft/CMakeFiles/raft.dir/all
+tests/CMakeFiles/test_replication.dir/all: src/kv_store/CMakeFiles/kv_store.dir/all
+tests/CMakeFiles/test_replication.dir/all: CMakeFiles/proto_gen.dir/all
+tests/CMakeFiles/test_replication.dir/all: src/rpc/CMakeFiles/rpc.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=19,20 "Built target test_replication"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=24,25 "Built target test_replication"
 .PHONY : tests/CMakeFiles/test_replication.dir/all
 
 # Build rule for subdir invocation for target.
 tests/CMakeFiles/test_replication.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 12
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_replication.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles 0
 .PHONY : tests/CMakeFiles/test_replication.dir/rule

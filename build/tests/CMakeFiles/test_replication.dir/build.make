@@ -93,6 +93,7 @@ test_replication_EXTERNAL_OBJECTS =
 bin/test_replication: tests/CMakeFiles/test_replication.dir/replication_test.cpp.o
 bin/test_replication: tests/CMakeFiles/test_replication.dir/build.make
 bin/test_replication: lib/librpc.a
+bin/test_replication: lib/libkv_store.a
 bin/test_replication: lib/libraft.a
 bin/test_replication: lib/libproto_gen.a
 bin/test_replication: /usr/lib/x86_64-linux-gnu/libprotobuf.so

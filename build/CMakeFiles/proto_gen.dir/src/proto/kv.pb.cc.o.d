@@ -247,7 +247,10 @@ CMakeFiles/proto_gen.dir/src/proto/kv.pb.cc.o: \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/descriptor.h \
  /usr/include/google/protobuf/extension_set.h /usr/include/c++/9/cassert \
+ /usr/include/google/protobuf/map_entry.h \
  /usr/include/google/protobuf/generated_message_reflection.h \
  /usr/include/google/protobuf/generated_enum_reflection.h \
  /usr/include/google/protobuf/reflection_ops.h \
+ /usr/include/google/protobuf/map_field_inl.h \
+ /usr/include/google/protobuf/map_field.h \
  /usr/include/google/protobuf/wire_format.h

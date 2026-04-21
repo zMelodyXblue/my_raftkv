@@ -140,6 +140,30 @@ rpc/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/build
 .PHONY : rpc/fast
 
+kv_service.o: kv_service.cpp.o
+.PHONY : kv_service.o
+
+# target to build an object file
+kv_service.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.o
+.PHONY : kv_service.cpp.o
+
+kv_service.i: kv_service.cpp.i
+.PHONY : kv_service.i
+
+# target to preprocess a source file
+kv_service.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.i
+.PHONY : kv_service.cpp.i
+
+kv_service.s: kv_service.cpp.s
+.PHONY : kv_service.s
+
+# target to generate assembly for a file
+kv_service.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/kv_service.cpp.s
+.PHONY : kv_service.cpp.s
+
 raft_service.o: raft_service.cpp.o
 .PHONY : raft_service.o
 
@@ -174,6 +198,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... rpc"
+	@echo "... kv_service.o"
+	@echo "... kv_service.i"
+	@echo "... kv_service.s"
 	@echo "... raft_service.o"
 	@echo "... raft_service.i"
 	@echo "... raft_service.s"

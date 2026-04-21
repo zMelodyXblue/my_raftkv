@@ -93,6 +93,7 @@ test_election_EXTERNAL_OBJECTS =
 bin/test_election: tests/CMakeFiles/test_election.dir/election_test.cpp.o
 bin/test_election: tests/CMakeFiles/test_election.dir/build.make
 bin/test_election: lib/librpc.a
+bin/test_election: lib/libkv_store.a
 bin/test_election: lib/libraft.a
 bin/test_election: lib/libproto_gen.a
 bin/test_election: /usr/lib/x86_64-linux-gnu/libprotobuf.so

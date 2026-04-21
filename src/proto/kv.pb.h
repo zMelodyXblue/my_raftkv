@@ -29,6 +29,9 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_entry.h>
+#include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_kv_2eproto 
@@ -38,7 +41,7 @@ namespace protobuf_kv_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[4];
+  static const ::google::protobuf::internal::ParseTable schema[8];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -53,6 +56,18 @@ extern GetReplyDefaultTypeInternal _GetReply_default_instance_;
 class GetRequest;
 class GetRequestDefaultTypeInternal;
 extern GetRequestDefaultTypeInternal _GetRequest_default_instance_;
+class KvOpData;
+class KvOpDataDefaultTypeInternal;
+extern KvOpDataDefaultTypeInternal _KvOpData_default_instance_;
+class KvSnapshot;
+class KvSnapshotDefaultTypeInternal;
+extern KvSnapshotDefaultTypeInternal _KvSnapshot_default_instance_;
+class KvSnapshot_DataEntry_DoNotUse;
+class KvSnapshot_DataEntry_DoNotUseDefaultTypeInternal;
+extern KvSnapshot_DataEntry_DoNotUseDefaultTypeInternal _KvSnapshot_DataEntry_DoNotUse_default_instance_;
+class KvSnapshot_LastRequestIdEntry_DoNotUse;
+class KvSnapshot_LastRequestIdEntry_DoNotUseDefaultTypeInternal;
+extern KvSnapshot_LastRequestIdEntry_DoNotUseDefaultTypeInternal _KvSnapshot_LastRequestIdEntry_DoNotUse_default_instance_;
 class PutAppendReply;
 class PutAppendReplyDefaultTypeInternal;
 extern PutAppendReplyDefaultTypeInternal _PutAppendReply_default_instance_;
@@ -65,6 +80,10 @@ namespace google {
 namespace protobuf {
 template<> ::raftkv::kv::GetReply* Arena::CreateMaybeMessage<::raftkv::kv::GetReply>(Arena*);
 template<> ::raftkv::kv::GetRequest* Arena::CreateMaybeMessage<::raftkv::kv::GetRequest>(Arena*);
+template<> ::raftkv::kv::KvOpData* Arena::CreateMaybeMessage<::raftkv::kv::KvOpData>(Arena*);
+template<> ::raftkv::kv::KvSnapshot* Arena::CreateMaybeMessage<::raftkv::kv::KvSnapshot>(Arena*);
+template<> ::raftkv::kv::KvSnapshot_DataEntry_DoNotUse* Arena::CreateMaybeMessage<::raftkv::kv::KvSnapshot_DataEntry_DoNotUse>(Arena*);
+template<> ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse* Arena::CreateMaybeMessage<::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse>(Arena*);
 template<> ::raftkv::kv::PutAppendReply* Arena::CreateMaybeMessage<::raftkv::kv::PutAppendReply>(Arena*);
 template<> ::raftkv::kv::PutAppendRequest* Arena::CreateMaybeMessage<::raftkv::kv::PutAppendRequest>(Arena*);
 }  // namespace protobuf
@@ -605,6 +624,338 @@ class PutAppendReply : public ::google::protobuf::Message /* @@protoc_insertion_
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_kv_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class KvOpData : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:raftkv.kv.KvOpData) */ {
+ public:
+  KvOpData();
+  virtual ~KvOpData();
+
+  KvOpData(const KvOpData& from);
+
+  inline KvOpData& operator=(const KvOpData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  KvOpData(KvOpData&& from) noexcept
+    : KvOpData() {
+    *this = ::std::move(from);
+  }
+
+  inline KvOpData& operator=(KvOpData&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const KvOpData& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const KvOpData* internal_default_instance() {
+    return reinterpret_cast<const KvOpData*>(
+               &_KvOpData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  void Swap(KvOpData* other);
+  friend void swap(KvOpData& a, KvOpData& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline KvOpData* New() const final {
+    return CreateMaybeMessage<KvOpData>(NULL);
+  }
+
+  KvOpData* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<KvOpData>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const KvOpData& from);
+  void MergeFrom(const KvOpData& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(KvOpData* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string op = 1;
+  void clear_op();
+  static const int kOpFieldNumber = 1;
+  const ::std::string& op() const;
+  void set_op(const ::std::string& value);
+  #if LANG_CXX11
+  void set_op(::std::string&& value);
+  #endif
+  void set_op(const char* value);
+  void set_op(const char* value, size_t size);
+  ::std::string* mutable_op();
+  ::std::string* release_op();
+  void set_allocated_op(::std::string* op);
+
+  // string key = 2;
+  void clear_key();
+  static const int kKeyFieldNumber = 2;
+  const ::std::string& key() const;
+  void set_key(const ::std::string& value);
+  #if LANG_CXX11
+  void set_key(::std::string&& value);
+  #endif
+  void set_key(const char* value);
+  void set_key(const char* value, size_t size);
+  ::std::string* mutable_key();
+  ::std::string* release_key();
+  void set_allocated_key(::std::string* key);
+
+  // string value = 3;
+  void clear_value();
+  static const int kValueFieldNumber = 3;
+  const ::std::string& value() const;
+  void set_value(const ::std::string& value);
+  #if LANG_CXX11
+  void set_value(::std::string&& value);
+  #endif
+  void set_value(const char* value);
+  void set_value(const char* value, size_t size);
+  ::std::string* mutable_value();
+  ::std::string* release_value();
+  void set_allocated_value(::std::string* value);
+
+  // string client_id = 4;
+  void clear_client_id();
+  static const int kClientIdFieldNumber = 4;
+  const ::std::string& client_id() const;
+  void set_client_id(const ::std::string& value);
+  #if LANG_CXX11
+  void set_client_id(::std::string&& value);
+  #endif
+  void set_client_id(const char* value);
+  void set_client_id(const char* value, size_t size);
+  ::std::string* mutable_client_id();
+  ::std::string* release_client_id();
+  void set_allocated_client_id(::std::string* client_id);
+
+  // int64 request_id = 5;
+  void clear_request_id();
+  static const int kRequestIdFieldNumber = 5;
+  ::google::protobuf::int64 request_id() const;
+  void set_request_id(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:raftkv.kv.KvOpData)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr op_;
+  ::google::protobuf::internal::ArenaStringPtr key_;
+  ::google::protobuf::internal::ArenaStringPtr value_;
+  ::google::protobuf::internal::ArenaStringPtr client_id_;
+  ::google::protobuf::int64 request_id_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_kv_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class KvSnapshot_DataEntry_DoNotUse : public ::google::protobuf::internal::MapEntry<KvSnapshot_DataEntry_DoNotUse, 
+    ::std::string, ::std::string,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    0 > {
+public:
+  typedef ::google::protobuf::internal::MapEntry<KvSnapshot_DataEntry_DoNotUse, 
+    ::std::string, ::std::string,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    0 > SuperType;
+  KvSnapshot_DataEntry_DoNotUse();
+  KvSnapshot_DataEntry_DoNotUse(::google::protobuf::Arena* arena);
+  void MergeFrom(const KvSnapshot_DataEntry_DoNotUse& other);
+  static const KvSnapshot_DataEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const KvSnapshot_DataEntry_DoNotUse*>(&_KvSnapshot_DataEntry_DoNotUse_default_instance_); }
+  void MergeFrom(const ::google::protobuf::Message& other) final;
+  ::google::protobuf::Metadata GetMetadata() const;
+};
+
+// -------------------------------------------------------------------
+
+class KvSnapshot_LastRequestIdEntry_DoNotUse : public ::google::protobuf::internal::MapEntry<KvSnapshot_LastRequestIdEntry_DoNotUse, 
+    ::std::string, ::google::protobuf::int64,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    ::google::protobuf::internal::WireFormatLite::TYPE_INT64,
+    0 > {
+public:
+  typedef ::google::protobuf::internal::MapEntry<KvSnapshot_LastRequestIdEntry_DoNotUse, 
+    ::std::string, ::google::protobuf::int64,
+    ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+    ::google::protobuf::internal::WireFormatLite::TYPE_INT64,
+    0 > SuperType;
+  KvSnapshot_LastRequestIdEntry_DoNotUse();
+  KvSnapshot_LastRequestIdEntry_DoNotUse(::google::protobuf::Arena* arena);
+  void MergeFrom(const KvSnapshot_LastRequestIdEntry_DoNotUse& other);
+  static const KvSnapshot_LastRequestIdEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const KvSnapshot_LastRequestIdEntry_DoNotUse*>(&_KvSnapshot_LastRequestIdEntry_DoNotUse_default_instance_); }
+  void MergeFrom(const ::google::protobuf::Message& other) final;
+  ::google::protobuf::Metadata GetMetadata() const;
+};
+
+// -------------------------------------------------------------------
+
+class KvSnapshot : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:raftkv.kv.KvSnapshot) */ {
+ public:
+  KvSnapshot();
+  virtual ~KvSnapshot();
+
+  KvSnapshot(const KvSnapshot& from);
+
+  inline KvSnapshot& operator=(const KvSnapshot& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  KvSnapshot(KvSnapshot&& from) noexcept
+    : KvSnapshot() {
+    *this = ::std::move(from);
+  }
+
+  inline KvSnapshot& operator=(KvSnapshot&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const KvSnapshot& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const KvSnapshot* internal_default_instance() {
+    return reinterpret_cast<const KvSnapshot*>(
+               &_KvSnapshot_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  void Swap(KvSnapshot* other);
+  friend void swap(KvSnapshot& a, KvSnapshot& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline KvSnapshot* New() const final {
+    return CreateMaybeMessage<KvSnapshot>(NULL);
+  }
+
+  KvSnapshot* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<KvSnapshot>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const KvSnapshot& from);
+  void MergeFrom(const KvSnapshot& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(KvSnapshot* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // map<string, string> data = 1;
+  int data_size() const;
+  void clear_data();
+  static const int kDataFieldNumber = 1;
+  const ::google::protobuf::Map< ::std::string, ::std::string >&
+      data() const;
+  ::google::protobuf::Map< ::std::string, ::std::string >*
+      mutable_data();
+
+  // map<string, int64> last_request_id = 2;
+  int last_request_id_size() const;
+  void clear_last_request_id();
+  static const int kLastRequestIdFieldNumber = 2;
+  const ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >&
+      last_request_id() const;
+  ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >*
+      mutable_last_request_id();
+
+  // @@protoc_insertion_point(class_scope:raftkv.kv.KvSnapshot)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::MapField<
+      KvSnapshot_DataEntry_DoNotUse,
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > data_;
+  ::google::protobuf::internal::MapField<
+      KvSnapshot_LastRequestIdEntry_DoNotUse,
+      ::std::string, ::google::protobuf::int64,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_INT64,
+      0 > last_request_id_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_kv_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -1133,9 +1484,291 @@ inline void PutAppendReply::set_allocated_error(::std::string* error) {
   // @@protoc_insertion_point(field_set_allocated:raftkv.kv.PutAppendReply.error)
 }
 
+// -------------------------------------------------------------------
+
+// KvOpData
+
+// string op = 1;
+inline void KvOpData::clear_op() {
+  op_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& KvOpData::op() const {
+  // @@protoc_insertion_point(field_get:raftkv.kv.KvOpData.op)
+  return op_.GetNoArena();
+}
+inline void KvOpData::set_op(const ::std::string& value) {
+  
+  op_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:raftkv.kv.KvOpData.op)
+}
+#if LANG_CXX11
+inline void KvOpData::set_op(::std::string&& value) {
+  
+  op_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:raftkv.kv.KvOpData.op)
+}
+#endif
+inline void KvOpData::set_op(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  op_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:raftkv.kv.KvOpData.op)
+}
+inline void KvOpData::set_op(const char* value, size_t size) {
+  
+  op_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:raftkv.kv.KvOpData.op)
+}
+inline ::std::string* KvOpData::mutable_op() {
+  
+  // @@protoc_insertion_point(field_mutable:raftkv.kv.KvOpData.op)
+  return op_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* KvOpData::release_op() {
+  // @@protoc_insertion_point(field_release:raftkv.kv.KvOpData.op)
+  
+  return op_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void KvOpData::set_allocated_op(::std::string* op) {
+  if (op != NULL) {
+    
+  } else {
+    
+  }
+  op_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), op);
+  // @@protoc_insertion_point(field_set_allocated:raftkv.kv.KvOpData.op)
+}
+
+// string key = 2;
+inline void KvOpData::clear_key() {
+  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& KvOpData::key() const {
+  // @@protoc_insertion_point(field_get:raftkv.kv.KvOpData.key)
+  return key_.GetNoArena();
+}
+inline void KvOpData::set_key(const ::std::string& value) {
+  
+  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:raftkv.kv.KvOpData.key)
+}
+#if LANG_CXX11
+inline void KvOpData::set_key(::std::string&& value) {
+  
+  key_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:raftkv.kv.KvOpData.key)
+}
+#endif
+inline void KvOpData::set_key(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:raftkv.kv.KvOpData.key)
+}
+inline void KvOpData::set_key(const char* value, size_t size) {
+  
+  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:raftkv.kv.KvOpData.key)
+}
+inline ::std::string* KvOpData::mutable_key() {
+  
+  // @@protoc_insertion_point(field_mutable:raftkv.kv.KvOpData.key)
+  return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* KvOpData::release_key() {
+  // @@protoc_insertion_point(field_release:raftkv.kv.KvOpData.key)
+  
+  return key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void KvOpData::set_allocated_key(::std::string* key) {
+  if (key != NULL) {
+    
+  } else {
+    
+  }
+  key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
+  // @@protoc_insertion_point(field_set_allocated:raftkv.kv.KvOpData.key)
+}
+
+// string value = 3;
+inline void KvOpData::clear_value() {
+  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& KvOpData::value() const {
+  // @@protoc_insertion_point(field_get:raftkv.kv.KvOpData.value)
+  return value_.GetNoArena();
+}
+inline void KvOpData::set_value(const ::std::string& value) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:raftkv.kv.KvOpData.value)
+}
+#if LANG_CXX11
+inline void KvOpData::set_value(::std::string&& value) {
+  
+  value_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:raftkv.kv.KvOpData.value)
+}
+#endif
+inline void KvOpData::set_value(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:raftkv.kv.KvOpData.value)
+}
+inline void KvOpData::set_value(const char* value, size_t size) {
+  
+  value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:raftkv.kv.KvOpData.value)
+}
+inline ::std::string* KvOpData::mutable_value() {
+  
+  // @@protoc_insertion_point(field_mutable:raftkv.kv.KvOpData.value)
+  return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* KvOpData::release_value() {
+  // @@protoc_insertion_point(field_release:raftkv.kv.KvOpData.value)
+  
+  return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void KvOpData::set_allocated_value(::std::string* value) {
+  if (value != NULL) {
+    
+  } else {
+    
+  }
+  value_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set_allocated:raftkv.kv.KvOpData.value)
+}
+
+// string client_id = 4;
+inline void KvOpData::clear_client_id() {
+  client_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& KvOpData::client_id() const {
+  // @@protoc_insertion_point(field_get:raftkv.kv.KvOpData.client_id)
+  return client_id_.GetNoArena();
+}
+inline void KvOpData::set_client_id(const ::std::string& value) {
+  
+  client_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:raftkv.kv.KvOpData.client_id)
+}
+#if LANG_CXX11
+inline void KvOpData::set_client_id(::std::string&& value) {
+  
+  client_id_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:raftkv.kv.KvOpData.client_id)
+}
+#endif
+inline void KvOpData::set_client_id(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  client_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:raftkv.kv.KvOpData.client_id)
+}
+inline void KvOpData::set_client_id(const char* value, size_t size) {
+  
+  client_id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:raftkv.kv.KvOpData.client_id)
+}
+inline ::std::string* KvOpData::mutable_client_id() {
+  
+  // @@protoc_insertion_point(field_mutable:raftkv.kv.KvOpData.client_id)
+  return client_id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* KvOpData::release_client_id() {
+  // @@protoc_insertion_point(field_release:raftkv.kv.KvOpData.client_id)
+  
+  return client_id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void KvOpData::set_allocated_client_id(::std::string* client_id) {
+  if (client_id != NULL) {
+    
+  } else {
+    
+  }
+  client_id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), client_id);
+  // @@protoc_insertion_point(field_set_allocated:raftkv.kv.KvOpData.client_id)
+}
+
+// int64 request_id = 5;
+inline void KvOpData::clear_request_id() {
+  request_id_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 KvOpData::request_id() const {
+  // @@protoc_insertion_point(field_get:raftkv.kv.KvOpData.request_id)
+  return request_id_;
+}
+inline void KvOpData::set_request_id(::google::protobuf::int64 value) {
+  
+  request_id_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.kv.KvOpData.request_id)
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// KvSnapshot
+
+// map<string, string> data = 1;
+inline int KvSnapshot::data_size() const {
+  return data_.size();
+}
+inline void KvSnapshot::clear_data() {
+  data_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+KvSnapshot::data() const {
+  // @@protoc_insertion_point(field_map:raftkv.kv.KvSnapshot.data)
+  return data_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::std::string >*
+KvSnapshot::mutable_data() {
+  // @@protoc_insertion_point(field_mutable_map:raftkv.kv.KvSnapshot.data)
+  return data_.MutableMap();
+}
+
+// map<string, int64> last_request_id = 2;
+inline int KvSnapshot::last_request_id_size() const {
+  return last_request_id_.size();
+}
+inline void KvSnapshot::clear_last_request_id() {
+  last_request_id_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >&
+KvSnapshot::last_request_id() const {
+  // @@protoc_insertion_point(field_map:raftkv.kv.KvSnapshot.last_request_id)
+  return last_request_id_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >*
+KvSnapshot::mutable_last_request_id() {
+  // @@protoc_insertion_point(field_mutable_map:raftkv.kv.KvSnapshot.last_request_id)
+  return last_request_id_.MutableMap();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

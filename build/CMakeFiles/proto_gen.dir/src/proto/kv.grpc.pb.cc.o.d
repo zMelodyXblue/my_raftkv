@@ -247,6 +247,12 @@ CMakeFiles/proto_gen.dir/src/proto/kv.grpc.pb.cc.o: \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/descriptor.h \
  /usr/include/google/protobuf/extension_set.h /usr/include/c++/9/cassert \
+ /usr/include/google/protobuf/map_entry.h \
+ /usr/include/google/protobuf/generated_message_reflection.h \
+ /usr/include/google/protobuf/generated_enum_reflection.h \
+ /usr/include/google/protobuf/reflection_ops.h \
+ /usr/include/google/protobuf/map_field_inl.h \
+ /usr/include/google/protobuf/map_field.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.grpc.pb.h \
  /usr/include/c++/9/functional /usr/include/c++/9/bits/std_function.h \
  /usr/include/grpcpp/impl/codegen/async_generic_service.h \
@@ -298,7 +304,6 @@ CMakeFiles/proto_gen.dir/src/proto/kv.grpc.pb.cc.o: \
  /usr/include/grpcpp/impl/codegen/proto_utils.h \
  /usr/include/grpcpp/impl/codegen/config_protobuf.h \
  /usr/include/google/protobuf/descriptor.pb.h \
- /usr/include/google/protobuf/generated_enum_reflection.h \
  /usr/include/google/protobuf/descriptor_database.h \
  /usr/include/google/protobuf/io/zero_copy_stream.h \
  /usr/include/grpcpp/impl/codegen/proto_buffer_reader.h \

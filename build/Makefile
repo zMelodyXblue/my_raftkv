@@ -179,6 +179,19 @@ raft/fast:
 .PHONY : raft/fast
 
 #=============================================================================
+# Target rules for targets named kv_store
+
+# Build rule for target.
+kv_store: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kv_store
+.PHONY : kv_store
+
+# fast build rule for target.
+kv_store/fast:
+	$(MAKE) $(MAKESILENT) -f src/kv_store/CMakeFiles/kv_store.dir/build.make src/kv_store/CMakeFiles/kv_store.dir/build
+.PHONY : kv_store/fast
+
+#=============================================================================
 # Target rules for targets named rpc
 
 # Build rule for target.
@@ -190,6 +203,19 @@ rpc: cmake_check_build_system
 rpc/fast:
 	$(MAKE) $(MAKESILENT) -f src/rpc/CMakeFiles/rpc.dir/build.make src/rpc/CMakeFiles/rpc.dir/build
 .PHONY : rpc/fast
+
+#=============================================================================
+# Target rules for targets named kv_client
+
+# Build rule for target.
+kv_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kv_client
+.PHONY : kv_client
+
+# fast build rule for target.
+kv_client/fast:
+	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/kv_client.dir/build.make src/client/CMakeFiles/kv_client.dir/build
+.PHONY : kv_client/fast
 
 #=============================================================================
 # Target rules for targets named test_smoke
@@ -348,6 +374,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... kv_client"
+	@echo "... kv_store"
 	@echo "... proto_gen"
 	@echo "... raft"
 	@echo "... raftkv_cli"

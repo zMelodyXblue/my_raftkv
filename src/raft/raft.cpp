@@ -62,6 +62,10 @@ bool Raft::is_leader() const {
   return role_ == Role::Leader;
 }
 
+int Raft::raft_state_size() const {
+  return persister_->raft_state_size();
+}
+
 // ── Log Helpers ───────────────────────────────────────────────────
 // All helpers below require mu_ to be held by the caller.
 

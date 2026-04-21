@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "../../lib/librpc.a"
   "../../lib/librpc.pdb"
+  "CMakeFiles/rpc.dir/kv_service.cpp.o"
+  "CMakeFiles/rpc.dir/kv_service.cpp.o.d"
   "CMakeFiles/rpc.dir/raft_service.cpp.o"
   "CMakeFiles/rpc.dir/raft_service.cpp.o.d"
 )

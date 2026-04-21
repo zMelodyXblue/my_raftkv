@@ -10,6 +10,8 @@
 #include "common/types.h"
 #include "raft/persister.h"
 #include "raft/raft.h"
+#include "kv_store/kv_store.h"
+#include "rpc/kv_service.h"
 #include "rpc/raft_service.h"
 
 // ── Command-line parsing ──────────────────────────────────────────
@@ -112,12 +114,18 @@ int main(int argc, char* argv[]) {
       config, peers, persister, apply_channel);
   raft_node->start_threads();
 
+  // ── Create KV store ─────────────────────────────────────────────
+  auto kv_store = std::make_shared<raftkv::KvStore>(
+      config, raft_node, apply_channel);
+
   // ── Create gRPC server ─────────────────────────────────────────
   raftkv::RaftServiceImpl raft_service(raft_node);
+  raftkv::KvServiceImpl kv_service(kv_store);
 
   grpc::ServerBuilder builder;
   builder.AddListeningPort(listen_addr, grpc::InsecureServerCredentials());
   builder.RegisterService(&raft_service);
+  builder.RegisterService(&kv_service);
 
   std::unique_ptr<grpc::Server> server = builder.BuildAndStart();
   if (!server) {

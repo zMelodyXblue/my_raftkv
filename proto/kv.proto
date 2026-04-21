@@ -25,6 +25,23 @@ message PutAppendReply {
   string  error = 1;
 }
 
+// ── KV operation (serialized into LogEntry::command) ────────────
+// Used by KvStore to serialize/deserialize the command payload
+// that Raft stores in the log.
+message KvOpData {
+  string  op         = 1;  // "Get" | "Put" | "Append"
+  string  key        = 2;
+  string  value      = 3;
+  string  client_id  = 4;
+  int64   request_id = 5;
+}
+
+// ── KV snapshot (serialized state for log compaction) ───────────
+message KvSnapshot {
+  map<string, string> data            = 1;  // key → value
+  map<string, int64>  last_request_id = 2;  // client_id → last applied request_id
+}
+
 // ── KV service (client-facing) ──────────────────────────────────
 service KvService {
   rpc Get(GetRequest) returns (GetReply);

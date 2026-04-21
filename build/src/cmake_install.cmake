@@ -54,6 +54,16 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/kv_store/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/rpc/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/client/cmake_install.cmake")
 endif()
 

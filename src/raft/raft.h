@@ -65,6 +65,7 @@ class Raft : public std::enable_shared_from_this<Raft> {
   int  current_term() const;
   bool is_leader() const;
   int  node_id() const { return config_.node_id; }
+  int  raft_state_size() const;
 
   // ── Inbound RPC Handlers ─────────────────────────────────────
   // Called by RaftServiceImpl (the gRPC adapter) after it has

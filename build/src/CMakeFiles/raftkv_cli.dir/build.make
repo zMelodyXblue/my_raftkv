@@ -92,8 +92,9 @@ raftkv_cli_EXTERNAL_OBJECTS =
 
 bin/raftkv_cli: src/CMakeFiles/raftkv_cli.dir/cli.cpp.o
 bin/raftkv_cli: src/CMakeFiles/raftkv_cli.dir/build.make
-bin/raftkv_cli: lib/libproto_gen.a
+bin/raftkv_cli: lib/libkv_client.a
 bin/raftkv_cli: /usr/lib/x86_64-linux-gnu/libspdlog.so.1.5.0
+bin/raftkv_cli: lib/libproto_gen.a
 bin/raftkv_cli: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 bin/raftkv_cli: src/CMakeFiles/raftkv_cli.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/raftkv_cli"
