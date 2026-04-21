@@ -29,3 +29,12 @@ target_link_libraries(test_election PRIVATE
   GTest::Main
 )
 add_test(NAME election COMMAND test_election)
+
+# Phase 3: Log replication integration tests
+add_executable(test_replication replication_test.cpp)
+target_link_libraries(test_replication PRIVATE
+  rpc
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME replication COMMAND test_replication)

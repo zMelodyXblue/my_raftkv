@@ -1,43 +1,43 @@
-Start testing: Apr 19 01:59 CST
+Start testing: Apr 21 21:51 CST
 ----------------------------------------------------------
-3/3 Testing: election
-3/3 Test: election
-Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_election"
+4/4 Testing: replication
+4/4 Test: replication
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_replication"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"election" start time: Apr 19 01:59 CST
+"replication" start time: Apr 21 21:51 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
 [==========] Running 5 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 5 tests from ElectionTest
-[ RUN      ] ElectionTest.SingleNodeBecomesLeader
-[2026-04-19 01:59:32.691] [info] [0] became Leader, term=1
-[       OK ] ElectionTest.SingleNodeBecomesLeader (363 ms)
-[ RUN      ] ElectionTest.ThreeNodesElectOneLeader
-[2026-04-19 01:59:32.940] [info] [2] became Leader, term=1
-[       OK ] ElectionTest.ThreeNodesElectOneLeader (307 ms)
-[ RUN      ] ElectionTest.LeaderIsStable
-[2026-04-19 01:59:33.287] [info] [2] became Leader, term=1
-[       OK ] ElectionTest.LeaderIsStable (2365 ms)
-[ RUN      ] ElectionTest.ReElectionAfterLeaderCrash
-[2026-04-19 01:59:35.624] [info] [0] became Leader, term=1
-[2026-04-19 01:59:35.825] [info] [2] became Leader, term=2
-[       OK ] ElectionTest.ReElectionAfterLeaderCrash (459 ms)
-[ RUN      ] ElectionTest.FiveNodesElectOneLeader
-[2026-04-19 01:59:36.121] [info] [1] became Leader, term=1
-[       OK ] ElectionTest.FiveNodesElectOneLeader (457 ms)
-[----------] 5 tests from ElectionTest (3952 ms total)
+[----------] 5 tests from ReplicationTest
+[ RUN      ] ReplicationTest.BasicAgreement
+[2026-04-21 21:51:55.832] [info] [2] became Leader, term=1
+[       OK ] ReplicationTest.BasicAgreement (416 ms)
+[ RUN      ] ReplicationTest.MultipleCommands
+[2026-04-21 21:51:56.238] [info] [0] became Leader, term=1
+[       OK ] ReplicationTest.MultipleCommands (406 ms)
+[ RUN      ] ReplicationTest.FailAgree
+[2026-04-21 21:51:56.634] [info] [1] became Leader, term=1
+[       OK ] ReplicationTest.FailAgree (362 ms)
+[ RUN      ] ReplicationTest.FailNoAgree
+[2026-04-21 21:51:57.036] [info] [2] became Leader, term=1
+[       OK ] ReplicationTest.FailNoAgree (810 ms)
+[ RUN      ] ReplicationTest.LeaderCrashThenNewCommands
+[2026-04-21 21:51:57.876] [info] [1] became Leader, term=1
+[2026-04-21 21:51:58.189] [info] [2] became Leader, term=2
+[       OK ] ReplicationTest.LeaderCrashThenNewCommands (657 ms)
+[----------] 5 tests from ReplicationTest (2651 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test suite ran. (3952 ms total)
+[==========] 5 tests from 1 test suite ran. (2651 ms total)
 [  PASSED  ] 5 tests.
 <end of output>
-Test time =   4.00 sec
+Test time =   2.69 sec
 ----------------------------------------------------------
 Test Passed.
-"election" end time: Apr 19 01:59 CST
-"election" time elapsed: 00:00:04
+"replication" end time: Apr 21 21:51 CST
+"replication" time elapsed: 00:00:02
 ----------------------------------------------------------
 
-End testing: Apr 19 01:59 CST
+End testing: Apr 21 21:51 CST

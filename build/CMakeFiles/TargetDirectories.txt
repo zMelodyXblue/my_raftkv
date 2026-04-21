@@ -21,6 +21,7 @@
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_smoke.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_persister.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_election.dir
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_replication.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/edit_cache.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/rebuild_cache.dir

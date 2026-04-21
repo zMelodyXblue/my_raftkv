@@ -168,6 +168,20 @@ test_election/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_election.dir/build.make tests/CMakeFiles/test_election.dir/build
 .PHONY : test_election/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_replication.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_replication.dir/rule
+.PHONY : tests/CMakeFiles/test_replication.dir/rule
+
+# Convenience name for target.
+test_replication: tests/CMakeFiles/test_replication.dir/rule
+.PHONY : test_replication
+
+# fast build rule for target.
+test_replication/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/build
+.PHONY : test_replication/fast
+
 election_test.o: election_test.cpp.o
 .PHONY : election_test.o
 
@@ -216,6 +230,30 @@ persister_test.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_persister.dir/build.make tests/CMakeFiles/test_persister.dir/persister_test.cpp.s
 .PHONY : persister_test.cpp.s
 
+replication_test.o: replication_test.cpp.o
+.PHONY : replication_test.o
+
+# target to build an object file
+replication_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/replication_test.cpp.o
+.PHONY : replication_test.cpp.o
+
+replication_test.i: replication_test.cpp.i
+.PHONY : replication_test.i
+
+# target to preprocess a source file
+replication_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/replication_test.cpp.i
+.PHONY : replication_test.cpp.i
+
+replication_test.s: replication_test.cpp.s
+.PHONY : replication_test.s
+
+# target to generate assembly for a file
+replication_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/replication_test.cpp.s
+.PHONY : replication_test.cpp.s
+
 smoke_test.o: smoke_test.cpp.o
 .PHONY : smoke_test.o
 
@@ -251,6 +289,7 @@ help:
 	@echo "... test"
 	@echo "... test_election"
 	@echo "... test_persister"
+	@echo "... test_replication"
 	@echo "... test_smoke"
 	@echo "... election_test.o"
 	@echo "... election_test.i"
@@ -258,6 +297,9 @@ help:
 	@echo "... persister_test.o"
 	@echo "... persister_test.i"
 	@echo "... persister_test.s"
+	@echo "... replication_test.o"
+	@echo "... replication_test.i"
+	@echo "... replication_test.s"
 	@echo "... smoke_test.o"
 	@echo "... smoke_test.i"
 	@echo "... smoke_test.s"

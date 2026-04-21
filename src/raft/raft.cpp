@@ -144,7 +144,6 @@ void Raft::start_election() {
   }
 
   auto voted_cnt = std::make_shared<int>(1);
-  // Single-node cluster: no RPCs needed, become leader immediately.
   if (static_cast<int>(peers_.size()) == 1) {
     std::lock_guard<std::mutex> lock(mu_);
     if (role_ == Role::Candidate && current_term_ == args->term) {
@@ -182,7 +181,6 @@ void Raft::sendRequestVote(int server,
     ++(*voted_cnt);
     if (*voted_cnt > static_cast<int>(peers_.size()) / 2) {
       become_leader();
-      // Immediate heartbeat to suppress other elections.
       std::shared_ptr<Raft> self2;
       try { self2 = shared_from_this(); } catch (const std::bad_weak_ptr&) { return; }
       for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
@@ -205,14 +203,14 @@ void Raft::handle_request_vote(const RequestVoteArgs& args,
   } else if (args.term < current_term_) {
     reply->term = current_term_;
     reply->vote_granted = false;
-    return ;
+    return;
   }
   reply->term = current_term_;
   if ((voted_for_ != -1 && voted_for_ != args.candidate_id) ||
       (args.last_log_term < last_log_term()) ||
       (args.last_log_term == last_log_term() && args.last_log_index < last_log_index())) {
     reply->vote_granted = false;
-    return ;
+    return;
   }
 
   voted_for_ = args.candidate_id;
@@ -240,7 +238,7 @@ void Raft::election_ticker() {
 
 // ── Replication ───────────────────────────────────────────────────
 
-// Background thread: Leader sends a round of heartbeats every heartbeat_interval_ms.
+// Background thread: Leader sends a round of AppendEntries every heartbeat_interval_ms.
 void Raft::heartbeat_ticker() {
   while (running_) {
     std::this_thread::sleep_for(std::chrono::milliseconds(config_.raft.heartbeat_interval_ms));
@@ -249,8 +247,6 @@ void Raft::heartbeat_ticker() {
       if (role_ != Role::Leader) continue;
     }
 
-    // During shutdown the weak_ptr may already be expired (refcount == 0
-    // while ~Raft is blocked on join); in that case skip the heartbeat round.
     std::shared_ptr<Raft> self;
     try { self = shared_from_this(); } catch (const std::bad_weak_ptr&) { continue; }
     for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
@@ -260,46 +256,114 @@ void Raft::heartbeat_ticker() {
   }
 }
 
-// Send a heartbeat (empty AppendEntries) to one peer.
-// Phase 3 will extend this to include log entries.
+// Send AppendEntries (with log entries) to one peer.
+// On success: advance next_index_ / match_index_, try to advance commit_index_.
+// On failure: backtrack next_index_ using the fast-backoff info from the reply.
 void Raft::send_append_entries(int peer_id) {
   AppendEntriesArgs args;
   args.leader_id = config_.node_id;
   {
     std::lock_guard<std::mutex> lock(mu_);
+    if (role_ != Role::Leader) return;
     args.term = current_term_;
     args.prev_log_index = next_index_[peer_id] - 1;
     args.prev_log_term = term_at(args.prev_log_index);
     args.leader_commit = commit_index_;
+    for (int i = next_index_[peer_id], I = last_log_index(); i <= I; ++i) {
+      args.entries.push_back(logs_[to_physical(i)]);
+    }
   }
+
   AppendEntriesReply reply;
   bool ok = peers_[peer_id]->append_entries(args, &reply, config_.raft.rpc_timeout_ms);
-  if (!ok) return ;
+  if (!ok) return;
+
   std::lock_guard<std::mutex> lock(mu_);
   if (reply.term > current_term_) {
     become_follower(reply.term);
+    return;
   }
-  if (role_ != Role::Leader || reply.term != current_term_) return;
-  // Phase 3: update next_index_ / match_index_ on success/failure
+  if (role_ != Role::Leader || current_term_ != args.term) return;
+
+  if (reply.success) {
+    int new_match = args.prev_log_index + static_cast<int>(args.entries.size());
+    match_index_[peer_id] = std::max(match_index_[peer_id], new_match);
+    next_index_[peer_id] = match_index_[peer_id] + 1;
+    maybe_advance_commit_index();
+  } else {
+    // Fast backoff: use conflict_term / conflict_index to skip entire terms.
+    if (reply.conflict_term == -1) {
+      // Follower's log is too short — jump to its end.
+      next_index_[peer_id] = reply.conflict_index;
+    } else {
+      // Search our log for the last entry with conflict_term.
+      int found = -1;
+      for (int i = last_log_index(); i > last_snapshot_index_; --i) {
+        if (term_at(i) == reply.conflict_term) { found = i; break; }
+      }
+      next_index_[peer_id] = (found != -1) ? found + 1 : reply.conflict_index;
+    }
+  }
 }
 
-// Handle an incoming AppendEntries RPC (heartbeat in Phase 2).
-// Rejects if sender's term is stale; otherwise resets election timer.
+// Handle an incoming AppendEntries RPC.
+// Performs term check, log consistency check, entry appending, and commitIndex update.
 void Raft::handle_append_entries(const AppendEntriesArgs& args,
                                  AppendEntriesReply*      reply) {
   std::lock_guard<std::mutex> lock(mu_);
+  reply->term = current_term_;
+  reply->success = false;
+
+  // ── Step 1: Term check ────────────────────────────────────────
   if (args.term < current_term_) {
-    reply->term = current_term_;
-    reply->success = false;
-    return ;
-  } else if (args.term > current_term_) {
+    return;
+  }
+  if (args.term > current_term_) {
     become_follower(args.term);
   }
+  if (role_ == Role::Candidate) {
+    role_ = Role::Follower;
+  }
   reset_election_timer();
-
-  // Phase 3: log consistency check
-
   reply->term = current_term_;
+
+  // ── Step 2: Log consistency check ─────────────────────────────
+  if (args.prev_log_index > last_log_index()) {
+    reply->conflict_index = last_log_index() + 1;
+    reply->conflict_term  = -1;
+    return;
+  }
+  int actual_term = term_at(args.prev_log_index);
+  if (actual_term != args.prev_log_term) {
+    reply->conflict_term = actual_term;
+    // Walk backwards to find the first index with this conflicting term.
+    int idx = args.prev_log_index;
+    while (idx > last_snapshot_index_ && term_at(idx) == actual_term) { --idx; }
+    reply->conflict_index = idx + 1;
+    return;
+  }
+
+  // ── Step 3: Append / overwrite entries ────────────────────────
+  // Only truncate on actual conflict (term mismatch at a given index).
+  // Do NOT blindly truncate — an out-of-order RPC with fewer entries
+  // must not erase entries already confirmed by a later RPC.
+  for (size_t i = 0; i < args.entries.size(); ++i) {
+    int new_log_idx = args.entries[i].index;
+    if (new_log_idx > last_log_index()) {
+      logs_.push_back(args.entries[i]);
+    } else if (args.entries[i].term != term_at(new_log_idx)) {
+      logs_.erase(logs_.begin() + to_physical(new_log_idx), logs_.end());
+      logs_.push_back(args.entries[i]);
+    }
+  }
+  if (!args.entries.empty()) {
+    persist();
+  }
+
+  // ── Step 4: Update commit_index_ ──────────────────────────────
+  if (args.leader_commit > commit_index_) {
+    commit_index_ = std::min(args.leader_commit, last_log_index());
+  }
   reply->success = true;
 }
 
@@ -341,25 +405,82 @@ void Raft::restore() {
     }
 }
 
-// ── Phase 3 stubs ─────────────────────────────────────────────────
+// ── Client API ────────────────────────────────────────────────────
 
-StartResult Raft::start(const std::string& /*command*/) {
-  // Phase 3: append command to log, return (index, term, is_leader).
+// Submit a command to the Raft log. Only the Leader accepts commands.
+// Returns immediately — does not wait for replication or commit.
+StartResult Raft::start(const std::string& command) {
+  std::lock_guard<std::mutex> lock(mu_);
   StartResult r;
+  if (role_ != Role::Leader) {
+    r.is_leader = false;
+    return r;
+  }
+
+  LogEntry entry;
+  entry.command = command;
+  entry.term = current_term_;
+  entry.index = last_log_index() + 1;
+  logs_.push_back(entry);
+
+  persist();
+  r.index = entry.index;
+  r.term = entry.term;
+  r.is_leader = true;
   return r;
 }
 
-void Raft::replicate_to_peer(int /*peer_id*/) {
-  // Phase 3: send AppendEntries or InstallSnapshot depending on nextIndex.
+// Decide whether to send AppendEntries or InstallSnapshot to a peer.
+// Phase 5 adds the InstallSnapshot branch; for now just call send_append_entries.
+void Raft::replicate_to_peer(int peer_id) {
+  send_append_entries(peer_id);
 }
 
+// Scan matchIndex to find the highest log index replicated to a majority.
+// Advance commit_index_ if that index is from the current term (Figure 8 safety).
+// Requires mu_ held.
 void Raft::maybe_advance_commit_index() {
-  // Phase 3: find the highest index replicated to a majority and
-  // advance commit_index_ if it's in the current term.
+  for (int idx = last_log_index(); idx > commit_index_; --idx) {
+    int count = 1;  // self
+    for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
+      if (i == config_.node_id) continue;
+      count += (match_index_[i] >= idx);
+    }
+    if (count < 1 + static_cast<int>(peers_.size()) / 2) continue;
+    // Figure 8: only commit current-term entries directly.
+    if (term_at(idx) == current_term_) {
+      commit_index_ = idx;
+    }
+    break;
+  }
 }
 
+// Background thread: periodically pushes committed but not-yet-applied
+// entries from the log to apply_channel_.
+// IMPORTANT: Do NOT hold mu_ while pushing — KV layer may call snapshot() back.
 void Raft::applier() {
-  // Phase 3: loop, push committed entries to apply_channel_.
+  while (running_) {
+    std::this_thread::sleep_for(
+        std::chrono::milliseconds(config_.raft.apply_interval_ms));
+
+    std::vector<ApplyMsg> msgs;
+    {
+      std::lock_guard<std::mutex> lock(mu_);
+      while (last_applied_ < commit_index_) {
+        last_applied_++;
+        ApplyMsg msg;
+        msg.command_valid = true;
+        msg.command       = logs_[to_physical(last_applied_)].command;
+        msg.command_index = last_applied_;
+        msg.command_term  = logs_[to_physical(last_applied_)].term;
+        msgs.push_back(msg);
+      }
+    }
+
+    for (auto& msg : msgs) {
+      apply_channel_->push(msg);
+    }
+  }
 }
 
 // ── Phase 5 stubs ─────────────────────────────────────────────────

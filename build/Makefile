@@ -230,6 +230,19 @@ test_election/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_election.dir/build.make tests/CMakeFiles/test_election.dir/build
 .PHONY : test_election/fast
 
+#=============================================================================
+# Target rules for targets named test_replication
+
+# Build rule for target.
+test_replication: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_replication
+.PHONY : test_replication
+
+# fast build rule for target.
+test_replication/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/build
+.PHONY : test_replication/fast
+
 src/proto/kv.grpc.pb.o: src/proto/kv.grpc.pb.cc.o
 .PHONY : src/proto/kv.grpc.pb.o
 
@@ -342,6 +355,7 @@ help:
 	@echo "... rpc"
 	@echo "... test_election"
 	@echo "... test_persister"
+	@echo "... test_replication"
 	@echo "... test_smoke"
 	@echo "... src/proto/kv.grpc.pb.o"
 	@echo "... src/proto/kv.grpc.pb.i"

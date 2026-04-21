@@ -70,5 +70,11 @@
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/test_election.dir/election_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp",
   "output": "tests/CMakeFiles/test_election.dir/election_test.cpp.o"
+},
+{
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/test_replication.dir/replication_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp",
+  "output": "tests/CMakeFiles/test_replication.dir/replication_test.cpp.o"
 }
 ]
