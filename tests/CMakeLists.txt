@@ -38,3 +38,14 @@ target_link_libraries(test_replication PRIVATE
   GTest::Main
 )
 add_test(NAME replication COMMAND test_replication)
+
+# Phase 4: KV state machine integration tests
+# Full cluster (Raft + KvStore + KvService) exercised via KvClient.
+add_executable(test_kv kv_test.cpp)
+target_link_libraries(test_kv PRIVATE
+  rpc
+  kv_client
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME kv COMMAND test_kv)

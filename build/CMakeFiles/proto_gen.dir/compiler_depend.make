@@ -308,6 +308,12 @@ CMakeFiles/proto_gen.dir/src/proto/kv.grpc.pb.cc.o: /home/zmagex/5.Projects/raft
   /usr/include/google/protobuf/descriptor.h \
   /usr/include/google/protobuf/extension_set.h \
   /usr/include/c++/9/cassert \
+  /usr/include/google/protobuf/map_entry.h \
+  /usr/include/google/protobuf/generated_message_reflection.h \
+  /usr/include/google/protobuf/generated_enum_reflection.h \
+  /usr/include/google/protobuf/reflection_ops.h \
+  /usr/include/google/protobuf/map_field_inl.h \
+  /usr/include/google/protobuf/map_field.h \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.grpc.pb.h \
   /usr/include/c++/9/functional \
   /usr/include/c++/9/bits/std_function.h \
@@ -362,7 +368,6 @@ CMakeFiles/proto_gen.dir/src/proto/kv.grpc.pb.cc.o: /home/zmagex/5.Projects/raft
   /usr/include/grpcpp/impl/codegen/proto_utils.h \
   /usr/include/grpcpp/impl/codegen/config_protobuf.h \
   /usr/include/google/protobuf/descriptor.pb.h \
-  /usr/include/google/protobuf/generated_enum_reflection.h \
   /usr/include/google/protobuf/descriptor_database.h \
   /usr/include/google/protobuf/io/zero_copy_stream.h \
   /usr/include/grpcpp/impl/codegen/proto_buffer_reader.h \
@@ -679,9 +684,12 @@ CMakeFiles/proto_gen.dir/src/proto/kv.pb.cc.o: /home/zmagex/5.Projects/raft_base
   /usr/include/google/protobuf/descriptor.h \
   /usr/include/google/protobuf/extension_set.h \
   /usr/include/c++/9/cassert \
+  /usr/include/google/protobuf/map_entry.h \
   /usr/include/google/protobuf/generated_message_reflection.h \
   /usr/include/google/protobuf/generated_enum_reflection.h \
   /usr/include/google/protobuf/reflection_ops.h \
+  /usr/include/google/protobuf/map_field_inl.h \
+  /usr/include/google/protobuf/map_field.h \
   /usr/include/google/protobuf/wire_format.h
 
 CMakeFiles/proto_gen.dir/src/proto/raft.grpc.pb.cc.o: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.grpc.pb.cc \
@@ -1384,8 +1392,6 @@ CMakeFiles/proto_gen.dir/src/proto/raft.pb.cc.o: /home/zmagex/5.Projects/raft_ba
 
 /usr/include/google/protobuf/io/zero_copy_stream.h:
 
-/usr/include/google/protobuf/generated_enum_reflection.h:
-
 /usr/include/grpcpp/impl/codegen/config_protobuf.h:
 
 /usr/include/grpcpp/impl/codegen/async_unary_call.h:
@@ -1443,6 +1449,8 @@ CMakeFiles/proto_gen.dir/src/proto/raft.pb.cc.o: /home/zmagex/5.Projects/raft_ba
 /usr/include/grpcpp/impl/codegen/async_generic_service.h:
 
 /usr/include/c++/9/bits/std_function.h:
+
+/usr/include/google/protobuf/generated_enum_reflection.h:
 
 /usr/include/c++/9/cassert:
 
@@ -1525,6 +1533,8 @@ CMakeFiles/proto_gen.dir/src/proto/raft.pb.cc.o: /home/zmagex/5.Projects/raft_ba
 /usr/include/x86_64-linux-gnu/bits/signal_ext.h:
 
 /usr/include/x86_64-linux-gnu/sys/ucontext.h:
+
+/usr/include/google/protobuf/map_entry.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
 
@@ -1926,6 +1936,8 @@ CMakeFiles/proto_gen.dir/src/proto/raft.pb.cc.o: /home/zmagex/5.Projects/raft_ba
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
+/usr/include/google/protobuf/map_field.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/c++/9/stdlib.h:
@@ -2055,6 +2067,8 @@ CMakeFiles/proto_gen.dir/src/proto/raft.pb.cc.o: /home/zmagex/5.Projects/raft_ba
 /usr/include/c++/9/ext/numeric_traits.h:
 
 /usr/include/c++/9/cwctype:
+
+/usr/include/google/protobuf/map_field_inl.h:
 
 /usr/include/google/protobuf/map_type_handler.h:
 

@@ -182,6 +182,20 @@ test_replication/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/build
 .PHONY : test_replication/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_kv.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_kv.dir/rule
+.PHONY : tests/CMakeFiles/test_kv.dir/rule
+
+# Convenience name for target.
+test_kv: tests/CMakeFiles/test_kv.dir/rule
+.PHONY : test_kv
+
+# fast build rule for target.
+test_kv/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/build
+.PHONY : test_kv/fast
+
 election_test.o: election_test.cpp.o
 .PHONY : election_test.o
 
@@ -205,6 +219,30 @@ election_test.s: election_test.cpp.s
 election_test.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_election.dir/build.make tests/CMakeFiles/test_election.dir/election_test.cpp.s
 .PHONY : election_test.cpp.s
+
+kv_test.o: kv_test.cpp.o
+.PHONY : kv_test.o
+
+# target to build an object file
+kv_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/kv_test.cpp.o
+.PHONY : kv_test.cpp.o
+
+kv_test.i: kv_test.cpp.i
+.PHONY : kv_test.i
+
+# target to preprocess a source file
+kv_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/kv_test.cpp.i
+.PHONY : kv_test.cpp.i
+
+kv_test.s: kv_test.cpp.s
+.PHONY : kv_test.s
+
+# target to generate assembly for a file
+kv_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/kv_test.cpp.s
+.PHONY : kv_test.cpp.s
 
 persister_test.o: persister_test.cpp.o
 .PHONY : persister_test.o
@@ -288,12 +326,16 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... test_election"
+	@echo "... test_kv"
 	@echo "... test_persister"
 	@echo "... test_replication"
 	@echo "... test_smoke"
 	@echo "... election_test.o"
 	@echo "... election_test.i"
 	@echo "... election_test.s"
+	@echo "... kv_test.o"
+	@echo "... kv_test.i"
+	@echo "... kv_test.s"
 	@echo "... persister_test.o"
 	@echo "... persister_test.i"
 	@echo "... persister_test.s"

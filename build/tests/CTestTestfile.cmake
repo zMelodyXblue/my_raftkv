@@ -12,3 +12,5 @@ add_test(election "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build
 set_tests_properties(election PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;31;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")
 add_test(replication "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_replication")
 set_tests_properties(replication PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;40;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")
+add_test(kv "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_kv")
+set_tests_properties(kv PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;51;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")

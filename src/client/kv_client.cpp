@@ -1,28 +1,30 @@
 #include "client/kv_client.h"
 
+#include <chrono>
 #include <random>
 #include <sstream>
+#include <thread>
+
 #include <spdlog/spdlog.h>
+#include "common/types.h"
 
 namespace raftkv {
 
 // ── Constructor ──────────────────────────────────────────────────
 // Creates gRPC stubs for all servers and generates a unique client_id.
 KvClient::KvClient(const std::vector<std::string>& server_addrs) {
-  // TODO: For each address in server_addrs:
-  //   1. Create a gRPC channel: grpc::CreateChannel(addr, grpc::InsecureChannelCredentials())
-  //   2. Create a stub: kv::KvService::NewStub(channel)
-  //   3. Push the stub into stubs_
   for (const auto& addr : server_addrs) {
-    (void)addr;
-    // TODO: create channel and stub
+    auto channel = grpc::CreateChannel(addr, grpc::InsecureChannelCredentials());
+    stubs_.push_back(kv::KvService::NewStub(channel));
   }
 
-  // TODO: Generate a unique client_id.
-  // Use std::random_device + mt19937 to generate a random UUID-like string,
-  // or use a simple combination of timestamp + random number.
-  // Store it in client_id_.
-  client_id_ = "";  // TODO: generate unique ID
+  // Generate a unique client_id from random_device + mt19937.
+  std::random_device rd;
+  std::mt19937_64 gen(rd());
+  std::uniform_int_distribution<uint64_t> dist;
+  std::ostringstream oss;
+  oss << std::hex << dist(gen) << "-" << dist(gen);
+  client_id_ = oss.str();
 }
 
 // ── Get ──────────────────────────────────────────────────────────
@@ -30,22 +32,38 @@ KvClient::KvClient(const std::vector<std::string>& server_addrs) {
 std::string KvClient::get(const std::string& key) {
   int64_t rid = next_request_id_++;
   while (true) {
-    // TODO: 1. Construct a kv::GetRequest with key, client_id_, rid.
-    //       2. Create a grpc::ClientContext (with deadline if desired).
-    //       3. Call stubs_[leader_hint_]->Get(&ctx, request, &reply).
-    //       4. Check the gRPC status and reply.error():
-    //          - If error is "" (OK) or "ErrNoKey": return reply.value().
-    //          - If error is "ErrWrongLeader" or gRPC failed:
-    //            advance leader_hint_ = (leader_hint_ + 1) % stubs_.size()
-    //            and retry.
-    //          - If error is "ErrTimeout": retry with same leader_hint_.
-    //       5. Between retries, sleep briefly (e.g., 100ms) to avoid
-    //          busy-looping during a leader election.
+    kv::GetRequest request;
+    request.set_key(key);
+    request.set_client_id(client_id_);
+    request.set_request_id(rid);
 
-    // TODO: implement retry loop body
-    break;  // placeholder
+    grpc::ClientContext ctx;
+    kv::GetReply reply;
+    grpc::Status status = stubs_[leader_hint_]->Get(&ctx, request, &reply);
+
+    if (!status.ok()) {
+      // gRPC transport failure — try next server
+      spdlog::debug("Get RPC to server {} failed: {}",
+                    leader_hint_, status.error_message());
+      leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      continue;
+    }
+
+    if (reply.error() == ErrCode::OK || reply.error() == ErrCode::ErrNoKey) {
+      return reply.value();
+    } else if (reply.error() == ErrCode::ErrWrongLeader) {
+      leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      continue;
+    } else if (reply.error() == ErrCode::ErrTimeout) {
+      continue;
+    }
+
+    // Unknown error — retry with next server
+    leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
-  return "";  // placeholder
 }
 
 // ── Put / Append ─────────────────────────────────────────────────
@@ -65,21 +83,39 @@ std::string KvClient::put_append(const std::string& key,
                                  const std::string& op) {
   int64_t rid = next_request_id_++;
   while (true) {
-    // TODO: 1. Construct a kv::PutAppendRequest with key, value, op,
-    //          client_id_, rid.
-    //       2. Create a grpc::ClientContext.
-    //       3. Call stubs_[leader_hint_]->PutAppend(&ctx, request, &reply).
-    //       4. Check the gRPC status and reply.error():
-    //          - If error is "" (OK): return "".
-    //          - If error is "ErrWrongLeader" or gRPC failed:
-    //            advance leader_hint_ and retry.
-    //          - If error is "ErrTimeout": retry with same leader_hint_.
-    //       5. Brief sleep between retries.
+    kv::PutAppendRequest request;
+    request.set_key(key);
+    request.set_value(value);
+    request.set_op(op);
+    request.set_client_id(client_id_);
+    request.set_request_id(rid);
 
-    // TODO: implement retry loop body
-    break;  // placeholder
+    grpc::ClientContext ctx;
+    kv::PutAppendReply reply;
+    grpc::Status status = stubs_[leader_hint_]->PutAppend(&ctx, request, &reply);
+
+    if (!status.ok()) {
+      spdlog::debug("PutAppend RPC to server {} failed: {}",
+                    leader_hint_, status.error_message());
+      leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      continue;
+    }
+
+    if (reply.error() == ErrCode::OK) {
+      return "";
+    } else if (reply.error() == ErrCode::ErrWrongLeader) {
+      leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      continue;
+    } else if (reply.error() == ErrCode::ErrTimeout) {
+      continue;
+    }
+
+    // Unknown error — retry with next server
+    leader_hint_ = (leader_hint_ + 1) % stubs_.size();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
-  return "";  // placeholder
 }
 
 }  // namespace raftkv

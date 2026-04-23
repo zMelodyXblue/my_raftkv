@@ -47,16 +47,20 @@ KvStore::GetResult KvStore::get(const std::string& key,
                                 const std::string& client_id,
                                 int64_t request_id) {
   // ── Step 1: Serialize KvOp into a string ──────────────────────
-  // TODO: Construct a kv::KvOpData protobuf message with:
-  //   op = "Get", key, client_id, request_id
-  // Serialize it to a std::string (SerializeToString).
-  std::string command;  // TODO: replace with serialized KvOpData
+  kv::KvOpData op_data;
+  op_data.set_op("Get");
+  op_data.set_key(key);
+  op_data.set_client_id(client_id);
+  op_data.set_request_id(request_id);
+  std::string command;
+  op_data.SerializeToString(&command);
 
   // ── Step 2: Submit to Raft and create wait channel ────────────
   // CRITICAL: Both start() and wait channel creation MUST be in
   // the same critical section.  See kv_store.h for the race-free
   // creation rule explanation.
   std::shared_ptr<WaitChannel> ch;
+  int idx;
   {
     std::lock_guard<std::mutex> lk(mu_);
     StartResult sr = raft_->start(command);
@@ -64,17 +68,18 @@ KvStore::GetResult KvStore::get(const std::string& key,
       return {/*value=*/"", /*error=*/ErrCode::ErrWrongLeader};
     }
     ch = get_or_create_wait_channel(sr.index);
+    idx = sr.index;
   }
   // Lock released — now safe to block.
 
   // ── Step 3: Wait for apply ────────────────────────────────────
-  // TODO: Use ch->try_pop() with a reasonable timeout (e.g., 5000ms).
-  // If timed out, clean up the wait channel and return ErrTimeout.
-  // If successful, return the ApplyResult's value and error.
   ApplyResult result;
-  // TODO: try_pop with timeout, handle timeout case
+  bool ok = ch->try_pop(result, std::chrono::milliseconds(5000));
+  if (!ok) {
+    result.error = ErrCode::ErrTimeout;
+  }
 
-  close_and_remove_wait_channel(0 /* TODO: use the correct index */);
+  close_and_remove_wait_channel(idx);
   return {result.value, result.error};
 }
 
@@ -86,13 +91,18 @@ std::string KvStore::put_append(const std::string& key,
                                 const std::string& client_id,
                                 int64_t request_id) {
   // ── Step 1: Serialize KvOp ────────────────────────────────────
-  // TODO: Construct a kv::KvOpData protobuf message with:
-  //   op, key, value, client_id, request_id
-  // Serialize it to a std::string.
-  std::string command;  // TODO: replace with serialized KvOpData
+  kv::KvOpData op_data;
+  op_data.set_op(op);
+  op_data.set_key(key);
+  op_data.set_value(value);
+  op_data.set_client_id(client_id);
+  op_data.set_request_id(request_id);
+  std::string command;
+  op_data.SerializeToString(&command);
 
   // ── Step 2: Submit to Raft and create wait channel ────────────
   std::shared_ptr<WaitChannel> ch;
+  int idx;
   {
     std::lock_guard<std::mutex> lk(mu_);
     StartResult sr = raft_->start(command);
@@ -100,16 +110,16 @@ std::string KvStore::put_append(const std::string& key,
       return ErrCode::ErrWrongLeader;
     }
     ch = get_or_create_wait_channel(sr.index);
+    idx = sr.index;
   }
 
   // ── Step 3: Wait for apply ────────────────────────────────────
-  // TODO: Use ch->try_pop() with a reasonable timeout.
-  // If timed out, clean up and return ErrTimeout.
-  // If successful, return the ApplyResult's error field.
   ApplyResult result;
-  // TODO: try_pop with timeout, handle timeout case
-
-  close_and_remove_wait_channel(0 /* TODO: use the correct index */);
+  bool ok = ch->try_pop(result, std::chrono::milliseconds(5000));
+  if (!ok) {
+    result.error = ErrCode::ErrTimeout;
+  }
+  close_and_remove_wait_channel(idx);
   return result.error;
 }
 
@@ -136,26 +146,40 @@ void KvStore::apply_loop() {
 // Deserialize the KvOp, check for duplicates, execute, notify waiter.
 void KvStore::apply_command(const ApplyMsg& msg) {
   // ── Step 1: Deserialize KvOp ──────────────────────────────────
-  // TODO: Parse msg.command as a kv::KvOpData protobuf.
-  // Extract op, key, value, client_id, request_id into local variables.
-  KvOp op;  // TODO: populate from deserialized KvOpData
+  kv::KvOpData op_data;
+  op_data.ParseFromString(msg.command);
+  KvOp op;
+  op.op = op_data.op();
+  op.key = op_data.key();
+  op.value = op_data.value();
+  op.client_id = op_data.client_id();
+  op.request_id = op_data.request_id();
 
   // ── Step 2: Execute under lock ────────────────────────────────
   ApplyResult result;
   {
     std::lock_guard<std::mutex> lk(mu_);
 
-    // TODO: Check is_duplicate(client_id, request_id).
-    //   - If duplicate: skip execution.
-    //     For Get, still read data_[key] so the result is correct.
-    //     For Put/Append, do nothing (idempotent).
-    //   - If not duplicate: execute the operation:
-    //     - "Get":    result.value = data_[key] (or ErrNoKey if absent)
-    //     - "Put":    data_[key] = value
-    //     - "Append": data_[key] += value (create if absent)
-    //     Then update last_request_id_[client_id] = request_id.
-
-    // TODO: Fill result.value (for Get) and result.error.
+    result.error = ErrCode::OK;
+    if (is_duplicate(op.client_id, op.request_id)) {
+      // Duplicate — skip mutation but still read for Get.
+      if (op.op == "Get") {
+        auto it = data_.find(op.key);
+        result.value = (it != data_.end()) ? it->second : "";
+      }
+    } else {
+      if (op.op == "Get") {
+        auto it = data_.find(op.key);
+        result.value = (it != data_.end()) ? it->second : "";
+      } else if (op.op == "Put") {
+        data_[op.key] = op.value;
+      } else if (op.op == "Append") {
+        data_[op.key] += op.value;
+      } else {
+        result.error = ErrCode::ErrNoKey;
+      }
+      last_request_id_[op.client_id] = op.request_id;
+    }
 
     // Notify the RPC handler waiting on this log index.
     notify_wait_channel(msg.command_index, result);
@@ -192,10 +216,8 @@ void KvStore::restore_snapshot(const std::string& /*data*/) {
 // Returns true if the request has already been applied.
 // Requires mu_ held.
 bool KvStore::is_duplicate(const std::string& client_id, int64_t request_id) {
-  // TODO: Look up client_id in last_request_id_.
-  //   - If found and last_request_id >= request_id → duplicate (return true).
-  //   - Otherwise → not duplicate (return false).
-  return false;
+  auto it = last_request_id_.find(client_id);
+  return it != last_request_id_.end() && it->second >= request_id;
 }
 
 // ── Wait Channel Helpers ─────────────────────────────────────────
@@ -203,8 +225,6 @@ bool KvStore::is_duplicate(const std::string& client_id, int64_t request_id) {
 
 std::shared_ptr<KvStore::WaitChannel>
 KvStore::get_or_create_wait_channel(int index) {
-  // TODO: If wait_channels_[index] exists, return it.
-  //       Otherwise, create a new WaitChannel, insert it, and return it.
   auto it = wait_channels_.find(index);
   if (it != wait_channels_.end()) {
     return it->second;
@@ -215,8 +235,6 @@ KvStore::get_or_create_wait_channel(int index) {
 }
 
 void KvStore::notify_wait_channel(int index, ApplyResult result) {
-  // TODO: Look up wait_channels_[index].
-  //       If found, push the result into it.
   auto it = wait_channels_.find(index);
   if (it != wait_channels_.end()) {
     it->second->push(std::move(result));
