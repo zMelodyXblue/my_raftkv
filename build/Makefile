@@ -282,6 +282,19 @@ test_kv/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/build
 .PHONY : test_kv/fast
 
+#=============================================================================
+# Target rules for targets named test_snapshot
+
+# Build rule for target.
+test_snapshot: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_snapshot
+.PHONY : test_snapshot
+
+# fast build rule for target.
+test_snapshot/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/build
+.PHONY : test_snapshot/fast
+
 src/proto/kv.grpc.pb.o: src/proto/kv.grpc.pb.cc.o
 .PHONY : src/proto/kv.grpc.pb.o
 
@@ -399,6 +412,7 @@ help:
 	@echo "... test_persister"
 	@echo "... test_replication"
 	@echo "... test_smoke"
+	@echo "... test_snapshot"
 	@echo "... src/proto/kv.grpc.pb.o"
 	@echo "... src/proto/kv.grpc.pb.i"
 	@echo "... src/proto/kv.grpc.pb.s"

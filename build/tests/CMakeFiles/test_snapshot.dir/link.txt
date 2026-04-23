@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_snapshot.dir/snapshot_test.cpp.o -o ../bin/test_snapshot  ../lib/librpc.a ../lib/libkv_client.a ../lib/libkv_store.a ../lib/libraft.a ../lib/libproto_gen.a /usr/lib/x86_64-linux-gnu/libprotobuf.so -lgrpc++ -lgrpc /usr/lib/x86_64-linux-gnu/libspdlog.so.1.5.0 /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

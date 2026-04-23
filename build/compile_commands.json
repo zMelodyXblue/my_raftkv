@@ -100,5 +100,11 @@
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/test_kv.dir/kv_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp",
   "output": "tests/CMakeFiles/test_kv.dir/kv_test.cpp.o"
+},
+{
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/test_snapshot.dir/snapshot_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp",
+  "output": "tests/CMakeFiles/test_snapshot.dir/snapshot_test.cpp.o"
 }
 ]

@@ -196,6 +196,20 @@ test_kv/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_kv.dir/build.make tests/CMakeFiles/test_kv.dir/build
 .PHONY : test_kv/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_snapshot.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_snapshot.dir/rule
+.PHONY : tests/CMakeFiles/test_snapshot.dir/rule
+
+# Convenience name for target.
+test_snapshot: tests/CMakeFiles/test_snapshot.dir/rule
+.PHONY : test_snapshot
+
+# fast build rule for target.
+test_snapshot/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/build
+.PHONY : test_snapshot/fast
+
 election_test.o: election_test.cpp.o
 .PHONY : election_test.o
 
@@ -316,6 +330,30 @@ smoke_test.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_smoke.dir/build.make tests/CMakeFiles/test_smoke.dir/smoke_test.cpp.s
 .PHONY : smoke_test.cpp.s
 
+snapshot_test.o: snapshot_test.cpp.o
+.PHONY : snapshot_test.o
+
+# target to build an object file
+snapshot_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/snapshot_test.cpp.o
+.PHONY : snapshot_test.cpp.o
+
+snapshot_test.i: snapshot_test.cpp.i
+.PHONY : snapshot_test.i
+
+# target to preprocess a source file
+snapshot_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/snapshot_test.cpp.i
+.PHONY : snapshot_test.cpp.i
+
+snapshot_test.s: snapshot_test.cpp.s
+.PHONY : snapshot_test.s
+
+# target to generate assembly for a file
+snapshot_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/snapshot_test.cpp.s
+.PHONY : snapshot_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -330,6 +368,7 @@ help:
 	@echo "... test_persister"
 	@echo "... test_replication"
 	@echo "... test_smoke"
+	@echo "... test_snapshot"
 	@echo "... election_test.o"
 	@echo "... election_test.i"
 	@echo "... election_test.s"
@@ -345,6 +384,9 @@ help:
 	@echo "... smoke_test.o"
 	@echo "... smoke_test.i"
 	@echo "... smoke_test.s"
+	@echo "... snapshot_test.o"
+	@echo "... snapshot_test.i"
+	@echo "... snapshot_test.s"
 .PHONY : help
 
 

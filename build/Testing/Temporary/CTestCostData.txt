@@ -1,3 +1,7 @@
-election 2 2.00027
-replication 1 2.69109
+election 3 1.40835
+replication 2 1.35771
+snapshot 2 12.444
+smoke 1 0.0268798
+persister 1 0.048335
+kv 1 5.08225
 ---

@@ -1,10 +1,142 @@
-Start testing: Apr 21 21:51 CST
+Start testing: Apr 23 21:29 CST
 ----------------------------------------------------------
-4/4 Testing: replication
-4/4 Test: replication
+1/6 Testing: smoke
+1/6 Test: smoke
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_smoke"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"smoke" start time: Apr 23 21:29 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 9 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Types
+[ RUN      ] Types.LogEntryDefaultInit
+[       OK ] Types.LogEntryDefaultInit (0 ms)
+[ RUN      ] Types.ApplyMsgBothFlagsDefaultFalse
+[       OK ] Types.ApplyMsgBothFlagsDefaultFalse (0 ms)
+[ RUN      ] Types.StartResultDefaultNotLeader
+[       OK ] Types.StartResultDefaultNotLeader (0 ms)
+[ RUN      ] Types.RoleName
+[       OK ] Types.RoleName (0 ms)
+[----------] 4 tests from Types (0 ms total)
+
+[----------] 4 tests from TSQueue
+[ RUN      ] TSQueue.PushPop
+[       OK ] TSQueue.PushPop (0 ms)
+[ RUN      ] TSQueue.TryPopTimeout
+[       OK ] TSQueue.TryPopTimeout (10 ms)
+[ RUN      ] TSQueue.CloseUnblocksWaiter
+[       OK ] TSQueue.CloseUnblocksWaiter (0 ms)
+[ RUN      ] TSQueue.PushAfterCloseIsNoOp
+[       OK ] TSQueue.PushAfterCloseIsNoOp (0 ms)
+[----------] 4 tests from TSQueue (10 ms total)
+
+[----------] 1 test from Config
+[ RUN      ] Config.RaftConfigDefaults
+[       OK ] Config.RaftConfigDefaults (0 ms)
+[----------] 1 test from Config (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 3 test suites ran. (10 ms total)
+[  PASSED  ] 9 tests.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"smoke" end time: Apr 23 21:29 CST
+"smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/6 Testing: persister
+2/6 Test: persister
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_persister"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"persister" start time: Apr 23 21:29 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from PersisterTest
+[ RUN      ] PersisterTest.EmptyOnFirstLoad
+[       OK ] PersisterTest.EmptyOnFirstLoad (11 ms)
+[ RUN      ] PersisterTest.SaveAndLoadRaftState
+[       OK ] PersisterTest.SaveAndLoadRaftState (2 ms)
+[ RUN      ] PersisterTest.SaveAndLoadSnapshot
+[       OK ] PersisterTest.SaveAndLoadSnapshot (4 ms)
+[ RUN      ] PersisterTest.SaveBothAtomically
+[       OK ] PersisterTest.SaveBothAtomically (3 ms)
+[ RUN      ] PersisterTest.RaftStateSizeMatchesBytes
+[       OK ] PersisterTest.RaftStateSizeMatchesBytes (4 ms)
+[ RUN      ] PersisterTest.RaftStateSizeZeroWhenEmpty
+[       OK ] PersisterTest.RaftStateSizeZeroWhenEmpty (3 ms)
+[ RUN      ] PersisterTest.PersistsAcrossRestart
+[       OK ] PersisterTest.PersistsAcrossRestart (2 ms)
+[ RUN      ] PersisterTest.OverwriteUpdatesState
+[       OK ] PersisterTest.OverwriteUpdatesState (5 ms)
+[ RUN      ] PersisterTest.DifferentNodesDontShareFiles
+[       OK ] PersisterTest.DifferentNodesDontShareFiles (3 ms)
+[ RUN      ] PersisterTest.BinaryDataRoundTrip
+[       OK ] PersisterTest.BinaryDataRoundTrip (4 ms)
+[----------] 10 tests from PersisterTest (41 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (41 ms total)
+[  PASSED  ] 10 tests.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"persister" end time: Apr 23 21:29 CST
+"persister" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/6 Testing: election
+3/6 Test: election
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_election"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"election" start time: Apr 23 21:29 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from ElectionTest
+[ RUN      ] ElectionTest.SingleNodeBecomesLeader
+[2026-04-23 21:29:37.067] [info] [0] became Leader, term=1
+[       OK ] ElectionTest.SingleNodeBecomesLeader (360 ms)
+[ RUN      ] ElectionTest.ThreeNodesElectOneLeader
+[2026-04-23 21:29:37.334] [info] [0] became Leader, term=1
+[       OK ] ElectionTest.ThreeNodesElectOneLeader (354 ms)
+[ RUN      ] ElectionTest.LeaderIsStable
+[2026-04-23 21:29:37.755] [info] [0] became Leader, term=1
+[       OK ] ElectionTest.LeaderIsStable (2416 ms)
+[ RUN      ] ElectionTest.ReElectionAfterLeaderCrash
+[2026-04-23 21:29:40.122] [info] [2] became Leader, term=1
+[2026-04-23 21:29:40.326] [info] [0] became Leader, term=2
+[       OK ] ElectionTest.ReElectionAfterLeaderCrash (504 ms)
+[ RUN      ] ElectionTest.FiveNodesElectOneLeader
+[2026-04-23 21:29:40.703] [info] [2] became Leader, term=1
+[       OK ] ElectionTest.FiveNodesElectOneLeader (506 ms)
+[----------] 5 tests from ElectionTest (4140 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (4142 ms total)
+[  PASSED  ] 5 tests.
+<end of output>
+Test time =   4.23 sec
+----------------------------------------------------------
+Test Passed.
+"election" end time: Apr 23 21:29 CST
+"election" time elapsed: 00:00:04
+----------------------------------------------------------
+
+4/6 Testing: replication
+4/6 Test: replication
 Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_replication"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"replication" start time: Apr 21 21:51 CST
+"replication" start time: Apr 23 21:29 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
@@ -12,32 +144,126 @@ Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gt
 [----------] Global test environment set-up.
 [----------] 5 tests from ReplicationTest
 [ RUN      ] ReplicationTest.BasicAgreement
-[2026-04-21 21:51:55.832] [info] [2] became Leader, term=1
-[       OK ] ReplicationTest.BasicAgreement (416 ms)
+[2026-04-23 21:29:41.106] [info] [0] became Leader, term=1
+[       OK ] ReplicationTest.BasicAgreement (406 ms)
 [ RUN      ] ReplicationTest.MultipleCommands
-[2026-04-21 21:51:56.238] [info] [0] became Leader, term=1
+[2026-04-23 21:29:41.551] [info] [0] became Leader, term=1
 [       OK ] ReplicationTest.MultipleCommands (406 ms)
 [ RUN      ] ReplicationTest.FailAgree
-[2026-04-21 21:51:56.634] [info] [1] became Leader, term=1
-[       OK ] ReplicationTest.FailAgree (362 ms)
+[2026-04-23 21:29:42.006] [info] [2] became Leader, term=1
+[       OK ] ReplicationTest.FailAgree (405 ms)
 [ RUN      ] ReplicationTest.FailNoAgree
-[2026-04-21 21:51:57.036] [info] [2] became Leader, term=1
+[2026-04-23 21:29:42.371] [info] [2] became Leader, term=1
 [       OK ] ReplicationTest.FailNoAgree (810 ms)
 [ RUN      ] ReplicationTest.LeaderCrashThenNewCommands
-[2026-04-21 21:51:57.876] [info] [1] became Leader, term=1
-[2026-04-21 21:51:58.189] [info] [2] became Leader, term=2
-[       OK ] ReplicationTest.LeaderCrashThenNewCommands (657 ms)
-[----------] 5 tests from ReplicationTest (2651 ms total)
+[2026-04-23 21:29:43.150] [info] [0] became Leader, term=1
+[2026-04-23 21:29:43.494] [info] [2] became Leader, term=2
+[       OK ] ReplicationTest.LeaderCrashThenNewCommands (659 ms)
+[----------] 5 tests from ReplicationTest (2686 ms total)
 
 [----------] Global test environment tear-down
-[==========] 5 tests from 1 test suite ran. (2651 ms total)
+[==========] 5 tests from 1 test suite ran. (2686 ms total)
 [  PASSED  ] 5 tests.
 <end of output>
-Test time =   2.69 sec
+Test time =   2.72 sec
 ----------------------------------------------------------
 Test Passed.
-"replication" end time: Apr 21 21:51 CST
+"replication" end time: Apr 23 21:29 CST
 "replication" time elapsed: 00:00:02
 ----------------------------------------------------------
 
-End testing: Apr 21 21:51 CST
+5/6 Testing: kv
+5/6 Test: kv
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_kv"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"kv" start time: Apr 23 21:29 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from KvTest
+[ RUN      ] KvTest.BasicPutGet
+[2026-04-23 21:29:43.826] [info] [0] became Leader, term=1
+[       OK ] KvTest.BasicPutGet (455 ms)
+[ RUN      ] KvTest.Append
+[2026-04-23 21:29:44.305] [info] [1] became Leader, term=1
+[       OK ] KvTest.Append (557 ms)
+[ RUN      ] KvTest.GetMissing
+[2026-04-23 21:29:44.827] [info] [1] became Leader, term=1
+[       OK ] KvTest.GetMissing (458 ms)
+[ RUN      ] KvTest.MultipleKeys
+[2026-04-23 21:29:45.300] [info] [1] became Leader, term=1
+[       OK ] KvTest.MultipleKeys (708 ms)
+[ RUN      ] KvTest.Overwrite
+[2026-04-23 21:29:46.029] [info] [2] became Leader, term=1
+[       OK ] KvTest.Overwrite (659 ms)
+[ RUN      ] KvTest.TwoClients
+[2026-04-23 21:29:46.662] [info] [0] became Leader, term=1
+[       OK ] KvTest.TwoClients (558 ms)
+[ RUN      ] KvTest.LeaderCrash
+[2026-04-23 21:29:47.233] [info] [1] became Leader, term=1
+[2026-04-23 21:29:47.653] [info] [0] became Leader, term=2
+[       OK ] KvTest.LeaderCrash (806 ms)
+[ RUN      ] KvTest.AppendSequence
+[2026-04-23 21:29:48.027] [info] [0] became Leader, term=1
+[       OK ] KvTest.AppendSequence (861 ms)
+[----------] 8 tests from KvTest (5062 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (5062 ms total)
+[  PASSED  ] 8 tests.
+<end of output>
+Test time =   5.08 sec
+----------------------------------------------------------
+Test Passed.
+"kv" end time: Apr 23 21:29 CST
+"kv" time elapsed: 00:00:05
+----------------------------------------------------------
+
+6/6 Testing: snapshot
+6/6 Test: snapshot
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_snapshot"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"snapshot" start time: Apr 23 21:29 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from SnapshotTest
+[ RUN      ] SnapshotTest.BasicSnapshot
+[2026-04-23 21:29:48.919] [info] [1] became Leader, term=1
+[       OK ] SnapshotTest.BasicSnapshot (3419 ms)
+[ RUN      ] SnapshotTest.ContinueAfterSnapshot
+[2026-04-23 21:29:52.416] [info] [1] became Leader, term=1
+[       OK ] SnapshotTest.ContinueAfterSnapshot (4512 ms)
+[ RUN      ] SnapshotTest.AppendAfterSnapshot
+[2026-04-23 21:29:56.828] [info] [2] became Leader, term=1
+[       OK ] SnapshotTest.AppendAfterSnapshot (2061 ms)
+[ RUN      ] SnapshotTest.FullClusterRestart
+[2026-04-23 21:29:58.919] [info] [1] became Leader, term=1
+[2026-04-23 21:30:01.056] [info] [0] became Leader, term=2
+[       OK ] SnapshotTest.FullClusterRestart (4077 ms)
+[ RUN      ] SnapshotTest.InstallSnapshot
+[2026-04-23 21:30:02.969] [info] [2] became Leader, term=1
+[2026-04-23 21:30:07.158] [info] [0] became Leader, term=2
+[       OK ] SnapshotTest.InstallSnapshot (5984 ms)
+[ RUN      ] SnapshotTest.LeaderCrashAfterSnapshot
+[2026-04-23 21:30:08.980] [info] [0] became Leader, term=1
+[2026-04-23 21:30:10.862] [info] [2] became Leader, term=2
+[       OK ] SnapshotTest.LeaderCrashAfterSnapshot (4816 ms)
+[----------] 6 tests from SnapshotTest (24869 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (24869 ms total)
+[  PASSED  ] 6 tests.
+<end of output>
+Test time =  24.89 sec
+----------------------------------------------------------
+Test Passed.
+"snapshot" end time: Apr 23 21:30 CST
+"snapshot" time elapsed: 00:00:24
+----------------------------------------------------------
+
+End testing: Apr 23 21:30 CST

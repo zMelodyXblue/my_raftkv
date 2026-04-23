@@ -49,3 +49,13 @@ target_link_libraries(test_kv PRIVATE
   GTest::Main
 )
 add_test(NAME kv COMMAND test_kv)
+
+# Phase 5: Snapshot & crash recovery integration tests
+add_executable(test_snapshot snapshot_test.cpp)
+target_link_libraries(test_snapshot PRIVATE
+  rpc
+  kv_client
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME snapshot COMMAND test_snapshot)

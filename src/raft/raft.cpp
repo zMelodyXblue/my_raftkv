@@ -465,13 +465,17 @@ StartResult Raft::start(const std::string& command) {
 // If the peer is too far behind (next_index <= last_snapshot_index),
 // we must send the full snapshot instead of log entries.
 void Raft::replicate_to_peer(int peer_id) {
-  // ── YOUR CODE HERE ──────────────────────────────────────────────
-  // Read next_index_[peer_id] and last_snapshot_index_ under mu_.
-  // Branch:
-  //   next_index <= last_snapshot_index  → send_install_snapshot(peer_id)
-  //   otherwise                          → send_append_entries(peer_id)
-  // ────────────────────────────────────────────────────────────────
-
+  bool need_snapshot = false;
+  {
+    std::lock_guard<std::mutex> lock(mu_);
+    if (role_ != Role::Leader) return;
+    need_snapshot = (next_index_[peer_id] <= last_snapshot_index_);
+  }
+  if (need_snapshot) {
+    send_install_snapshot(peer_id);
+  } else {
+    send_append_entries(peer_id);
+  }
 }
 
 // Scan matchIndex to find the highest log index replicated to a majority.
@@ -529,22 +533,17 @@ void Raft::applier() {
 void Raft::snapshot(int index, const std::string& snapshot_data) {
   std::lock_guard<std::mutex> lock(mu_);
 
-  // ── YOUR CODE HERE ──────────────────────────────────────────────
-  // 1. Validate: reject if index <= last_snapshot_index_ or index > commit_index_
-  //
-  // 2. Record last_snapshot_term_ = term_at(index)
-  //
-  // 3. Truncate logs_:
-  //    - Erase entries from logs_.begin() up to (but not including) the
-  //      entry at `index` in physical coordinates.
-  //    - After erasure, logs_[0] IS the entry at `index` — clear its
-  //      command to turn it into the new sentinel.
-  //
-  // 4. Update last_snapshot_index_ = index
-  //
-  // 5. Persist BOTH raft state and snapshot atomically:
-  //      persister_->save(encode_raft_state(), snapshot_data);
-  // ────────────────────────────────────────────────────────────────
+  if (index <= last_snapshot_index_ || index > commit_index_) return;
+
+  last_snapshot_term_ = term_at(index);
+
+  int phys = to_physical(index);
+  logs_.erase(logs_.begin(), logs_.begin() + phys);
+  logs_[0].command.clear();
+
+  last_snapshot_index_ = index;
+
+  persister_->save(encode_raft_state(), snapshot_data);
 }
 
 // Leader sends the full snapshot to a peer that is too far behind.
@@ -556,14 +555,6 @@ void Raft::send_install_snapshot(int peer_id) {
     std::lock_guard<std::mutex> lock(mu_);
     if (role_ != Role::Leader) return;
 
-    // ── YOUR CODE HERE ────────────────────────────────────────────
-    // Fill args:
-    //   args.term                = current_term_
-    //   args.leader_id           = config_.node_id
-    //   args.last_included_index = last_snapshot_index_
-    //   args.last_included_term  = last_snapshot_term_
-    //   args.data                = persister_->load_snapshot()
-    // ──────────────────────────────────────────────────────────────
     args.term = current_term_;
     args.leader_id = config_.node_id;
     args.last_included_index = last_snapshot_index_;
@@ -577,27 +568,14 @@ void Raft::send_install_snapshot(int peer_id) {
   if (!ok) return;
 
   std::lock_guard<std::mutex> lock(mu_);
-
-  // ── YOUR CODE HERE ──────────────────────────────────────────────
-  // 1. If reply.term > current_term_: become_follower(reply.term), return.
-  //
-  // 2. Staleness check: if role != Leader or term changed, return.
-  //
-  // 3. Update peer state:
-  //      match_index_[peer_id] = max(match_index_[peer_id], args.last_included_index)
-  //      next_index_[peer_id]  = match_index_[peer_id] + 1
-  // ────────────────────────────────────────────────────────────────
   if (reply.term > current_term_) {
     become_follower(reply.term);
-    return ;
+    return;
   }
-  if (role_ != Role::Leader || current_term_ != args.term) {
-    return ;
-  }
-  for (size_t i = 0; i < peers_.size(); ++i) {
-    match_index_[i] = std::max(match_index_[i], args.last_included_index);
-    next_index_[i] = match_index_[i] + 1;
-  }
+  if (role_ != Role::Leader || current_term_ != args.term) return;
+
+  match_index_[peer_id] = std::max(match_index_[peer_id], args.last_included_index);
+  next_index_[peer_id]  = match_index_[peer_id] + 1;
 }
 
 // Follower receives a snapshot from the leader.
@@ -621,41 +599,39 @@ void Raft::handle_install_snapshot(const InstallSnapshotArgs& args,
     if (role_ == Role::Candidate) role_ = Role::Follower;
     reset_election_timer();
     reply->term = current_term_;
-
-    // ── YOUR CODE HERE ────────────────────────────────────────────
     // Step 2: Reject stale snapshot
-    //   if args.last_included_index <= last_snapshot_index_, return.
-    //
-    if (args.last_included_index <= last_snapshot_index_) return ;
+    if (args.last_included_index <= last_snapshot_index_) return;
 
     // Step 3: Truncate / replace log
-    //   Case A: our log extends beyond the snapshot point
-    //     → erase entries up to the snapshot point, keep the rest
-    //     → logs_[0] becomes the new sentinel (clear its command)
-    //   Case B: snapshot covers our entire log
-    //     → clear logs_, push a fresh sentinel entry
-    //        (index = args.last_included_index, term = args.last_included_term)
-    //
-    
+    if (last_log_index() > args.last_included_index) {
+      int phys = to_physical(args.last_included_index);
+      logs_.erase(logs_.begin(), logs_.begin() + phys);
+      logs_[0].command.clear();
+    } else {
+      logs_.clear();
+      LogEntry sentinel;
+      sentinel.index   = args.last_included_index;
+      sentinel.term    = args.last_included_term;
+      logs_.push_back(sentinel);
+    }
 
     // Step 4: Update snapshot metadata
-    //   last_snapshot_index_ = args.last_included_index
-    //   last_snapshot_term_  = args.last_included_term
-    //
+    last_snapshot_index_ = args.last_included_index;
+    last_snapshot_term_  = args.last_included_term;
+
     // Step 5: Advance volatile state
-    //   commit_index_ = max(commit_index_, args.last_included_index)
-    //   last_applied_  = max(last_applied_,  args.last_included_index)
-    //
+    commit_index_ = std::max(commit_index_, args.last_included_index);
+    last_applied_  = std::max(last_applied_,  args.last_included_index);
+
     // Step 6: Persist both raft state and snapshot atomically
-    //   persister_->save(encode_raft_state(), args.data);
-    //
+    persister_->save(encode_raft_state(), args.data);
+
     // Step 7: Prepare ApplyMsg to deliver snapshot to KvStore
-    //   snap_msg.snapshot_valid = true
-    //   snap_msg.snapshot       = args.data
-    //   snap_msg.snapshot_index = args.last_included_index
-    //   snap_msg.snapshot_term  = args.last_included_term
-    //   should_apply = true
-    // ──────────────────────────────────────────────────────────────
+    snap_msg.snapshot_valid = true;
+    snap_msg.snapshot       = args.data;
+    snap_msg.snapshot_index = args.last_included_index;
+    snap_msg.snapshot_term  = args.last_included_term;
+    should_apply = true;
   }
   // Lock released — safe to push to channel without deadlock risk.
   if (should_apply) {
