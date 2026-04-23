@@ -59,3 +59,23 @@ target_link_libraries(test_snapshot PRIVATE
   GTest::Main
 )
 add_test(NAME snapshot COMMAND test_snapshot)
+
+# Phase 6A: Stress tests (500 ops, concurrent clients, leader switch)
+add_executable(test_stress stress_test.cpp)
+target_link_libraries(test_stress PRIVATE
+  rpc
+  kv_client
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME stress COMMAND test_stress)
+
+# Phase 6A: Deduplication unit tests
+add_executable(test_dedup dedup_test.cpp)
+target_link_libraries(test_dedup PRIVATE
+  rpc
+  kv_client
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME dedup COMMAND test_dedup)

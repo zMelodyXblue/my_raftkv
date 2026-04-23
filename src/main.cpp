@@ -88,6 +88,11 @@ int main(int argc, char* argv[]) {
   config.peer_addrs  = args.peer_addrs;
   config.data_dir    = args.data_dir;
 
+  spdlog::info("[Node {}] config: peers={}, data_dir={}, election_timeout=[{},{}]ms, heartbeat={}ms, max_state={}B",
+               args.node_id, args.peer_addrs.size(), args.data_dir,
+               config.raft.election_timeout_min_ms, config.raft.election_timeout_max_ms,
+               config.raft.heartbeat_interval_ms, config.raft.max_raft_state_bytes);
+
   // ── Create Persister ───────────────────────────────────────────
   auto persister = std::make_shared<raftkv::Persister>(
       config.node_id, config.data_dir);

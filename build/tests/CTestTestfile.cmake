@@ -16,3 +16,7 @@ add_test(kv "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/t
 set_tests_properties(kv PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;51;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")
 add_test(snapshot "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_snapshot")
 set_tests_properties(snapshot PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;61;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")
+add_test(stress "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_stress")
+set_tests_properties(stress PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;71;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")
+add_test(dedup "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_dedup")
+set_tests_properties(dedup PROPERTIES  _BACKTRACE_TRIPLES "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;81;add_test;/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/CMakeLists.txt;0;")

@@ -124,6 +124,7 @@ void Raft::become_follower(int term) {
   voted_for_ = -1;
   persist();
   reset_election_timer();
+  spdlog::info("[Node {}] [term={}] [Follower] stepped down", config_.node_id, current_term_);
 }
 
 // Called when this node wins an election.
@@ -134,7 +135,7 @@ void Raft::become_leader() {
   int n = static_cast<int>(peers_.size());
   next_index_.assign(n, last_log_index() + 1);
   match_index_.assign(n, 0);
-  spdlog::info("[{}] became Leader, term={}", config_.node_id, current_term_);
+  spdlog::info("[Node {}] [term={}] [Leader] became leader", config_.node_id, current_term_);
 }
 
 // ── Election ──────────────────────────────────────────────────────
@@ -154,6 +155,7 @@ void Raft::start_election() {
     args->candidate_id   = config_.node_id;
     args->last_log_index = last_log_index();
     args->last_log_term  = last_log_term();
+    spdlog::info("[Node {}] [term={}] [Candidate] starting election", config_.node_id, current_term_);
   }
 
   auto voted_cnt = std::make_shared<int>(1);
@@ -223,6 +225,8 @@ void Raft::handle_request_vote(const RequestVoteArgs& args,
       (args.last_log_term < last_log_term()) ||
       (args.last_log_term == last_log_term() && args.last_log_index < last_log_index())) {
     reply->vote_granted = false;
+    spdlog::debug("[Node {}] [term={}] [{}] rejected vote for Node {}",
+                  config_.node_id, current_term_, to_string(role_), args.candidate_id);
     return;
   }
 
@@ -230,6 +234,8 @@ void Raft::handle_request_vote(const RequestVoteArgs& args,
   persist();
   reset_election_timer();
   reply->vote_granted = true;
+  spdlog::debug("[Node {}] [term={}] [Follower] voted for Node {}",
+                config_.node_id, current_term_, args.candidate_id);
 }
 
 // Background thread: polls every 10ms, starts an election if the
@@ -302,6 +308,8 @@ void Raft::send_append_entries(int peer_id) {
     int new_match = args.prev_log_index + static_cast<int>(args.entries.size());
     match_index_[peer_id] = std::max(match_index_[peer_id], new_match);
     next_index_[peer_id] = match_index_[peer_id] + 1;
+    spdlog::debug("[Node {}] [term={}] [Leader] replicated to Node {}, matchIndex={}",
+                  config_.node_id, current_term_, peer_id, match_index_[peer_id]);
     maybe_advance_commit_index();
   } else {
     // Fast backoff: use conflict_term / conflict_index to skip entire terms.
@@ -316,6 +324,8 @@ void Raft::send_append_entries(int peer_id) {
       }
       next_index_[peer_id] = (found != -1) ? found + 1 : reply.conflict_index;
     }
+    spdlog::debug("[Node {}] [term={}] [Leader] backoff for Node {}, nextIndex={}",
+                  config_.node_id, current_term_, peer_id, next_index_[peer_id]);
   }
 }
 
@@ -491,7 +501,12 @@ void Raft::maybe_advance_commit_index() {
     if (count < 1 + static_cast<int>(peers_.size()) / 2) continue;
     // Figure 8: only commit current-term entries directly.
     if (term_at(idx) == current_term_) {
+      int old_commit = commit_index_;
       commit_index_ = idx;
+      if (commit_index_ > old_commit) {
+        spdlog::debug("[Node {}] [term={}] [Leader] commitIndex advanced to {}",
+                      config_.node_id, current_term_, commit_index_);
+      }
     }
     break;
   }
@@ -544,6 +559,8 @@ void Raft::snapshot(int index, const std::string& snapshot_data) {
   last_snapshot_index_ = index;
 
   persister_->save(encode_raft_state(), snapshot_data);
+  spdlog::info("[Node {}] [term={}] [{}] log compacted up to index {}",
+               config_.node_id, current_term_, to_string(role_), index);
 }
 
 // Leader sends the full snapshot to a peer that is too far behind.
@@ -560,6 +577,8 @@ void Raft::send_install_snapshot(int peer_id) {
     args.last_included_index = last_snapshot_index_;
     args.last_included_term  = last_snapshot_term_;
     args.data = persister_->load_snapshot();
+    spdlog::info("[Node {}] [term={}] [Leader] sending snapshot to Node {} (lastIndex={})",
+                 config_.node_id, current_term_, peer_id, last_snapshot_index_);
   }
 
   InstallSnapshotReply reply;
@@ -632,6 +651,8 @@ void Raft::handle_install_snapshot(const InstallSnapshotArgs& args,
     snap_msg.snapshot_index = args.last_included_index;
     snap_msg.snapshot_term  = args.last_included_term;
     should_apply = true;
+    spdlog::info("[Node {}] [term={}] [Follower] installed snapshot (index={}, term={})",
+                 config_.node_id, current_term_, args.last_included_index, args.last_included_term);
   }
   // Lock released — safe to push to channel without deadlock risk.
   if (should_apply) {

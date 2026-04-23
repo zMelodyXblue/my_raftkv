@@ -1,0 +1,19 @@
+[00:39:29.535] [info] [Node 1] starting on 127.0.0.1:50051
+[00:39:29.535] [info] [Node 1] config: peers=3, data_dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/data/node1, election_timeout=[300,500]ms, heartbeat=30ms, max_state=8388608B
+[00:39:29.537] [info] [Node 1] gRPC server listening on 127.0.0.1:50051
+[00:39:29.951] [info] [Node 1] [term=1] [Candidate] starting election
+[00:39:29.956] [debug] [Node 1] [term=1] [Candidate] rejected vote for Node 0
+[00:39:32.590] [debug] [Node 1] [KvStore] applied Put key=demo_key at index=1
+[00:39:32.620] [debug] [Node 1] [KvStore] applied Put key=city at index=2
+[00:39:32.650] [debug] [Node 1] [KvStore] applied Append key=greeting at index=3
+[00:39:32.680] [debug] [Node 1] [KvStore] applied Append key=greeting at index=4
+[00:39:32.711] [debug] [Node 1] [KvStore] applied Get key=demo_key at index=5
+[00:39:32.741] [debug] [Node 1] [KvStore] applied Get key=city at index=6
+[00:39:33.125] [info] [Node 1] [term=2] [Candidate] starting election
+[00:39:33.127] [debug] [Node 1] [term=2] [Candidate] rejected vote for Node 2
+[00:39:33.560] [info] [Node 1] [term=3] [Follower] stepped down
+[00:39:33.561] [debug] [Node 1] [term=3] [Follower] voted for Node 2
+[00:39:36.025] [debug] [Node 1] [KvStore] applied Get key=greeting at index=7
+[00:39:36.025] [debug] [Node 1] [KvStore] applied Get key=demo_key at index=8
+[00:39:36.267] [debug] [Node 1] [KvStore] applied Get key=city at index=9
+[00:39:36.510] [debug] [Node 1] [KvStore] applied Put key=after_crash at index=10

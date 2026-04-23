@@ -295,6 +295,32 @@ test_snapshot/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/build
 .PHONY : test_snapshot/fast
 
+#=============================================================================
+# Target rules for targets named test_stress
+
+# Build rule for target.
+test_stress: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_stress
+.PHONY : test_stress
+
+# fast build rule for target.
+test_stress/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_stress.dir/build.make tests/CMakeFiles/test_stress.dir/build
+.PHONY : test_stress/fast
+
+#=============================================================================
+# Target rules for targets named test_dedup
+
+# Build rule for target.
+test_dedup: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_dedup
+.PHONY : test_dedup
+
+# fast build rule for target.
+test_dedup/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/build
+.PHONY : test_dedup/fast
+
 src/proto/kv.grpc.pb.o: src/proto/kv.grpc.pb.cc.o
 .PHONY : src/proto/kv.grpc.pb.o
 
@@ -407,12 +433,14 @@ help:
 	@echo "... raftkv_cli"
 	@echo "... raftkv_server"
 	@echo "... rpc"
+	@echo "... test_dedup"
 	@echo "... test_election"
 	@echo "... test_kv"
 	@echo "... test_persister"
 	@echo "... test_replication"
 	@echo "... test_smoke"
 	@echo "... test_snapshot"
+	@echo "... test_stress"
 	@echo "... src/proto/kv.grpc.pb.o"
 	@echo "... src/proto/kv.grpc.pb.i"
 	@echo "... src/proto/kv.grpc.pb.s"

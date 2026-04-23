@@ -1,0 +1,131 @@
+[00:39:29.539] [info] [Node 2] starting on 127.0.0.1:50052
+[00:39:29.539] [info] [Node 2] config: peers=3, data_dir=/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/data/node2, election_timeout=[300,500]ms, heartbeat=30ms, max_state=8388608B
+[00:39:29.540] [info] [Node 2] gRPC server listening on 127.0.0.1:50052
+[00:39:29.953] [info] [Node 2] [term=1] [Follower] stepped down
+[00:39:29.953] [debug] [Node 2] [term=1] [Follower] voted for Node 0
+[00:39:29.956] [debug] [Node 2] [term=1] [Follower] rejected vote for Node 1
+[00:39:32.591] [debug] [Node 2] [KvStore] applied Put key=demo_key at index=1
+[00:39:32.621] [debug] [Node 2] [KvStore] applied Put key=city at index=2
+[00:39:32.652] [debug] [Node 2] [KvStore] applied Append key=greeting at index=3
+[00:39:32.682] [debug] [Node 2] [KvStore] applied Append key=greeting at index=4
+[00:39:32.713] [debug] [Node 2] [KvStore] applied Get key=demo_key at index=5
+[00:39:32.743] [debug] [Node 2] [KvStore] applied Get key=city at index=6
+[00:39:33.126] [info] [Node 2] [term=2] [Candidate] starting election
+[00:39:33.127] [debug] [Node 2] [term=2] [Candidate] rejected vote for Node 1
+[00:39:33.559] [info] [Node 2] [term=3] [Candidate] starting election
+[00:39:33.561] [info] [Node 2] [term=3] [Leader] became leader
+[00:39:33.562] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.574] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.604] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.635] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.665] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.695] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.725] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.755] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.785] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.816] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.846] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.876] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.906] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.937] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.967] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:33.997] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.027] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.058] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.088] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.118] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.148] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.178] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.208] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.238] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.269] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.299] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.329] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.359] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.390] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.420] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.450] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.480] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.510] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.541] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.571] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.601] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.631] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.661] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.691] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.722] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.752] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.782] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.812] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.842] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.872] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.903] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.933] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.963] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:34.993] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.024] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.054] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.084] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.114] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.144] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.174] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.204] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.234] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.265] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.295] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.325] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.355] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.385] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.415] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.445] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.475] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.506] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.536] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.566] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.596] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.626] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.656] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.686] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.717] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.747] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.777] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.807] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.837] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.868] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.898] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.928] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.958] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=7
+[00:39:35.989] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:35.989] [debug] [Node 2] [term=3] [Leader] commitIndex advanced to 8
+[00:39:35.996] [debug] [Node 2] [KvStore] applied Get key=greeting at index=7
+[00:39:35.996] [debug] [Node 2] [KvStore] applied Get key=demo_key at index=8
+[00:39:36.019] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.049] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.079] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.109] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.140] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.170] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.200] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=8
+[00:39:36.231] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.231] [debug] [Node 2] [term=3] [Leader] commitIndex advanced to 9
+[00:39:36.237] [debug] [Node 2] [KvStore] applied Get key=city at index=9
+[00:39:36.260] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.290] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.321] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.351] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.381] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.411] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.441] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=9
+[00:39:36.472] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.472] [debug] [Node 2] [term=3] [Leader] commitIndex advanced to 10
+[00:39:36.479] [debug] [Node 2] [KvStore] applied Put key=after_crash at index=10
+[00:39:36.501] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.532] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.562] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.592] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.622] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.652] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.682] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=10
+[00:39:36.713] [debug] [Node 2] [term=3] [Leader] replicated to Node 1, matchIndex=11
+[00:39:36.713] [debug] [Node 2] [term=3] [Leader] commitIndex advanced to 11
+[00:39:36.721] [debug] [Node 2] [KvStore] applied Get key=after_crash at index=11

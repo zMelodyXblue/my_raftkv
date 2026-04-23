@@ -193,6 +193,8 @@ void KvStore::apply_command(const ApplyMsg& msg) {
 
     // Notify the RPC handler waiting on this log index.
     notify_wait_channel(msg.command_index, result);
+    spdlog::debug("[Node {}] [KvStore] applied {} key={} at index={}",
+                  config_.node_id, op.op, op.key, msg.command_index);
   }
 
   // Phase 5: check if snapshot is needed.
@@ -206,6 +208,8 @@ void KvStore::apply_snapshot(const ApplyMsg& msg) {
   if (msg.snapshot_index <= last_snapshot_index_) return;
   restore_snapshot(msg.snapshot);
   last_snapshot_index_ = msg.snapshot_index;
+  spdlog::info("[Node {}] [KvStore] applied remote snapshot (index={})",
+               config_.node_id, msg.snapshot_index);
 }
 
 // ── Snapshot ─────────────────────────────────────────────────────
@@ -216,6 +220,8 @@ void KvStore::maybe_take_snapshot(int applied_index) {
   if (config_.raft.max_raft_state_bytes < 0) return;
   if (raft_->raft_state_size() <= config_.raft.max_raft_state_bytes) return;
 
+  spdlog::info("[Node {}] [KvStore] triggering snapshot at index {}",
+               config_.node_id, applied_index);
   std::string snap;
   {
     std::lock_guard<std::mutex> lk(mu_);

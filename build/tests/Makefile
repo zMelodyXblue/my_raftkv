@@ -210,6 +210,58 @@ test_snapshot/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/build
 .PHONY : test_snapshot/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_stress.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_stress.dir/rule
+.PHONY : tests/CMakeFiles/test_stress.dir/rule
+
+# Convenience name for target.
+test_stress: tests/CMakeFiles/test_stress.dir/rule
+.PHONY : test_stress
+
+# fast build rule for target.
+test_stress/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_stress.dir/build.make tests/CMakeFiles/test_stress.dir/build
+.PHONY : test_stress/fast
+
+# Convenience name for target.
+tests/CMakeFiles/test_dedup.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_dedup.dir/rule
+.PHONY : tests/CMakeFiles/test_dedup.dir/rule
+
+# Convenience name for target.
+test_dedup: tests/CMakeFiles/test_dedup.dir/rule
+.PHONY : test_dedup
+
+# fast build rule for target.
+test_dedup/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/build
+.PHONY : test_dedup/fast
+
+dedup_test.o: dedup_test.cpp.o
+.PHONY : dedup_test.o
+
+# target to build an object file
+dedup_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/dedup_test.cpp.o
+.PHONY : dedup_test.cpp.o
+
+dedup_test.i: dedup_test.cpp.i
+.PHONY : dedup_test.i
+
+# target to preprocess a source file
+dedup_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/dedup_test.cpp.i
+.PHONY : dedup_test.cpp.i
+
+dedup_test.s: dedup_test.cpp.s
+.PHONY : dedup_test.s
+
+# target to generate assembly for a file
+dedup_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/dedup_test.cpp.s
+.PHONY : dedup_test.cpp.s
+
 election_test.o: election_test.cpp.o
 .PHONY : election_test.o
 
@@ -354,6 +406,30 @@ snapshot_test.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_snapshot.dir/build.make tests/CMakeFiles/test_snapshot.dir/snapshot_test.cpp.s
 .PHONY : snapshot_test.cpp.s
 
+stress_test.o: stress_test.cpp.o
+.PHONY : stress_test.o
+
+# target to build an object file
+stress_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_stress.dir/build.make tests/CMakeFiles/test_stress.dir/stress_test.cpp.o
+.PHONY : stress_test.cpp.o
+
+stress_test.i: stress_test.cpp.i
+.PHONY : stress_test.i
+
+# target to preprocess a source file
+stress_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_stress.dir/build.make tests/CMakeFiles/test_stress.dir/stress_test.cpp.i
+.PHONY : stress_test.cpp.i
+
+stress_test.s: stress_test.cpp.s
+.PHONY : stress_test.s
+
+# target to generate assembly for a file
+stress_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_stress.dir/build.make tests/CMakeFiles/test_stress.dir/stress_test.cpp.s
+.PHONY : stress_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -363,12 +439,17 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... test_dedup"
 	@echo "... test_election"
 	@echo "... test_kv"
 	@echo "... test_persister"
 	@echo "... test_replication"
 	@echo "... test_smoke"
 	@echo "... test_snapshot"
+	@echo "... test_stress"
+	@echo "... dedup_test.o"
+	@echo "... dedup_test.i"
+	@echo "... dedup_test.s"
 	@echo "... election_test.o"
 	@echo "... election_test.i"
 	@echo "... election_test.s"
@@ -387,6 +468,9 @@ help:
 	@echo "... snapshot_test.o"
 	@echo "... snapshot_test.i"
 	@echo "... snapshot_test.s"
+	@echo "... stress_test.o"
+	@echo "... stress_test.i"
+	@echo "... stress_test.s"
 .PHONY : help
 
 
