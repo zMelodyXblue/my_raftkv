@@ -238,6 +238,20 @@ test_dedup/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/build
 .PHONY : test_dedup/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_skiplist.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_skiplist.dir/rule
+.PHONY : tests/CMakeFiles/test_skiplist.dir/rule
+
+# Convenience name for target.
+test_skiplist: tests/CMakeFiles/test_skiplist.dir/rule
+.PHONY : test_skiplist
+
+# fast build rule for target.
+test_skiplist/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_skiplist.dir/build.make tests/CMakeFiles/test_skiplist.dir/build
+.PHONY : test_skiplist/fast
+
 dedup_test.o: dedup_test.cpp.o
 .PHONY : dedup_test.o
 
@@ -358,6 +372,30 @@ replication_test.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_replication.dir/build.make tests/CMakeFiles/test_replication.dir/replication_test.cpp.s
 .PHONY : replication_test.cpp.s
 
+skiplist_test.o: skiplist_test.cpp.o
+.PHONY : skiplist_test.o
+
+# target to build an object file
+skiplist_test.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_skiplist.dir/build.make tests/CMakeFiles/test_skiplist.dir/skiplist_test.cpp.o
+.PHONY : skiplist_test.cpp.o
+
+skiplist_test.i: skiplist_test.cpp.i
+.PHONY : skiplist_test.i
+
+# target to preprocess a source file
+skiplist_test.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_skiplist.dir/build.make tests/CMakeFiles/test_skiplist.dir/skiplist_test.cpp.i
+.PHONY : skiplist_test.cpp.i
+
+skiplist_test.s: skiplist_test.cpp.s
+.PHONY : skiplist_test.s
+
+# target to generate assembly for a file
+skiplist_test.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_skiplist.dir/build.make tests/CMakeFiles/test_skiplist.dir/skiplist_test.cpp.s
+.PHONY : skiplist_test.cpp.s
+
 smoke_test.o: smoke_test.cpp.o
 .PHONY : smoke_test.o
 
@@ -444,6 +482,7 @@ help:
 	@echo "... test_kv"
 	@echo "... test_persister"
 	@echo "... test_replication"
+	@echo "... test_skiplist"
 	@echo "... test_smoke"
 	@echo "... test_snapshot"
 	@echo "... test_stress"
@@ -462,6 +501,9 @@ help:
 	@echo "... replication_test.o"
 	@echo "... replication_test.i"
 	@echo "... replication_test.s"
+	@echo "... skiplist_test.o"
+	@echo "... skiplist_test.i"
+	@echo "... skiplist_test.s"
 	@echo "... smoke_test.o"
 	@echo "... smoke_test.i"
 	@echo "... smoke_test.s"

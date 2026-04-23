@@ -79,3 +79,12 @@ target_link_libraries(test_dedup PRIVATE
   GTest::Main
 )
 add_test(NAME dedup COMMAND test_dedup)
+
+# Phase 6B: SkipList unit tests (header-only, no runtime deps)
+add_executable(test_skiplist skiplist_test.cpp)
+target_link_libraries(test_skiplist PRIVATE
+  common
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME skiplist COMMAND test_skiplist)

@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 
 #include "common/hashmap_engine.h"
+#include "common/skiplist_engine.h"
 #include "raft/raft.h"
 
 // KvOp serialization uses protobuf.
@@ -19,7 +20,9 @@ KvStore::KvStore(const ServerConfig& config,
     : config_(config),
       raft_(std::move(raft)),
       apply_channel_(std::move(apply_channel)),
-      data_(new HashMapEngine()) {
+      data_(config.engine_type == "skiplist"
+                ? static_cast<KvEngine*>(new SkipListEngine())
+                : static_cast<KvEngine*>(new HashMapEngine())) {
   // Phase 5: restore from persisted snapshot before starting the apply thread.
   // This ensures the KV state is consistent before any new commands are applied.
   std::string snap = raft_->read_persisted_snapshot();

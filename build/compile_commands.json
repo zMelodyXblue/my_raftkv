@@ -118,5 +118,11 @@
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/test_dedup.dir/dedup_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp",
   "output": "tests/CMakeFiles/test_dedup.dir/dedup_test.cpp.o"
+},
+{
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests",
+  "command": "/usr/bin/c++  -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -std=gnu++14 -o CMakeFiles/test_skiplist.dir/skiplist_test.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/skiplist_test.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/skiplist_test.cpp",
+  "output": "tests/CMakeFiles/test_skiplist.dir/skiplist_test.cpp.o"
 }
 ]

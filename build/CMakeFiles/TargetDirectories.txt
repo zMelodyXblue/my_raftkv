@@ -34,6 +34,7 @@
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_snapshot.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_stress.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_dedup.dir
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test_skiplist.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/test.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/edit_cache.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests/CMakeFiles/rebuild_cache.dir

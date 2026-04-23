@@ -5,4 +5,5 @@ smoke 2 0.0117537
 persister 2 0.0277824
 kv 2 3.24044
 dedup 1 2.59014
+skiplist 1 0.0044298
 ---

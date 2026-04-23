@@ -84,4 +84,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "tests/CMakeFiles/test_snapshot.dir/DependInfo.cmake"
   "tests/CMakeFiles/test_stress.dir/DependInfo.cmake"
   "tests/CMakeFiles/test_dedup.dir/DependInfo.cmake"
+  "tests/CMakeFiles/test_skiplist.dir/DependInfo.cmake"
   )

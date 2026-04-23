@@ -32,6 +32,7 @@ struct ServerConfig {
   std::string listen_addr = "0.0.0.0:50051";  // This node's gRPC listen address
   std::vector<std::string> peer_addrs;         // All peer addresses (including self)
   std::string data_dir = "./data";             // Persistence directory
+  std::string engine_type = "hashmap";         // "hashmap" or "skiplist"
   RaftConfig  raft;
 };
 

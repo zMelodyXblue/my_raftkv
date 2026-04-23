@@ -321,6 +321,19 @@ test_dedup/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_dedup.dir/build.make tests/CMakeFiles/test_dedup.dir/build
 .PHONY : test_dedup/fast
 
+#=============================================================================
+# Target rules for targets named test_skiplist
+
+# Build rule for target.
+test_skiplist: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_skiplist
+.PHONY : test_skiplist
+
+# fast build rule for target.
+test_skiplist/fast:
+	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test_skiplist.dir/build.make tests/CMakeFiles/test_skiplist.dir/build
+.PHONY : test_skiplist/fast
+
 src/proto/kv.grpc.pb.o: src/proto/kv.grpc.pb.cc.o
 .PHONY : src/proto/kv.grpc.pb.o
 
@@ -438,6 +451,7 @@ help:
 	@echo "... test_kv"
 	@echo "... test_persister"
 	@echo "... test_replication"
+	@echo "... test_skiplist"
 	@echo "... test_smoke"
 	@echo "... test_snapshot"
 	@echo "... test_stress"
