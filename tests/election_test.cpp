@@ -56,7 +56,7 @@ class TestCluster {
 
       std::vector<std::shared_ptr<RaftPeerClient>> peers;
       for (int j = 0; j < n_; ++j)
-        peers.push_back(std::make_shared<RaftPeerClient>(addrs_[j]));
+        peers.push_back(std::make_shared<GrpcRaftPeerClient>(addrs_[j]));
 
       auto persister = std::make_shared<Persister>(i, tmpdir_);
       auto queue = std::make_shared<ThreadSafeQueue<ApplyMsg>>();

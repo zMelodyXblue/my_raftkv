@@ -81,11 +81,11 @@ grpc::Status RaftServiceImpl::InstallSnapshot(
 
 // ── RaftPeerClient ────────────────────────────────────────────────
 
-RaftPeerClient::RaftPeerClient(const std::string& addr)
+GrpcRaftPeerClient::GrpcRaftPeerClient(const std::string& addr)
     : stub_(raft::RaftService::NewStub(
           grpc::CreateChannel(addr, grpc::InsecureChannelCredentials()))) {}
 
-bool RaftPeerClient::append_entries(const AppendEntriesArgs& args,
+bool GrpcRaftPeerClient::append_entries(const AppendEntriesArgs& args,
                                     AppendEntriesReply*      reply,
                                     int timeout_ms) {
   // Convert DTO → proto request
@@ -118,7 +118,7 @@ bool RaftPeerClient::append_entries(const AppendEntriesArgs& args,
   return true;
 }
 
-bool RaftPeerClient::request_vote(const RequestVoteArgs& args,
+bool GrpcRaftPeerClient::request_vote(const RequestVoteArgs& args,
                                   RequestVoteReply*      reply,
                                   int timeout_ms) {
   raft::RequestVoteRequest req;
@@ -140,7 +140,7 @@ bool RaftPeerClient::request_vote(const RequestVoteArgs& args,
   return true;
 }
 
-bool RaftPeerClient::install_snapshot(const InstallSnapshotArgs& args,
+bool GrpcRaftPeerClient::install_snapshot(const InstallSnapshotArgs& args,
                                       InstallSnapshotReply*      reply,
                                       int timeout_ms) {
   // Phase 5

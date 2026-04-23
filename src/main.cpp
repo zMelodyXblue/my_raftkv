@@ -104,7 +104,7 @@ int main(int argc, char* argv[]) {
       // but the vector must be indexed by node_id.
       peers.push_back(std::shared_ptr<raftkv::RaftPeerClient>());
     } else {
-      peers.push_back(std::make_shared<raftkv::RaftPeerClient>(
+      peers.push_back(std::make_shared<raftkv::GrpcRaftPeerClient>(
           args.peer_addrs[i]));
     }
   }

@@ -2,6 +2,7 @@
 
 #include <spdlog/spdlog.h>
 
+#include "common/hashmap_engine.h"
 #include "raft/raft.h"
 
 // KvOp serialization uses protobuf.
@@ -17,7 +18,8 @@ KvStore::KvStore(const ServerConfig& config,
                  std::shared_ptr<ThreadSafeQueue<ApplyMsg>> apply_channel)
     : config_(config),
       raft_(std::move(raft)),
-      apply_channel_(std::move(apply_channel)) {
+      apply_channel_(std::move(apply_channel)),
+      data_(new HashMapEngine()) {
   // Phase 5: restore from persisted snapshot before starting the apply thread.
   // This ensures the KV state is consistent before any new commands are applied.
   std::string snap = raft_->read_persisted_snapshot();
@@ -172,17 +174,17 @@ void KvStore::apply_command(const ApplyMsg& msg) {
     if (is_duplicate(op.client_id, op.request_id)) {
       // Duplicate — skip mutation but still read for Get.
       if (op.op == "Get") {
-        auto it = data_.find(op.key);
-        result.value = (it != data_.end()) ? it->second : "";
+        std::string val;
+        if (data_->get(op.key, &val)) result.value = val;
       }
     } else {
       if (op.op == "Get") {
-        auto it = data_.find(op.key);
-        result.value = (it != data_.end()) ? it->second : "";
+        std::string val;
+        if (data_->get(op.key, &val)) result.value = val;
       } else if (op.op == "Put") {
-        data_[op.key] = op.value;
+        data_->put(op.key, op.value);
       } else if (op.op == "Append") {
-        data_[op.key] += op.value;
+        data_->append(op.key, op.value);
       } else {
         result.error = ErrCode::ErrNoKey;
       }
@@ -228,9 +230,9 @@ void KvStore::maybe_take_snapshot(int applied_index) {
 std::string KvStore::serialize_snapshot() {
   kv::KvSnapshot snapshot;
   auto* data_map = snapshot.mutable_data();
-  for (const auto& kv : data_) {
-    (*data_map)[kv.first] = kv.second;
-  }
+  data_->for_each([data_map](const std::string& k, const std::string& v) {
+    (*data_map)[k] = v;
+  });
   auto* req_map = snapshot.mutable_last_request_id();
   for (const auto& kv : last_request_id_) {
     (*req_map)[kv.first] = kv.second;
@@ -246,9 +248,9 @@ void KvStore::restore_snapshot(const std::string& data) {
   kv::KvSnapshot snapshot;
   if (!snapshot.ParseFromString(data)) return;
 
-  data_.clear();
+  data_->clear();
   for (const auto& kv : snapshot.data()) {
-    data_[kv.first] = kv.second;
+    data_->put(kv.first, kv.second);
   }
   last_request_id_.clear();
   for (const auto& kv : snapshot.last_request_id()) {

@@ -194,6 +194,9 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
   /usr/include/c++/9/bits/stl_vector.h \
   /usr/include/c++/9/bits/stl_bvector.h \
   /usr/include/c++/9/bits/vector.tcc \
+  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/kv_engine.h \
+  /usr/include/c++/9/functional \
+  /usr/include/c++/9/bits/std_function.h \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/thread_safe_queue.h \
   /usr/include/c++/9/condition_variable \
   /usr/include/c++/9/queue \
@@ -207,8 +210,6 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
   /usr/include/spdlog/common.h \
   /usr/include/spdlog/tweakme.h \
   /usr/include/spdlog/details/null_mutex.h \
-  /usr/include/c++/9/functional \
-  /usr/include/c++/9/bits/std_function.h \
   /usr/include/spdlog/fmt/fmt.h \
   /usr/include/spdlog/fmt/bundled/core.h \
   /usr/include/c++/9/cstring \
@@ -266,6 +267,7 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
   /usr/include/assert.h \
   /usr/include/spdlog/version.h \
   /usr/include/spdlog/details/synchronous_factory.h \
+  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/hashmap_engine.h \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft.h \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.pb.h \
   /usr/include/google/protobuf/stubs/common.h \
@@ -459,6 +461,8 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft.h:
 
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/hashmap_engine.h:
+
 /usr/include/spdlog/details/synchronous_factory.h:
 
 /usr/include/assert.h:
@@ -521,8 +525,6 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 
 /usr/include/spdlog/fmt/bundled/core.h:
 
-/usr/include/c++/9/bits/std_function.h:
-
 /usr/include/c++/9/bits/ostream.tcc:
 
 /usr/include/spdlog/details/null_mutex.h:
@@ -540,6 +542,14 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 /usr/include/x86_64-linux-gnu/bits/signum.h:
 
 /usr/include/c++/9/bits/stl_heap.h:
+
+/usr/include/c++/9/bits/stl_deque.h:
+
+/usr/include/google/protobuf/map_entry.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
+
+/usr/include/c++/9/queue:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
 
@@ -660,12 +670,6 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 /usr/include/c++/9/bits/stringfwd.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/c++/9/bits/algorithmfwd.h:
-
-/usr/include/c++/9/functional:
-
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/x86_64-linux-gnu/bits/sigcontext.h:
 
@@ -807,19 +811,13 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/atomic_word.h:
 
-/usr/include/c++/9/bits/stl_raw_storage_iter.h:
+/usr/include/c++/9/bits/std_function.h:
 
 /usr/include/linux/limits.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/gthr-default.h:
 
 /usr/include/c++/9/bits/uses_allocator.h:
-
-/usr/include/google/protobuf/map_entry.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
-
-/usr/include/c++/9/queue:
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
@@ -1073,4 +1071,12 @@ src/kv_store/CMakeFiles/kv_store.dir/kv_store.cpp.o: /home/zmagex/5.Projects/raf
 
 /usr/include/c++/9/bits/vector.tcc:
 
-/usr/include/c++/9/bits/stl_deque.h:
+/usr/include/c++/9/bits/stl_raw_storage_iter.h:
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/kv_engine.h:
+
+/usr/include/c++/9/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/c++/9/functional:

@@ -4,6 +4,7 @@
 
 #include <grpcpp/grpcpp.h>
 #include "raft.grpc.pb.h"
+#include "common/raft_peer.h"
 #include "common/types.h"
 
 namespace raftkv {
@@ -39,28 +40,25 @@ class RaftServiceImpl final : public raft::RaftService::Service {
 };
 
 // ═════════════════════════════════════════════════════════════════
-// RaftPeerClient — gRPC client stub for communicating with one peer
+// GrpcRaftPeerClient — gRPC implementation of RaftPeerClient
 // ═════════════════════════════════════════════════════════════════
 // Translates internal DTOs → proto → gRPC call → DTO reply.
-// Raft core calls this interface and never sees proto types.
 //
-class RaftPeerClient {
+class GrpcRaftPeerClient : public RaftPeerClient {
  public:
-  explicit RaftPeerClient(const std::string& addr);
+  explicit GrpcRaftPeerClient(const std::string& addr);
 
-  // Returns true if the RPC succeeded (network-level).
-  // A false reply (vote denied / log mismatch) is still a success here.
   bool append_entries(const AppendEntriesArgs& args,
                       AppendEntriesReply*      reply,
-                      int timeout_ms);
+                      int timeout_ms) override;
 
   bool request_vote(const RequestVoteArgs& args,
                     RequestVoteReply*      reply,
-                    int timeout_ms);
+                    int timeout_ms) override;
 
   bool install_snapshot(const InstallSnapshotArgs& args,
                         InstallSnapshotReply*      reply,
-                        int timeout_ms);
+                        int timeout_ms) override;
 
  private:
   std::unique_ptr<raft::RaftService::Stub> stub_;

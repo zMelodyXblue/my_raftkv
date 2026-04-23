@@ -77,7 +77,7 @@ class SnapshotCluster {
 
     std::vector<std::shared_ptr<RaftPeerClient>> peers;
     for (int j = 0; j < n_; ++j)
-      peers.push_back(std::make_shared<RaftPeerClient>(addrs_[j]));
+      peers.push_back(std::make_shared<GrpcRaftPeerClient>(addrs_[j]));
 
     auto persister = std::make_shared<Persister>(i, tmpdir_);
     nd.raft = std::make_shared<Raft>(cfg, std::move(peers), persister, nd.queue);

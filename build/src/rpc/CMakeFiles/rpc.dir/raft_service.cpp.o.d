@@ -333,6 +333,7 @@ src/rpc/CMakeFiles/rpc.dir/raft_service.cpp.o: \
  /usr/include/grpcpp/impl/codegen/proto_buffer_reader.h \
  /usr/include/grpcpp/impl/codegen/proto_buffer_writer.h \
  /usr/include/grpcpp/impl/codegen/stub_options.h \
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/raft_peer.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/types.h \
  /usr/include/spdlog/spdlog.h /usr/include/spdlog/common.h \
  /usr/include/spdlog/tweakme.h /usr/include/spdlog/details/null_mutex.h \

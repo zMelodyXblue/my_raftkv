@@ -288,6 +288,7 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft.h \
  /usr/include/c++/9/thread \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/kv_store/kv_store.h \
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/kv_engine.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.grpc.pb.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.pb.h \
@@ -375,4 +376,5 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: \
  /usr/include/grpcpp/impl/codegen/stub_options.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/raft_service.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.grpc.pb.h \
- /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.pb.h
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.pb.h \
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/raft_peer.h

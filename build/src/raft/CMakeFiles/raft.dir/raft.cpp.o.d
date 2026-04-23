@@ -208,68 +208,18 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: \
  /usr/include/spdlog/details/circular_q.h /usr/include/c++/9/cassert \
  /usr/include/assert.h /usr/include/spdlog/version.h \
  /usr/include/spdlog/details/synchronous_factory.h \
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/raft_peer.h \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.h \
- /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/raft_service.h \
- /usr/include/grpcpp/grpcpp.h /usr/include/grpc/grpc.h \
- /usr/include/grpc/support/port_platform.h \
- /usr/include/grpc/impl/codegen/port_platform.h \
- /usr/include/linux/version.h /usr/include/grpc/status.h \
- /usr/include/grpc/impl/codegen/status.h /usr/include/grpc/byte_buffer.h \
- /usr/include/grpc/impl/codegen/byte_buffer.h \
- /usr/include/grpc/impl/codegen/grpc_types.h \
- /usr/include/grpc/impl/codegen/compression_types.h \
- /usr/include/grpc/impl/codegen/gpr_types.h \
- /usr/include/grpc/impl/codegen/slice.h \
- /usr/include/grpc/impl/codegen/gpr_slice.h \
- /usr/include/grpc/slice_buffer.h /usr/include/grpc/slice.h \
- /usr/include/grpc/support/sync.h /usr/include/grpc/impl/codegen/sync.h \
- /usr/include/grpc/impl/codegen/sync_generic.h \
- /usr/include/grpc/impl/codegen/atm.h \
- /usr/include/grpc/impl/codegen/atm_gcc_atomic.h \
- /usr/include/grpc/impl/codegen/sync_posix.h \
- /usr/include/grpc/impl/codegen/connectivity_state.h \
- /usr/include/grpc/impl/codegen/propagation_bits.h \
- /usr/include/grpc/support/time.h /usr/include/grpcpp/channel.h \
- /usr/include/grpcpp/impl/call.h /usr/include/grpcpp/impl/codegen/call.h \
+ /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.pb.h \
+ /usr/include/google/protobuf/stubs/common.h /usr/include/c++/9/iostream \
  /usr/include/c++/9/map /usr/include/c++/9/bits/stl_tree.h \
  /usr/include/c++/9/bits/stl_map.h /usr/include/c++/9/bits/stl_multimap.h \
- /usr/include/grpcpp/impl/codegen/byte_buffer.h \
- /usr/include/grpcpp/impl/codegen/config.h \
- /usr/include/grpcpp/impl/codegen/core_codegen_interface.h \
- /usr/include/grpc/impl/codegen/byte_buffer_reader.h \
- /usr/include/grpcpp/impl/codegen/status.h \
- /usr/include/grpcpp/impl/codegen/status_code_enum.h \
- /usr/include/grpcpp/impl/codegen/serialization_traits.h \
- /usr/include/grpcpp/impl/codegen/slice.h \
- /usr/include/grpcpp/impl/codegen/string_ref.h \
- /usr/include/c++/9/iostream /usr/include/grpcpp/impl/codegen/call_hook.h \
- /usr/include/grpcpp/impl/codegen/client_context.h \
- /usr/include/grpcpp/impl/codegen/create_auth_context.h \
- /usr/include/grpcpp/impl/codegen/security/auth_context.h \
- /usr/include/grpcpp/impl/codegen/metadata_map.h \
- /usr/include/grpc/impl/codegen/log.h /usr/include/c++/9/stdlib.h \
- /usr/include/grpcpp/impl/codegen/time.h \
- /usr/include/grpcpp/impl/codegen/completion_queue_tag.h \
- /usr/include/grpcpp/impl/codegen/channel_interface.h \
- /usr/include/grpcpp/impl/codegen/client_interceptor.h \
- /usr/include/grpcpp/impl/codegen/interceptor.h \
- /usr/include/grpcpp/impl/codegen/grpc_library.h \
- /usr/include/grpcpp/client_context.h \
- /usr/include/grpcpp/completion_queue.h \
- /usr/include/grpcpp/impl/codegen/completion_queue.h \
- /usr/include/grpcpp/create_channel.h \
- /usr/include/grpcpp/security/credentials.h \
- /usr/include/grpc/grpc_security_constants.h \
- /usr/include/grpcpp/security/auth_context.h \
- /usr/include/grpcpp/support/status.h \
- /usr/include/grpcpp/support/string_ref.h \
- /usr/include/grpcpp/support/channel_arguments.h /usr/include/c++/9/list \
- /usr/include/c++/9/bits/stl_list.h /usr/include/c++/9/bits/list.tcc \
- /usr/include/grpc/compression.h /usr/include/grpcpp/support/config.h \
- /usr/include/grpcpp/create_channel_posix.h /usr/include/grpcpp/server.h \
- /usr/include/grpcpp/impl/codegen/server_interface.h \
- /usr/include/grpcpp/impl/codegen/rpc_service_method.h \
- /usr/include/c++/9/climits \
+ /usr/include/c++/9/set /usr/include/c++/9/bits/stl_set.h \
+ /usr/include/c++/9/bits/stl_multiset.h \
+ /usr/include/google/protobuf/stubs/port.h /usr/include/c++/9/stdlib.h \
+ /usr/include/c++/9/cstddef \
+ /usr/include/google/protobuf/stubs/platform_macros.h \
+ /usr/include/x86_64-linux-gnu/sys/param.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
@@ -277,26 +227,7 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: \
  /usr/include/linux/limits.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
- /usr/include/grpcpp/impl/codegen/rpc_method.h \
- /usr/include/grpcpp/impl/rpc_service_method.h \
- /usr/include/grpcpp/security/server_credentials.h \
- /usr/include/grpcpp/security/auth_metadata_processor.h \
- /usr/include/grpcpp/server_builder.h /usr/include/grpc/support/cpu.h \
- /usr/include/grpc/support/workaround_list.h \
- /usr/include/grpcpp/impl/channel_argument_option.h \
- /usr/include/grpcpp/impl/server_builder_option.h \
- /usr/include/grpcpp/impl/server_builder_plugin.h \
- /usr/include/grpcpp/server_context.h \
- /usr/include/grpcpp/impl/codegen/server_context.h \
- /usr/include/grpcpp/server_posix.h \
- /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.grpc.pb.h \
- /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.pb.h \
- /usr/include/google/protobuf/stubs/common.h /usr/include/c++/9/set \
- /usr/include/c++/9/bits/stl_set.h /usr/include/c++/9/bits/stl_multiset.h \
- /usr/include/google/protobuf/stubs/port.h /usr/include/c++/9/cstddef \
- /usr/include/google/protobuf/stubs/platform_macros.h \
- /usr/include/x86_64-linux-gnu/sys/param.h /usr/include/signal.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/signal.h \
  /usr/include/x86_64-linux-gnu/bits/signum.h \
  /usr/include/x86_64-linux-gnu/bits/signum-generic.h \
  /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h \
@@ -325,7 +256,7 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: \
  /usr/include/google/protobuf/stubs/mutex.h \
  /usr/include/google/protobuf/stubs/callback.h \
  /usr/include/google/protobuf/io/coded_stream.h \
- /usr/include/google/protobuf/arena.h \
+ /usr/include/c++/9/climits /usr/include/google/protobuf/arena.h \
  /usr/include/google/protobuf/arena_impl.h \
  /usr/include/google/protobuf/arenastring.h \
  /usr/include/google/protobuf/stubs/fastmem.h \
@@ -353,20 +284,4 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: \
  /usr/include/google/protobuf/unknown_field_set.h \
  /usr/include/google/protobuf/message.h \
  /usr/include/google/protobuf/descriptor.h \
- /usr/include/google/protobuf/extension_set.h \
- /usr/include/grpcpp/impl/codegen/async_generic_service.h \
- /usr/include/grpcpp/impl/codegen/async_stream.h \
- /usr/include/grpcpp/impl/codegen/service_type.h \
- /usr/include/grpcpp/impl/codegen/async_unary_call.h \
- /usr/include/grpcpp/impl/codegen/method_handler_impl.h \
- /usr/include/grpcpp/impl/codegen/sync_stream.h \
- /usr/include/grpcpp/impl/codegen/proto_utils.h \
- /usr/include/grpcpp/impl/codegen/config_protobuf.h \
- /usr/include/google/protobuf/descriptor.pb.h \
- /usr/include/google/protobuf/generated_enum_reflection.h \
- /usr/include/google/protobuf/descriptor_database.h \
- /usr/include/google/protobuf/io/zero_copy_stream.h \
- /usr/include/grpcpp/impl/codegen/proto_buffer_reader.h \
- /usr/include/grpcpp/impl/codegen/proto_buffer_writer.h \
- /usr/include/grpcpp/impl/codegen/stub_options.h \
- /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/raft.pb.h
+ /usr/include/google/protobuf/extension_set.h

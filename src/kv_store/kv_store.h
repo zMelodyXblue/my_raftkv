@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "common/config.h"
+#include "common/kv_engine.h"
 #include "common/thread_safe_queue.h"
 #include "common/types.h"
 
@@ -102,8 +103,8 @@ class KvStore {
 
   mutable std::mutex mu_;
 
-  // The actual KV data store
-  std::unordered_map<std::string, std::string> data_;
+  // The actual KV data store (pluggable via KvEngine interface)
+  std::unique_ptr<KvEngine> data_;
 
   // Deduplication: client_id → last applied request_id
   std::unordered_map<std::string, int64_t> last_request_id_;

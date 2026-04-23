@@ -4,8 +4,8 @@
 #include <random>
 #include <spdlog/spdlog.h>
 
+#include "common/raft_peer.h"
 #include "raft/persister.h"
-#include "rpc/raft_service.h"
 
 // persist() / restore() are the only places that touch protobuf.
 // They are explicit serialization boundaries: everything else in this
