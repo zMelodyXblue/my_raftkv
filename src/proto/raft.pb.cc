@@ -263,6 +263,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, current_term_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, voted_for_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, logs_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, last_snapshot_index_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, last_snapshot_term_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::raftkv::raft::LogEntry)},
@@ -324,19 +326,20 @@ void AddDescriptorsImpl() {
       "der_id\030\002 \001(\005\022\033\n\023last_included_index\030\003 \001("
       "\005\022\032\n\022last_included_term\030\004 \001(\005\022\014\n\004data\030\005 "
       "\001(\014\"$\n\024InstallSnapshotReply\022\014\n\004term\030\001 \001("
-      "\005\"`\n\020RaftPersistState\022\024\n\014current_term\030\001 "
-      "\001(\005\022\021\n\tvoted_for\030\002 \001(\005\022#\n\004logs\030\003 \003(\0132\025.r"
-      "aftkv.raft.LogEntry2\214\002\n\013RaftService\022S\n\rA"
-      "ppendEntries\022!.raftkv.raft.AppendEntries"
-      "Request\032\037.raftkv.raft.AppendEntriesReply"
-      "\022M\n\013RequestVote\022\037.raftkv.raft.RequestVot"
-      "eRequest\032\035.raftkv.raft.RequestVoteReply\022"
-      "Y\n\017InstallSnapshot\022#.raftkv.raft.Install"
-      "SnapshotRequest\032!.raftkv.raft.InstallSna"
-      "pshotReplyb\006proto3"
+      "\005\"\231\001\n\020RaftPersistState\022\024\n\014current_term\030\001"
+      " \001(\005\022\021\n\tvoted_for\030\002 \001(\005\022#\n\004logs\030\003 \003(\0132\025."
+      "raftkv.raft.LogEntry\022\033\n\023last_snapshot_in"
+      "dex\030\004 \001(\005\022\032\n\022last_snapshot_term\030\005 \001(\0052\214\002"
+      "\n\013RaftService\022S\n\rAppendEntries\022!.raftkv."
+      "raft.AppendEntriesRequest\032\037.raftkv.raft."
+      "AppendEntriesReply\022M\n\013RequestVote\022\037.raft"
+      "kv.raft.RequestVoteRequest\032\035.raftkv.raft"
+      ".RequestVoteReply\022Y\n\017InstallSnapshot\022#.r"
+      "aftkv.raft.InstallSnapshotRequest\032!.raft"
+      "kv.raft.InstallSnapshotReplyb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1058);
+      descriptor, 1116);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "raft.proto", &protobuf_RegisterTypes);
 }
@@ -2633,6 +2636,8 @@ void RaftPersistState::InitAsDefaultInstance() {
 const int RaftPersistState::kCurrentTermFieldNumber;
 const int RaftPersistState::kVotedForFieldNumber;
 const int RaftPersistState::kLogsFieldNumber;
+const int RaftPersistState::kLastSnapshotIndexFieldNumber;
+const int RaftPersistState::kLastSnapshotTermFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RaftPersistState::RaftPersistState()
@@ -2648,15 +2653,15 @@ RaftPersistState::RaftPersistState(const RaftPersistState& from)
       logs_(from.logs_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&current_term_, &from.current_term_,
-    static_cast<size_t>(reinterpret_cast<char*>(&voted_for_) -
-    reinterpret_cast<char*>(&current_term_)) + sizeof(voted_for_));
+    static_cast<size_t>(reinterpret_cast<char*>(&last_snapshot_term_) -
+    reinterpret_cast<char*>(&current_term_)) + sizeof(last_snapshot_term_));
   // @@protoc_insertion_point(copy_constructor:raftkv.raft.RaftPersistState)
 }
 
 void RaftPersistState::SharedCtor() {
   ::memset(&current_term_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&voted_for_) -
-      reinterpret_cast<char*>(&current_term_)) + sizeof(voted_for_));
+      reinterpret_cast<char*>(&last_snapshot_term_) -
+      reinterpret_cast<char*>(&current_term_)) + sizeof(last_snapshot_term_));
 }
 
 RaftPersistState::~RaftPersistState() {
@@ -2689,8 +2694,8 @@ void RaftPersistState::Clear() {
 
   logs_.Clear();
   ::memset(&current_term_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&voted_for_) -
-      reinterpret_cast<char*>(&current_term_)) + sizeof(voted_for_));
+      reinterpret_cast<char*>(&last_snapshot_term_) -
+      reinterpret_cast<char*>(&current_term_)) + sizeof(last_snapshot_term_));
   _internal_metadata_.Clear();
 }
 
@@ -2744,6 +2749,34 @@ bool RaftPersistState::MergePartialFromCodedStream(
         break;
       }
 
+      // int32 last_snapshot_index = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &last_snapshot_index_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 last_snapshot_term = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &last_snapshot_term_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2789,6 +2822,16 @@ void RaftPersistState::SerializeWithCachedSizes(
       output);
   }
 
+  // int32 last_snapshot_index = 4;
+  if (this->last_snapshot_index() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->last_snapshot_index(), output);
+  }
+
+  // int32 last_snapshot_term = 5;
+  if (this->last_snapshot_term() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->last_snapshot_term(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -2819,6 +2862,16 @@ void RaftPersistState::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
         3, this->logs(static_cast<int>(i)), deterministic, target);
+  }
+
+  // int32 last_snapshot_index = 4;
+  if (this->last_snapshot_index() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->last_snapshot_index(), target);
+  }
+
+  // int32 last_snapshot_term = 5;
+  if (this->last_snapshot_term() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->last_snapshot_term(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2863,6 +2916,20 @@ size_t RaftPersistState::ByteSizeLong() const {
         this->voted_for());
   }
 
+  // int32 last_snapshot_index = 4;
+  if (this->last_snapshot_index() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->last_snapshot_index());
+  }
+
+  // int32 last_snapshot_term = 5;
+  if (this->last_snapshot_term() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->last_snapshot_term());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -2897,6 +2964,12 @@ void RaftPersistState::MergeFrom(const RaftPersistState& from) {
   if (from.voted_for() != 0) {
     set_voted_for(from.voted_for());
   }
+  if (from.last_snapshot_index() != 0) {
+    set_last_snapshot_index(from.last_snapshot_index());
+  }
+  if (from.last_snapshot_term() != 0) {
+    set_last_snapshot_term(from.last_snapshot_term());
+  }
 }
 
 void RaftPersistState::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2926,6 +2999,8 @@ void RaftPersistState::InternalSwap(RaftPersistState* other) {
   CastToBase(&logs_)->InternalSwap(CastToBase(&other->logs_));
   swap(current_term_, other->current_term_);
   swap(voted_for_, other->voted_for_);
+  swap(last_snapshot_index_, other->last_snapshot_index_);
+  swap(last_snapshot_term_, other->last_snapshot_term_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

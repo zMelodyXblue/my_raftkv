@@ -1070,6 +1070,18 @@ class RaftPersistState : public ::google::protobuf::Message /* @@protoc_insertio
   ::google::protobuf::int32 voted_for() const;
   void set_voted_for(::google::protobuf::int32 value);
 
+  // int32 last_snapshot_index = 4;
+  void clear_last_snapshot_index();
+  static const int kLastSnapshotIndexFieldNumber = 4;
+  ::google::protobuf::int32 last_snapshot_index() const;
+  void set_last_snapshot_index(::google::protobuf::int32 value);
+
+  // int32 last_snapshot_term = 5;
+  void clear_last_snapshot_term();
+  static const int kLastSnapshotTermFieldNumber = 5;
+  ::google::protobuf::int32 last_snapshot_term() const;
+  void set_last_snapshot_term(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:raftkv.raft.RaftPersistState)
  private:
 
@@ -1077,6 +1089,8 @@ class RaftPersistState : public ::google::protobuf::Message /* @@protoc_insertio
   ::google::protobuf::RepeatedPtrField< ::raftkv::raft::LogEntry > logs_;
   ::google::protobuf::int32 current_term_;
   ::google::protobuf::int32 voted_for_;
+  ::google::protobuf::int32 last_snapshot_index_;
+  ::google::protobuf::int32 last_snapshot_term_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_raft_2eproto::TableStruct;
 };
@@ -1619,6 +1633,34 @@ inline const ::google::protobuf::RepeatedPtrField< ::raftkv::raft::LogEntry >&
 RaftPersistState::logs() const {
   // @@protoc_insertion_point(field_list:raftkv.raft.RaftPersistState.logs)
   return logs_;
+}
+
+// int32 last_snapshot_index = 4;
+inline void RaftPersistState::clear_last_snapshot_index() {
+  last_snapshot_index_ = 0;
+}
+inline ::google::protobuf::int32 RaftPersistState::last_snapshot_index() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.RaftPersistState.last_snapshot_index)
+  return last_snapshot_index_;
+}
+inline void RaftPersistState::set_last_snapshot_index(::google::protobuf::int32 value) {
+  
+  last_snapshot_index_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.RaftPersistState.last_snapshot_index)
+}
+
+// int32 last_snapshot_term = 5;
+inline void RaftPersistState::clear_last_snapshot_term() {
+  last_snapshot_term_ = 0;
+}
+inline ::google::protobuf::int32 RaftPersistState::last_snapshot_term() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.RaftPersistState.last_snapshot_term)
+  return last_snapshot_term_;
+}
+inline void RaftPersistState::set_last_snapshot_term(::google::protobuf::int32 value) {
+  
+  last_snapshot_term_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.RaftPersistState.last_snapshot_term)
 }
 
 #ifdef __GNUC__

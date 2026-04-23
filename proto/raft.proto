@@ -56,9 +56,11 @@ message InstallSnapshotReply {
 // Encodes the three fields that must survive crashes.
 // Used by Raft::persist() and Raft::restore().
 message RaftPersistState {
-  int32           current_term = 1;
-  int32           voted_for    = 2;  // -1 means "not voted"
-  repeated LogEntry logs       = 3;
+  int32           current_term        = 1;
+  int32           voted_for           = 2;  // -1 means "not voted"
+  repeated LogEntry logs              = 3;
+  int32           last_snapshot_index  = 4;
+  int32           last_snapshot_term   = 5;
 }
 
 // ── Raft internal RPC service ───────────────────────────────────

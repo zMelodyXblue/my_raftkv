@@ -66,6 +66,8 @@ class Raft : public std::enable_shared_from_this<Raft> {
   bool is_leader() const;
   int  node_id() const { return config_.node_id; }
   int  raft_state_size() const;
+  int  snapshot_index() const;                    // Phase 5: expose last_snapshot_index_
+  std::string read_persisted_snapshot() const;    // Phase 5: read snapshot from Persister
 
   // ── Inbound RPC Handlers ─────────────────────────────────────
   // Called by RaftServiceImpl (the gRPC adapter) after it has
@@ -104,7 +106,8 @@ class Raft : public std::enable_shared_from_this<Raft> {
   void maybe_advance_commit_index();  // Requires mu_ held
 
   // ── Persistence ──────────────────────────────────────────────
-  void persist();   // Encode and save state; call while holding mu_
+  std::string encode_raft_state() const;  // Serialize to protobuf bytes; requires mu_ held
+  void persist();   // Encode and save raft state only; call while holding mu_
   void restore();   // Load and decode state; call during construction
 
   // ── Log Helpers (all require mu_ held) ──────────────────────

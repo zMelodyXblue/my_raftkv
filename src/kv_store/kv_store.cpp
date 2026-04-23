@@ -18,6 +18,14 @@ KvStore::KvStore(const ServerConfig& config,
     : config_(config),
       raft_(std::move(raft)),
       apply_channel_(std::move(apply_channel)) {
+  // Phase 5: restore from persisted snapshot before starting the apply thread.
+  // This ensures the KV state is consistent before any new commands are applied.
+  std::string snap = raft_->read_persisted_snapshot();
+  if (!snap.empty()) {
+    restore_snapshot(snap);
+    last_snapshot_index_ = raft_->snapshot_index();
+  }
+
   running_ = true;
   apply_thread_ = std::thread(&KvStore::apply_loop, this);
 }
@@ -189,26 +197,58 @@ void KvStore::apply_command(const ApplyMsg& msg) {
   maybe_take_snapshot(msg.command_index);
 }
 
-// Phase 5: apply a snapshot received from Raft.
-void KvStore::apply_snapshot(const ApplyMsg& /*msg*/) {
-  // Phase 5: deserialize snapshot, replace data_ and last_request_id_.
+// Apply a snapshot received from Raft (via InstallSnapshot RPC).
+// Called by apply_loop() when it receives a snapshot ApplyMsg.
+void KvStore::apply_snapshot(const ApplyMsg& msg) {
+  std::lock_guard<std::mutex> lk(mu_);
+
+  // ── YOUR CODE HERE ──────────────────────────────────────────────
+  // 1. Call restore_snapshot(msg.snapshot) to replace KV state.
+  // 2. Update last_snapshot_index_ = msg.snapshot_index.
+  // ────────────────────────────────────────────────────────────────
 }
 
-// ── Snapshot (Phase 5 stubs) ─────────────────────────────────────
+// ── Snapshot ─────────────────────────────────────────────────────
 
-void KvStore::maybe_take_snapshot(int /*applied_index*/) {
-  // Phase 5: if raft_->raft_state_size() > config_.raft.max_raft_state_bytes,
-  //          call raft_->snapshot(applied_index, serialize_snapshot()).
+// Check if raft state is too large; if so, take a snapshot to compact the log.
+// Called after each command is applied (outside mu_ in apply_command).
+void KvStore::maybe_take_snapshot(int applied_index) {
+  // ── YOUR CODE HERE ──────────────────────────────────────────────
+  // 1. If config_.raft.max_raft_state_bytes < 0, snapshots are disabled; return.
+  // 2. If raft_->raft_state_size() <= config_.raft.max_raft_state_bytes, return.
+  // 3. Serialize the current KV state under mu_:
+  //      std::string snap = serialize_snapshot();
+  // 4. Tell Raft to compact:
+  //      raft_->snapshot(applied_index, snap);
+  // 5. Update last_snapshot_index_ = applied_index.
+  // ────────────────────────────────────────────────────────────────
 }
 
+// Serialize data_ and last_request_id_ into a kv::KvSnapshot protobuf string.
+// Requires mu_ held.
 std::string KvStore::serialize_snapshot() {
-  // Phase 5: serialize data_ and last_request_id_ into a kv::KvSnapshot
-  // protobuf string.
+  // ── YOUR CODE HERE ──────────────────────────────────────────────
+  // 1. Create kv::KvSnapshot message.
+  // 2. Populate its `data` map from data_.
+  // 3. Populate its `last_request_id` map from last_request_id_.
+  // 4. Serialize to string and return.
+  //
+  // Reference: kv.proto defines KvSnapshot with:
+  //   map<string, string> data            = 1;
+  //   map<string, int64>  last_request_id = 2;
+  // ────────────────────────────────────────────────────────────────
   return "";
 }
 
-void KvStore::restore_snapshot(const std::string& /*data*/) {
-  // Phase 5: deserialize kv::KvSnapshot, replace data_ and last_request_id_.
+// Deserialize a kv::KvSnapshot and replace the current KV state.
+// Requires mu_ held (called from constructor and apply_snapshot).
+void KvStore::restore_snapshot(const std::string& data) {
+  // ── YOUR CODE HERE ──────────────────────────────────────────────
+  // 1. Parse kv::KvSnapshot from `data`.  If parse fails, return.
+  // 2. Clear data_ and repopulate from the snapshot's `data` map.
+  // 3. Clear last_request_id_ and repopulate from the snapshot's
+  //    `last_request_id` map.
+  // ────────────────────────────────────────────────────────────────
 }
 
 // ── Deduplication ────────────────────────────────────────────────
