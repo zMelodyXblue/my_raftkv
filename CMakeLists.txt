@@ -14,12 +14,14 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # ── Dependencies ──────────────────────────────────────────────────
 find_package(Threads REQUIRED)
 
-# Protobuf: pin all three to the apt (3.6.1) versions so we don't accidentally
-# pick up a manually-compiled protoc/library at a different version.
-# The library pin matters because /usr/local/lib may contain an old source build.
-set(Protobuf_PROTOC_EXECUTABLE /usr/bin/protoc CACHE FILEPATH "" FORCE)
-set(Protobuf_LIBRARY /usr/lib/x86_64-linux-gnu/libprotobuf.so CACHE FILEPATH "" FORCE)
-set(Protobuf_LITE_LIBRARY /usr/lib/x86_64-linux-gnu/libprotobuf-lite.so CACHE FILEPATH "" FORCE)
+# Protobuf: on machines with multiple protobuf installations, enable this option
+# to pin to the apt (3.6.1) paths and avoid picking up a mismatched version.
+option(PIN_SYSTEM_PROTOBUF "Force use of system apt protobuf (/usr/bin, /usr/lib)" OFF)
+if(PIN_SYSTEM_PROTOBUF)
+  set(Protobuf_PROTOC_EXECUTABLE /usr/bin/protoc CACHE FILEPATH "" FORCE)
+  set(Protobuf_LIBRARY /usr/lib/x86_64-linux-gnu/libprotobuf.so CACHE FILEPATH "" FORCE)
+  set(Protobuf_LITE_LIBRARY /usr/lib/x86_64-linux-gnu/libprotobuf-lite.so CACHE FILEPATH "" FORCE)
+endif()
 find_package(Protobuf REQUIRED)
 
 # gRPC 1.16.1 from apt; no cmake config file, use pkg-config for link flags.

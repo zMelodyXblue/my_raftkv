@@ -1,5 +1,7 @@
-mkdir build
+#!/bin/bash
+set -e
+cd "$(dirname "$0")/.."
+mkdir -p build
 cd build
-cmake ..                                                                                                                                         
-cmake --build . --target raftkv_server -j$(nproc)
-cmake --build . --target raftkv_cli -j$(nproc)  
+cmake .. -DPIN_SYSTEM_PROTOBUF=ON
+cmake --build . --target raftkv_server raftkv_cli raftkv_bench -j$(nproc)

@@ -1,9 +1,9 @@
 election 4 0.97975
 replication 3 0.95193
-snapshot 4 5.75987
+snapshot 5 4.85274
 smoke 2 0.0117537
 persister 2 0.0277824
 kv 2 3.24044
-dedup 1 2.59014
+dedup 2 1.26946
 skiplist 1 0.0044298
 ---

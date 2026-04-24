@@ -11,6 +11,7 @@
 #include <spdlog/spdlog.h>
 
 #include "client/kv_client.h"
+#include "common/config_loader.h"
 
 // ── Command-line options ────────────────────────────────────────
 struct BenchOptions {
@@ -36,7 +37,7 @@ static std::vector<std::string> split_by_comma(const std::string& s) {
 static void usage() {
   std::cerr
     << "Usage:\n"
-    << "  raftkv_bench --peers <addr0,addr1,...>\n"
+    << "  raftkv_bench --config <file> | --peers <addr0,addr1,...>\n"
     << "               [--clients 4]\n"
     << "               [--requests 10000]\n"
     << "               [--value-size 256]\n"
@@ -46,7 +47,10 @@ static void usage() {
 static bool parse_args(int argc, char* argv[], BenchOptions& opts) {
   for (int i = 1; i < argc; ++i) {
     std::string arg = argv[i];
-    if ((arg == "--peers") && i + 1 < argc) {
+    if ((arg == "--config") && i + 1 < argc) {
+      raftkv::ServerConfig cfg = raftkv::load_config(argv[++i]);
+      opts.peers = cfg.peer_addrs;
+    } else if ((arg == "--peers") && i + 1 < argc) {
       opts.peers = split_by_comma(argv[++i]);
     } else if (arg == "--clients" && i + 1 < argc) {
       opts.clients = std::stoi(argv[++i]);

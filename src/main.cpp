@@ -6,6 +6,7 @@
 #include <spdlog/spdlog.h>
 
 #include "common/config.h"
+#include "common/config_loader.h"
 #include "common/thread_safe_queue.h"
 #include "common/types.h"
 #include "raft/persister.h"
@@ -16,16 +17,9 @@
 
 // ── Command-line parsing ──────────────────────────────────────────
 // Usage:
-//   raftkv_server --id <node_id> \
-//                 --peers <addr0>,<addr1>,<addr2> \
-//                 --data <data_dir>
-//
-// Example (3-node local cluster):
-//   raftkv_server --id 0 --peers 127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052 --data ./data/node0
-//   raftkv_server --id 1 --peers 127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052 --data ./data/node1
-//   raftkv_server --id 2 --peers 127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052 --data ./data/node2
-//
-// peer_addrs[node_id] is also used as the listen address for this node.
+//   raftkv_server --config <config.json>
+//   raftkv_server --config <config.json> --id 1      (CLI overrides file)
+//   raftkv_server --id 0 --peers <addr0,addr1,...>   (legacy, no config file)
 
 static std::vector<std::string> split_by_comma(const std::string& s) {
   std::vector<std::string> result;
@@ -39,25 +33,40 @@ static std::vector<std::string> split_by_comma(const std::string& s) {
   return result;
 }
 
-struct Args {
-  int         node_id  = -1;
-  std::string data_dir = "./data";
-  std::vector<std::string> peer_addrs;
-};
+static raftkv::ServerConfig parse_args(int argc, char* argv[]) {
+  raftkv::ServerConfig cfg;
+  cfg.node_id = -1;  // mark as unset
 
-static Args parse_args(int argc, char* argv[]) {
-  Args a;
+  // First pass: find --config and load it as base
   for (int i = 1; i < argc; ++i) {
     std::string flag = argv[i];
-    if ((flag == "--id" || flag == "-id") && i + 1 < argc) {
-      a.node_id = std::stoi(argv[++i]);
-    } else if ((flag == "--peers" || flag == "-peers") && i + 1 < argc) {
-      a.peer_addrs = split_by_comma(argv[++i]);
-    } else if ((flag == "--data" || flag == "-data") && i + 1 < argc) {
-      a.data_dir = argv[++i];
+    if ((flag == "--config" || flag == "-config") && i + 1 < argc) {
+      cfg = raftkv::load_config(argv[++i]);
+      break;
     }
   }
-  return a;
+
+  // Second pass: CLI flags override config file values
+  for (int i = 1; i < argc; ++i) {
+    std::string flag = argv[i];
+    if ((flag == "--config" || flag == "-config") && i + 1 < argc) {
+      ++i;  // already handled
+    } else if ((flag == "--id" || flag == "-id") && i + 1 < argc) {
+      cfg.node_id = std::stoi(argv[++i]);
+    } else if ((flag == "--peers" || flag == "-peers") && i + 1 < argc) {
+      cfg.peer_addrs = split_by_comma(argv[++i]);
+    } else if ((flag == "--data" || flag == "-data") && i + 1 < argc) {
+      cfg.data_dir = argv[++i];
+    }
+  }
+
+  // Re-derive listen_addr after CLI overrides
+  if (cfg.node_id >= 0 &&
+      cfg.node_id < static_cast<int>(cfg.peer_addrs.size())) {
+    cfg.listen_addr = cfg.peer_addrs[cfg.node_id];
+  }
+
+  return cfg;
 }
 
 // ── main ──────────────────────────────────────────────────────────
@@ -66,30 +75,22 @@ int main(int argc, char* argv[]) {
   spdlog::set_level(spdlog::level::debug);
   spdlog::set_pattern("[%H:%M:%S.%e] [%l] %v");
 
-  Args args = parse_args(argc, argv);
+  raftkv::ServerConfig config = parse_args(argc, argv);
 
-  if (args.node_id < 0 || args.peer_addrs.empty()) {
-    spdlog::error("Usage: raftkv_server --id <n> --peers <addr0,addr1,...> [--data <dir>]");
+  if (config.node_id < 0 || config.peer_addrs.empty()) {
+    spdlog::error("Usage: raftkv_server --config <file> | --id <n> --peers <addr0,addr1,...> [--data <dir>]");
     return 1;
   }
-  if (args.node_id >= static_cast<int>(args.peer_addrs.size())) {
+  if (config.node_id >= static_cast<int>(config.peer_addrs.size())) {
     spdlog::error("node_id {} out of range (peers count={})",
-                  args.node_id, args.peer_addrs.size());
+                  config.node_id, config.peer_addrs.size());
     return 1;
   }
 
-  const std::string listen_addr = args.peer_addrs[args.node_id];
-  spdlog::info("[Node {}] starting on {}", args.node_id, listen_addr);
-
-  // ── Build ServerConfig ─────────────────────────────────────────
-  raftkv::ServerConfig config;
-  config.node_id     = args.node_id;
-  config.listen_addr = listen_addr;
-  config.peer_addrs  = args.peer_addrs;
-  config.data_dir    = args.data_dir;
+  spdlog::info("[Node {}] starting on {}", config.node_id, config.listen_addr);
 
   spdlog::info("[Node {}] config: peers={}, data_dir={}, election_timeout=[{},{}]ms, heartbeat={}ms, max_state={}B",
-               args.node_id, args.peer_addrs.size(), args.data_dir,
+               config.node_id, config.peer_addrs.size(), config.data_dir,
                config.raft.election_timeout_min_ms, config.raft.election_timeout_max_ms,
                config.raft.heartbeat_interval_ms, config.raft.max_raft_state_bytes);
 
@@ -103,14 +104,14 @@ int main(int argc, char* argv[]) {
 
   // ── Create peer clients ────────────────────────────────────────
   std::vector<std::shared_ptr<raftkv::RaftPeerClient>> peers;
-  for (int i = 0; i < static_cast<int>(args.peer_addrs.size()); ++i) {
-    if (i == args.node_id) {
+  for (int i = 0; i < static_cast<int>(config.peer_addrs.size()); ++i) {
+    if (i == config.node_id) {
       // Placeholder for self — Raft never sends RPCs to itself,
       // but the vector must be indexed by node_id.
       peers.push_back(std::shared_ptr<raftkv::RaftPeerClient>());
     } else {
       peers.push_back(std::make_shared<raftkv::GrpcRaftPeerClient>(
-          args.peer_addrs[i]));
+          config.peer_addrs[i]));
     }
   }
 
@@ -128,21 +129,21 @@ int main(int argc, char* argv[]) {
   raftkv::KvServiceImpl kv_service(kv_store);
 
   grpc::ServerBuilder builder;
-  builder.AddListeningPort(listen_addr, grpc::InsecureServerCredentials());
+  builder.AddListeningPort(config.listen_addr, grpc::InsecureServerCredentials());
   builder.RegisterService(&raft_service);
   builder.RegisterService(&kv_service);
 
   std::unique_ptr<grpc::Server> server = builder.BuildAndStart();
   if (!server) {
     spdlog::error("[Node {}] failed to start gRPC server on {}",
-                  args.node_id, listen_addr);
+                  config.node_id, config.listen_addr);
     return 1;
   }
-  spdlog::info("[Node {}] gRPC server listening on {}", args.node_id, listen_addr);
+  spdlog::info("[Node {}] gRPC server listening on {}", config.node_id, config.listen_addr);
 
   // Block until Ctrl+C or the server is shut down externally.
   server->Wait();
 
-  spdlog::info("[Node {}] shutting down", args.node_id);
+  spdlog::info("[Node {}] shutting down", config.node_id);
   return 0;
 }

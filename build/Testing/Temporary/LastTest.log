@@ -1,43 +1,51 @@
-Start testing: Apr 24 01:22 CST
+Start testing: Apr 24 14:14 CST
 ----------------------------------------------------------
-9/9 Testing: skiplist
-9/9 Test: skiplist
-Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_skiplist"
+8/9 Testing: dedup
+8/9 Test: dedup
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_dedup"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"skiplist" start time: Apr 24 01:22 CST
+"dedup" start time: Apr 24 14:14 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
-[==========] Running 8 tests from 1 test suite.
+[==========] Running 4 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 8 tests from SkipListTest
-[ RUN      ] SkipListTest.InsertAndSearch
-[       OK ] SkipListTest.InsertAndSearch (0 ms)
-[ RUN      ] SkipListTest.SearchNotFound
-[       OK ] SkipListTest.SearchNotFound (0 ms)
-[ RUN      ] SkipListTest.OverwriteExisting
-[       OK ] SkipListTest.OverwriteExisting (0 ms)
-[ RUN      ] SkipListTest.Remove
-[       OK ] SkipListTest.Remove (0 ms)
-[ RUN      ] SkipListTest.RemoveNonExistent
-[       OK ] SkipListTest.RemoveNonExistent (0 ms)
-[ RUN      ] SkipListTest.ForEachOrdered
-[       OK ] SkipListTest.ForEachOrdered (0 ms)
-[ RUN      ] SkipListTest.Clear
-[       OK ] SkipListTest.Clear (0 ms)
-[ RUN      ] SkipListTest.StressRandomOps
-[       OK ] SkipListTest.StressRandomOps (1 ms)
-[----------] 8 tests from SkipListTest (1 ms total)
+[----------] 4 tests from DedupTest
+[ RUN      ] DedupTest.DuplicatePutIgnored
+[2026-04-24 14:14:57.053] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 14:14:57.056] [info] [Node 2] [term=1] [Follower] stepped down
+[2026-04-24 14:14:57.057] [info] [Node 1] [term=1] [Leader] became leader
+[2026-04-24 14:14:57.057] [info] [Node 0] [term=1] [Follower] stepped down
+[       OK ] DedupTest.DuplicatePutIgnored (757 ms)
+[ RUN      ] DedupTest.DuplicateGetReturnsValue
+[2026-04-24 14:14:57.770] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 14:14:57.772] [info] [Node 1] [term=1] [Follower] stepped down
+[2026-04-24 14:14:57.772] [info] [Node 0] [term=1] [Follower] stepped down
+[2026-04-24 14:14:57.773] [info] [Node 2] [term=1] [Leader] became leader
+[       OK ] DedupTest.DuplicateGetReturnsValue (660 ms)
+[ RUN      ] DedupTest.DifferentClientsSameRequestId
+[2026-04-24 14:14:58.451] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 14:14:58.453] [info] [Node 2] [term=1] [Follower] stepped down
+[2026-04-24 14:14:58.453] [info] [Node 1] [term=1] [Follower] stepped down
+[2026-04-24 14:14:58.454] [info] [Node 0] [term=1] [Leader] became leader
+[       OK ] DedupTest.DifferentClientsSameRequestId (455 ms)
+[ RUN      ] DedupTest.MonotonicRequestId
+[2026-04-24 14:14:58.906] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 14:14:58.908] [info] [Node 0] [term=1] [Follower] stepped down
+[2026-04-24 14:14:58.909] [info] [Node 2] [term=1] [Leader] became leader
+[2026-04-24 14:14:58.911] [info] [Node 1] [term=1] [Follower] stepped down
+[       OK ] DedupTest.MonotonicRequestId (658 ms)
+[----------] 4 tests from DedupTest (2531 ms total)
 
 [----------] Global test environment tear-down
-[==========] 8 tests from 1 test suite ran. (1 ms total)
-[  PASSED  ] 8 tests.
+[==========] 4 tests from 1 test suite ran. (2531 ms total)
+[  PASSED  ] 4 tests.
 <end of output>
-Test time =   0.00 sec
+Test time =   2.54 sec
 ----------------------------------------------------------
 Test Passed.
-"skiplist" end time: Apr 24 01:22 CST
-"skiplist" time elapsed: 00:00:00
+"dedup" end time: Apr 24 14:14 CST
+"dedup" time elapsed: 00:00:02
 ----------------------------------------------------------
 
-End testing: Apr 24 01:22 CST
+End testing: Apr 24 14:14 CST

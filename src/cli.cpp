@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,12 +6,12 @@
 #include <spdlog/spdlog.h>
 
 #include "client/kv_client.h"
+#include "common/config_loader.h"
 
 // ── Command-line parsing ─────────────────────────────────────────
 // Usage:
-//   raftkv_cli --peers <addr0>,<addr1>,<addr2> get <key>
-//   raftkv_cli --peers <addr0>,<addr1>,<addr2> put <key> <value>
-//   raftkv_cli --peers <addr0>,<addr1>,<addr2> append <key> <value>
+//   raftkv_cli --config <file> get <key>
+//   raftkv_cli --peers <addr0,addr1,...> get <key>
 
 static std::vector<std::string> split_by_comma(const std::string& s) {
   std::vector<std::string> result;
@@ -26,9 +27,10 @@ static std::vector<std::string> split_by_comma(const std::string& s) {
 
 static void usage() {
   std::cerr << "Usage:\n"
-            << "  raftkv_cli --peers <addr0,addr1,...> get <key>\n"
-            << "  raftkv_cli --peers <addr0,addr1,...> put <key> <value>\n"
-            << "  raftkv_cli --peers <addr0,addr1,...> append <key> <value>\n";
+            << "  raftkv_cli --config <file> | --peers <addr0,addr1,...>\n"
+            << "             get <key>\n"
+            << "             put <key> <value>\n"
+            << "             append <key> <value>\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -39,7 +41,10 @@ int main(int argc, char* argv[]) {
 
   for (int i = 1; i < argc; ++i) {
     std::string arg = argv[i];
-    if ((arg == "--peers" || arg == "-peers") && i + 1 < argc) {
+    if ((arg == "--config" || arg == "-config") && i + 1 < argc) {
+      raftkv::ServerConfig cfg = raftkv::load_config(argv[++i]);
+      peers = cfg.peer_addrs;
+    } else if ((arg == "--peers" || arg == "-peers") && i + 1 < argc) {
       peers = split_by_comma(argv[++i]);
     } else if (cmd_start == -1) {
       cmd_start = i;
