@@ -79,6 +79,21 @@ grpc::Status RaftServiceImpl::InstallSnapshot(
   return grpc::Status::OK;
 }
 
+grpc::Status RaftServiceImpl::GetStatus(
+    grpc::ServerContext* /*ctx*/,
+    const raft::GetStatusRequest* /*req*/,
+    raft::GetStatusReply* reply) {
+  Raft::RaftStatus s = raft_node_->get_status();
+  reply->set_node_id(s.node_id);
+  reply->set_term(s.term);
+  reply->set_role(to_string(s.role));
+  reply->set_last_log_index(s.last_log_index);
+  reply->set_commit_index(s.commit_index);
+  reply->set_last_applied(s.last_applied);
+  reply->set_last_snapshot_index(s.last_snapshot_index);
+  return grpc::Status::OK;
+}
+
 // ── RaftPeerClient ────────────────────────────────────────────────
 
 GrpcRaftPeerClient::GrpcRaftPeerClient(const std::string& addr)

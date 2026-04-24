@@ -4,4 +4,4 @@ cd "$(dirname "$0")/.."
 mkdir -p build
 cd build
 cmake .. -DPIN_SYSTEM_PROTOBUF=ON
-cmake --build . --target raftkv_server raftkv_cli raftkv_bench -j$(nproc)
+cmake --build . --target raftkv_server raftkv_cli raftkv_bench raftkv_gateway -j$(nproc)

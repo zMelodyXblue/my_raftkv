@@ -73,6 +73,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/raftkv_server.dir/DependInfo.cmake"
   "src/CMakeFiles/raftkv_cli.dir/DependInfo.cmake"
   "src/CMakeFiles/raftkv_bench.dir/DependInfo.cmake"
+  "src/CMakeFiles/raftkv_gateway.dir/DependInfo.cmake"
   "src/raft/CMakeFiles/raft.dir/DependInfo.cmake"
   "src/kv_store/CMakeFiles/kv_store.dir/DependInfo.cmake"
   "src/rpc/CMakeFiles/rpc.dir/DependInfo.cmake"

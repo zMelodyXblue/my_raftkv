@@ -34,3 +34,12 @@ target_link_libraries(raftkv_bench PRIVATE
   spdlog::spdlog
   Threads::Threads
 )
+
+# ── REST Gateway ─────────────────────────────────────────────────
+add_executable(raftkv_gateway gateway/gateway.cpp)
+target_link_libraries(raftkv_gateway PRIVATE
+  kv_client
+  proto_gen
+  spdlog::spdlog
+  Threads::Threads
+)

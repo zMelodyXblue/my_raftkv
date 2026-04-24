@@ -35,6 +35,11 @@ class RaftServiceImpl final : public raft::RaftService::Service {
       const raft::InstallSnapshotRequest* request,
       raft::InstallSnapshotReply* reply) override;
 
+  grpc::Status GetStatus(
+      grpc::ServerContext* ctx,
+      const raft::GetStatusRequest* request,
+      raft::GetStatusReply* reply) override;
+
  private:
   std::shared_ptr<Raft> raft_node_;
 };

@@ -354,6 +354,41 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
   /usr/include/spdlog/version.h \
   /usr/include/spdlog/details/synchronous_factory.h \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/config.h \
+  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/config_loader.h \
+  /usr/include/c++/9/fstream \
+  /usr/include/c++/9/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
+  /usr/include/c++/9/bits/fstream.tcc \
+  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/nlohmann/json.hpp \
+  /usr/include/c++/9/cstddef \
+  /usr/include/c++/9/forward_list \
+  /usr/include/c++/9/bits/forward_list.h \
+  /usr/include/c++/9/bits/forward_list.tcc \
+  /usr/include/c++/9/valarray \
+  /usr/include/c++/9/bits/valarray_array.h \
+  /usr/include/c++/9/bits/valarray_array.tcc \
+  /usr/include/c++/9/bits/valarray_before.h \
+  /usr/include/c++/9/bits/slice_array.h \
+  /usr/include/c++/9/bits/valarray_after.h \
+  /usr/include/c++/9/bits/gslice.h \
+  /usr/include/c++/9/bits/gslice_array.h \
+  /usr/include/c++/9/bits/mask_array.h \
+  /usr/include/c++/9/bits/indirect_array.h \
+  /usr/include/c++/9/version \
+  /usr/include/c++/9/numeric \
+  /usr/include/c++/9/bits/stl_numeric.h \
+  /usr/include/c++/9/iomanip \
+  /usr/include/c++/9/locale \
+  /usr/include/c++/9/bits/locale_facets_nonio.h \
+  /usr/include/x86_64-linux-gnu/c++/9/bits/time_members.h \
+  /usr/include/x86_64-linux-gnu/c++/9/bits/messages_members.h \
+  /usr/include/libintl.h \
+  /usr/include/c++/9/bits/locale_facets_nonio.tcc \
+  /usr/include/c++/9/bits/locale_conv.h \
+  /usr/include/c++/9/bits/quoted_string.h \
+  /usr/include/c++/9/sstream \
+  /usr/include/c++/9/bits/sstream.tcc \
   /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/thread_safe_queue.h \
   /usr/include/c++/9/queue \
   /usr/include/c++/9/deque \
@@ -374,7 +409,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
   /usr/include/c++/9/bits/stl_set.h \
   /usr/include/c++/9/bits/stl_multiset.h \
   /usr/include/google/protobuf/stubs/port.h \
-  /usr/include/c++/9/cstddef \
   /usr/include/google/protobuf/stubs/platform_macros.h \
   /usr/include/x86_64-linux-gnu/sys/param.h \
   /usr/include/signal.h \
@@ -504,8 +538,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/unordered_set.h:
 
-/usr/include/c++/9/unordered_set:
-
 /usr/include/google/protobuf/stubs/hash.h:
 
 /usr/include/google/protobuf/wire_format_lite.h:
@@ -526,6 +558,44 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/google/protobuf/arenastring.h:
 
+/usr/include/google/protobuf/arena.h:
+
+/usr/include/google/protobuf/stubs/callback.h:
+
+/usr/include/google/protobuf/stubs/logging.h:
+
+/usr/include/x86_64-linux-gnu/asm/param.h:
+
+/usr/include/linux/param.h:
+
+/usr/include/x86_64-linux-gnu/bits/signal_ext.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigstack.h:
+
+/usr/include/google/protobuf/extension_set.h:
+
+/usr/include/x86_64-linux-gnu/sys/ucontext.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigevent-consts.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo-consts.h:
+
+/usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h:
+
+/usr/include/c++/9/bits/sstream.tcc:
+
 /usr/include/grpc/impl/codegen/atm_gcc_atomic.h:
 
 /usr/include/grpc/impl/codegen/atm.h:
@@ -542,17 +612,15 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
-/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.h:
+/usr/include/c++/9/bits/valarray_array.h:
 
-/usr/include/grpc/impl/codegen/slice.h:
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
 /usr/include/c++/9/bits/stl_list.h:
 
 /usr/include/c++/9/bits/stl_set.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigevent_t.h:
 
 /usr/include/grpc/impl/codegen/compression_types.h:
 
@@ -572,9 +640,11 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/atomic_lockfree_defines.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+/usr/include/byteswap.h:
 
-/usr/include/x86_64-linux-gnu/bits/siginfo-consts.h:
+/usr/include/c++/9/bits/shared_ptr_atomic.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/include/c++/9/bits/invoke.h:
 
@@ -586,9 +656,19 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/cerrno:
 
+/usr/include/google/protobuf/io/coded_stream.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/x86_64-linux-gnu/sys/param.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
+
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/spdlog/fmt/fmt.h:
+
+/usr/include/c++/9/fstream:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
@@ -600,9 +680,9 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+/usr/include/libintl.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigevent-consts.h:
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/grpc/slice.h:
 
@@ -622,6 +702,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
+/usr/include/c++/9/bits/forward_list.tcc:
+
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/c++/9/debug/assertions.h:
@@ -640,6 +722,10 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/grpcpp/impl/codegen/byte_buffer.h:
 
+/usr/include/c++/9/bits/valarray_after.h:
+
+/usr/include/c++/9/version:
+
 /usr/include/google/protobuf/map_type_handler.h:
 
 /usr/include/c++/9/cstdlib:
@@ -650,11 +736,15 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/range_access.h:
 
-/usr/include/c++/9/type_traits:
-
-/usr/include/c++/9/cmath:
-
 /usr/include/c++/9/bits/stl_bvector.h:
+
+/usr/include/signal.h:
+
+/usr/include/c++/9/cwchar:
+
+/usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h:
+
+/usr/include/c++/9/clocale:
 
 /usr/include/c++/9/experimental/string_view:
 
@@ -668,7 +758,15 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/cstddef:
 
+/usr/include/c++/9/unordered_set:
+
+/usr/include/c++/9/bits/quoted_string.h:
+
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigaction.h:
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.grpc.pb.h:
 
 /usr/include/c++/9/string:
 
@@ -692,8 +790,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/stl_function.h:
 
-/usr/include/x86_64-linux-gnu/bits/sigstack.h:
-
 /usr/include/sched.h:
 
 /usr/include/c++/9/bits/ostream_insert.h:
@@ -704,8 +800,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h:
 
-/usr/include/google/protobuf/arena.h:
-
 /usr/include/c++/9/bits/basic_string.tcc:
 
 /usr/include/c++/9/bits/exception_ptr.h:
@@ -714,9 +808,13 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/grpcpp/impl/codegen/completion_queue.h:
 
+/usr/include/c++/9/bits/valarray_array.tcc:
+
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/c++allocator.h:
+
+/usr/include/c++/9/bits/gslice_array.h:
 
 /usr/include/grpc/impl/codegen/connectivity_state.h:
 
@@ -732,6 +830,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/grpc/impl/codegen/port_platform.h:
 
+/usr/include/c++/9/bits/locale_facets_nonio.h:
+
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/c++/9/bits/stl_iterator_base_funcs.h:
@@ -743,8 +843,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/c++/9/atomic:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/gthr.h:
-
-/usr/include/c++/9/bits/stl_uninitialized.h:
 
 /usr/include/c++/9/bits/shared_ptr_base.h:
 
@@ -774,6 +872,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
+/usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h:
+
 /usr/include/time.h:
 
 /usr/include/grpcpp/impl/codegen/service_type.h:
@@ -788,9 +888,17 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
+/usr/include/asm-generic/param.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
 /usr/include/google/protobuf/descriptor_database.h:
 
 /usr/include/spdlog/common.h:
+
+/usr/include/x86_64-linux-gnu/bits/sigcontext.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/main.cpp:
 
@@ -848,8 +956,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
 /usr/include/grpcpp/impl/codegen/call_hook.h:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h:
@@ -864,15 +970,15 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/exception_defines.h:
 
+/usr/include/x86_64-linux-gnu/bits/sigthread.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
+
 /usr/include/google/protobuf/arena_impl.h:
 
 /usr/include/c++/9/bits/memoryfwd.h:
 
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/kv_store/kv_store.h:
-
-/usr/include/x86_64-linux-gnu/bits/locale.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigthread.h:
 
 /usr/include/stdint.h:
 
@@ -892,11 +998,13 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/hash_bytes.h:
 
-/usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h:
-
 /usr/include/grpc/impl/codegen/status.h:
 
 /usr/include/c++/9/bits/basic_string.h:
+
+/usr/include/google/protobuf/stubs/macros.h:
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.h:
 
 /usr/include/c++/9/ext/concurrence.h:
 
@@ -912,6 +1020,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/iosfwd:
 
+/usr/include/c++/9/valarray:
+
 /usr/include/wchar.h:
 
 /usr/include/grpcpp/impl/codegen/status_code_enum.h:
@@ -926,15 +1036,17 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/pthread.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h:
+
+/usr/include/c++/9/bits/predefined_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
 /usr/include/stdc-predef.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/grpcpp/server_context.h:
-
-/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/rpc/kv_service.h:
-
-/usr/include/google/protobuf/stubs/macros.h:
 
 /usr/include/c++/9/bits/move.h:
 
@@ -947,8 +1059,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h:
 
 /usr/include/c++/9/bits/functexcept.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -965,6 +1075,10 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/google/protobuf/generated_message_reflection.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/signum.h:
+
+/usr/include/c++/9/bits/stringfwd.h:
 
 /usr/include/c++/9/bits/basic_ios.tcc:
 
@@ -986,11 +1100,17 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
+/usr/include/google/protobuf/stubs/mutex.h:
+
+/usr/include/grpcpp/impl/codegen/channel_interface.h:
+
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
 
 /usr/include/c++/9/bits/deque.tcc:
+
+/usr/include/c++/9/bits/gslice.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
@@ -1016,10 +1136,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/ext/aligned_buffer.h:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigcontext.h:
-
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/c++/9/functional:
@@ -1027,6 +1143,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/c++/9/bits/std_abs.h:
 
 /usr/include/c++/9/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/c++/9/bits/time_members.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -1080,10 +1198,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/bits/stl_heap.h:
 
-/usr/include/c++/9/bits/stringfwd.h:
-
-/usr/include/x86_64-linux-gnu/bits/signum.h:
-
 /usr/include/google/protobuf/implicit_weak_message.h:
 
 /usr/include/c++/9/bits/uniform_int_dist.h:
@@ -1122,6 +1236,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/wctype.h:
 
+/usr/include/c++/9/locale:
+
 /usr/include/grpcpp/server_builder.h:
 
 /usr/include/c++/9/backward/auto_ptr.h:
@@ -1138,27 +1254,11 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/istream:
 
-/usr/include/google/protobuf/generated_enum_reflection.h:
-
-/usr/include/c++/9/bits/istream.tcc:
-
-/usr/include/c++/9/bits/cxxabi_forced.h:
-
-/usr/include/grpcpp/impl/call.h:
-
-/usr/include/c++/9/ios:
-
-/usr/include/c++/9/iterator:
-
 /usr/include/c++/9/chrono:
 
 /usr/include/c++/9/bits/ptr_traits.h:
 
 /usr/include/c++/9/ratio:
-
-/usr/include/grpcpp/impl/codegen/channel_interface.h:
-
-/usr/include/google/protobuf/stubs/mutex.h:
 
 /usr/include/c++/9/bits/cxxabi_init_exception.h:
 
@@ -1169,6 +1269,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/spdlog/details/registry.h:
 
 /usr/include/c++/9/bits/unique_lock.h:
+
+/usr/include/c++/9/sstream:
 
 /usr/include/grpcpp/impl/codegen/create_auth_context.h:
 
@@ -1183,6 +1285,10 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/grpc/impl/codegen/log.h:
 
 /usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/c++/9/bits/codecvt.h:
 
 /usr/include/grpcpp/impl/codegen/completion_queue_tag.h:
 
@@ -1202,10 +1308,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/grpcpp/security/auth_context.h:
 
-/usr/include/c++/9/cwchar:
-
-/usr/include/signal.h:
-
 /usr/include/google/protobuf/reflection_ops.h:
 
 /usr/include/grpcpp/support/status.h:
@@ -1213,6 +1315,8 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 /usr/include/grpcpp/support/channel_arguments.h:
 
 /usr/include/x86_64-linux-gnu/bits/signum-generic.h:
+
+/usr/include/c++/9/bits/indirect_array.h:
 
 /usr/include/grpcpp/impl/server_builder_plugin.h:
 
@@ -1244,13 +1348,11 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
 
+/usr/include/c++/9/bits/mask_array.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
 
-/usr/include/c++/9/bits/predefined_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h:
+/usr/include/c++/9/bits/locale_conv.h:
 
 /usr/include/grpcpp/support/string_ref.h:
 
@@ -1316,17 +1418,61 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/spdlog/details/circular_q.h:
 
-/usr/include/c++/9/bits/shared_ptr_atomic.h:
-
-/usr/include/byteswap.h:
-
 /usr/include/c++/9/cassert:
 
-/usr/include/c++/9/queue:
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/config_loader.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/stack_t.h:
+/usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h:
 
 /usr/include/c++/9/bits/stl_queue.h:
+
+/usr/include/c++/9/bits/fstream.tcc:
+
+/usr/include/strings.h:
+
+/usr/include/google/protobuf/stubs/port.h:
+
+/usr/include/c++/9/bits/stl_uninitialized.h:
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/nlohmann/json.hpp:
+
+/usr/include/google/protobuf/generated_enum_reflection.h:
+
+/usr/include/c++/9/bits/istream.tcc:
+
+/usr/include/c++/9/forward_list:
+
+/usr/include/c++/9/bits/forward_list.h:
+
+/usr/include/c++/9/bits/valarray_before.h:
+
+/usr/include/c++/9/type_traits:
+
+/usr/include/c++/9/cmath:
+
+/usr/include/c++/9/bits/slice_array.h:
+
+/usr/include/c++/9/bits/stl_numeric.h:
+
+/usr/include/grpc/impl/codegen/slice.h:
+
+/usr/include/c++/9/iomanip:
+
+/usr/include/c++/9/bits/cxxabi_forced.h:
+
+/usr/include/grpcpp/impl/call.h:
+
+/usr/include/c++/9/ios:
+
+/usr/include/c++/9/iterator:
+
+/usr/include/x86_64-linux-gnu/c++/9/bits/messages_members.h:
+
+/usr/include/c++/9/bits/locale_facets_nonio.tcc:
+
+/usr/include/c++/9/numeric:
+
+/usr/include/c++/9/queue:
 
 /usr/include/linux/version.h:
 
@@ -1336,50 +1482,6 @@ src/CMakeFiles/raftkv_server.dir/main.cpp.o: /home/zmagex/5.Projects/raft_based_
 
 /usr/include/c++/9/thread:
 
-/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto/kv.grpc.pb.h:
-
-/usr/include/x86_64-linux-gnu/bits/sigaction.h:
-
 /usr/include/google/protobuf/stubs/common.h:
 
-/usr/include/strings.h:
-
-/usr/include/google/protobuf/stubs/port.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/include/google/protobuf/io/coded_stream.h:
-
 /usr/include/google/protobuf/stubs/platform_macros.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
-
-/usr/include/x86_64-linux-gnu/sys/param.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h:
-
-/usr/include/c++/9/clocale:
-
-/usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
-
-/usr/include/google/protobuf/extension_set.h:
-
-/usr/include/x86_64-linux-gnu/sys/ucontext.h:
-
-/usr/include/x86_64-linux-gnu/bits/signal_ext.h:
-
-/usr/include/linux/param.h:
-
-/usr/include/x86_64-linux-gnu/asm/param.h:
-
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
-/usr/include/asm-generic/param.h:
-
-/usr/include/google/protobuf/stubs/logging.h:
-
-/usr/include/google/protobuf/stubs/callback.h:

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RaftKV Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+         background: #1a1a2e; color: #e0e0e0; padding: 20px; }
+  h1 { text-align: center; margin-bottom: 20px; color: #00d4ff; font-size: 1.5em; }
+  h2 { font-size: 1.1em; margin-bottom: 12px; color: #888; text-transform: uppercase;
+       letter-spacing: 1px; }
+
+  /* ── Cluster Status ── */
+  .cluster { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+             margin-bottom: 30px; }
+  .node-card { background: #16213e; border: 1px solid #333; border-radius: 8px;
+               padding: 16px; min-width: 220px; flex: 1; max-width: 300px; }
+  .node-card.leader { border-color: #00d4ff; box-shadow: 0 0 10px rgba(0,212,255,0.3); }
+  .node-card.offline { opacity: 0.4; }
+  .node-header { display: flex; justify-content: space-between; align-items: center;
+                 margin-bottom: 10px; }
+  .node-id { font-weight: bold; font-size: 1.1em; }
+  .role-badge { padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+  .role-badge.Leader { background: #00d4ff; color: #000; }
+  .role-badge.Follower { background: #444; color: #ccc; }
+  .role-badge.Candidate { background: #ff6b35; color: #fff; }
+  .role-badge.offline { background: #c0392b; color: #fff; }
+  .node-stats { font-size: 0.85em; color: #aaa; line-height: 1.6; }
+  .node-stats span { color: #e0e0e0; }
+
+  /* ── KV Panel ── */
+  .kv-panel { background: #16213e; border-radius: 8px; padding: 20px;
+              max-width: 600px; margin: 0 auto 30px; }
+  .input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .input-row input { flex: 1; padding: 8px 12px; background: #0f3460; border: 1px solid #444;
+                     border-radius: 4px; color: #e0e0e0; font-family: monospace; }
+  .input-row input:focus { outline: none; border-color: #00d4ff; }
+  .btn-row { display: flex; gap: 8px; }
+  .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;
+         font-family: monospace; font-weight: bold; font-size: 0.9em; }
+  .btn-get { background: #2ecc71; color: #000; }
+  .btn-put { background: #00d4ff; color: #000; }
+  .btn-append { background: #ff6b35; color: #fff; }
+  .btn:hover { opacity: 0.85; }
+  .result { margin-top: 12px; padding: 10px; background: #0f3460; border-radius: 4px;
+            font-family: monospace; font-size: 0.9em; min-height: 36px; white-space: pre-wrap; }
+
+  /* ── History ── */
+  .history { max-width: 600px; margin: 0 auto; }
+  .history-list { list-style: none; max-height: 300px; overflow-y: auto; }
+  .history-list li { padding: 6px 10px; border-bottom: 1px solid #222;
+                     font-size: 0.85em; font-family: monospace; }
+  .history-list li .op { font-weight: bold; }
+  .history-list li .op-get { color: #2ecc71; }
+  .history-list li .op-put { color: #00d4ff; }
+  .history-list li .op-append { color: #ff6b35; }
+  .history-list li .ts { color: #666; margin-right: 8px; }
+</style>
+</head>
+<body>
+
+<h1>RaftKV Dashboard</h1>
+
+<h2>Cluster Status</h2>
+<div class="cluster" id="cluster"></div>
+
+<h2>KV Operations</h2>
+<div class="kv-panel">
+  <div class="input-row">
+    <input type="text" id="key-input" placeholder="Key">
+    <input type="text" id="value-input" placeholder="Value (for Put/Append)">
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-get" onclick="doGet()">Get</button>
+    <button class="btn btn-put" onclick="doPut()">Put</button>
+    <button class="btn btn-append" onclick="doAppend()">Append</button>
+  </div>
+  <div class="result" id="result"></div>
+</div>
+
+<h2>History</h2>
+<div class="history">
+  <ul class="history-list" id="history"></ul>
+</div>
+
+<script>
+// ── Cluster Status ──────────────────────────────────────────────
+function refreshStatus() {
+  fetch('/api/cluster/status')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var html = '';
+      var nodes = data.nodes || [];
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        var cls = 'node-card';
+        if (!n.online) cls += ' offline';
+        else if (n.role === 'Leader') cls += ' leader';
+
+        var roleCls = n.online ? n.role : 'offline';
+        var roleText = n.online ? n.role : 'Offline';
+
+        html += '<div class="' + cls + '">';
+        html += '  <div class="node-header">';
+        html += '    <span class="node-id">Node ' + (n.online ? n.node_id : i) + '</span>';
+        html += '    <span class="role-badge ' + roleCls + '">' + roleText + '</span>';
+        html += '  </div>';
+        if (n.online) {
+          html += '  <div class="node-stats">';
+          html += '    Term: <span>' + n.term + '</span><br>';
+          html += '    Log Index: <span>' + n.last_log_index + '</span><br>';
+          html += '    Commit: <span>' + n.commit_index + '</span><br>';
+          html += '    Applied: <span>' + n.last_applied + '</span><br>';
+          html += '    Snapshot: <span>' + n.last_snapshot_index + '</span>';
+          html += '  </div>';
+        } else {
+          html += '  <div class="node-stats">Addr: <span>' + n.addr + '</span></div>';
+        }
+        html += '</div>';
+      }
+      document.getElementById('cluster').innerHTML = html;
+    })
+    .catch(function() {});
+}
+
+setInterval(refreshStatus, 2000);
+refreshStatus();
+
+// ── KV Operations ───────────────────────────────────────────────
+var resultEl = document.getElementById('result');
+var historyEl = document.getElementById('history');
+
+function addHistory(op, key, value, result) {
+  var now = new Date();
+  var ts = now.toLocaleTimeString();
+  var cls = 'op-' + op.toLowerCase();
+  var li = document.createElement('li');
+  var detail = key;
+  if (op !== 'Get' && value) detail += ' = ' + value;
+  if (op === 'Get' && result) detail += ' => ' + result;
+  li.innerHTML = '<span class="ts">' + ts + '</span>' +
+                 '<span class="op ' + cls + '">' + op + '</span> ' + detail;
+  historyEl.insertBefore(li, historyEl.firstChild);
+}
+
+function doGet() {
+  var key = document.getElementById('key-input').value.trim();
+  if (!key) { resultEl.textContent = 'Error: key is empty'; return; }
+  resultEl.textContent = 'Loading...';
+  fetch('/api/kv/' + encodeURIComponent(key))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) {
+        resultEl.textContent = 'Error: ' + data.error;
+      } else {
+        var val = data.value || '(empty)';
+        resultEl.textContent = key + ' = ' + val;
+        addHistory('Get', key, '', val);
+      }
+    })
+    .catch(function(e) { resultEl.textContent = 'Error: ' + e; });
+}
+
+function doPut() {
+  var key = document.getElementById('key-input').value.trim();
+  var value = document.getElementById('value-input').value;
+  if (!key) { resultEl.textContent = 'Error: key is empty'; return; }
+  resultEl.textContent = 'Loading...';
+  fetch('/api/kv/' + encodeURIComponent(key), { method: 'PUT', body: value })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) {
+        resultEl.textContent = 'Error: ' + data.error;
+      } else {
+        resultEl.textContent = 'OK: Put ' + key;
+        addHistory('Put', key, value, '');
+      }
+    })
+    .catch(function(e) { resultEl.textContent = 'Error: ' + e; });
+}
+
+function doAppend() {
+  var key = document.getElementById('key-input').value.trim();
+  var value = document.getElementById('value-input').value;
+  if (!key) { resultEl.textContent = 'Error: key is empty'; return; }
+  resultEl.textContent = 'Loading...';
+  fetch('/api/kv/' + encodeURIComponent(key) + '/append', { method: 'POST', body: value })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) {
+        resultEl.textContent = 'Error: ' + data.error;
+      } else {
+        resultEl.textContent = 'OK: Append to ' + key;
+        addHistory('Append', key, value, '');
+      }
+    })
+    .catch(function(e) { resultEl.textContent = 'Error: ' + e; });
+}
+</script>
+
+</body>
+</html>

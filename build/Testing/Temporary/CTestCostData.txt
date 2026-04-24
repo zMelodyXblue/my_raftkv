@@ -1,9 +1,16 @@
-election 4 0.97975
-replication 3 0.95193
-snapshot 5 4.85274
-smoke 2 0.0117537
-persister 2 0.0277824
-kv 2 3.24044
-dedup 2 1.26946
-skiplist 1 0.0044298
+election 4 0
+replication 3 0
+snapshot 5 0
+smoke 3 0.00646008
+persister 3 0.0150882
+kv 2 0
+dedup 2 0
+skiplist 2 0.00360381
+stress 0 0
 ---
+election
+replication
+kv
+snapshot
+stress
+dedup

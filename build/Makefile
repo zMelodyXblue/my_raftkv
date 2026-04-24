@@ -179,6 +179,19 @@ raftkv_bench/fast:
 .PHONY : raftkv_bench/fast
 
 #=============================================================================
+# Target rules for targets named raftkv_gateway
+
+# Build rule for target.
+raftkv_gateway: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 raftkv_gateway
+.PHONY : raftkv_gateway
+
+# fast build rule for target.
+raftkv_gateway/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_gateway.dir/build.make src/CMakeFiles/raftkv_gateway.dir/build
+.PHONY : raftkv_gateway/fast
+
+#=============================================================================
 # Target rules for targets named raft
 
 # Build rule for target.
@@ -458,6 +471,7 @@ help:
 	@echo "... raft"
 	@echo "... raftkv_bench"
 	@echo "... raftkv_cli"
+	@echo "... raftkv_gateway"
 	@echo "... raftkv_server"
 	@echo "... rpc"
 	@echo "... test_dedup"

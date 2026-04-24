@@ -38,7 +38,7 @@ namespace protobuf_raft_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[8];
+  static const ::google::protobuf::internal::ParseTable schema[10];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -53,6 +53,12 @@ extern AppendEntriesReplyDefaultTypeInternal _AppendEntriesReply_default_instanc
 class AppendEntriesRequest;
 class AppendEntriesRequestDefaultTypeInternal;
 extern AppendEntriesRequestDefaultTypeInternal _AppendEntriesRequest_default_instance_;
+class GetStatusReply;
+class GetStatusReplyDefaultTypeInternal;
+extern GetStatusReplyDefaultTypeInternal _GetStatusReply_default_instance_;
+class GetStatusRequest;
+class GetStatusRequestDefaultTypeInternal;
+extern GetStatusRequestDefaultTypeInternal _GetStatusRequest_default_instance_;
 class InstallSnapshotReply;
 class InstallSnapshotReplyDefaultTypeInternal;
 extern InstallSnapshotReplyDefaultTypeInternal _InstallSnapshotReply_default_instance_;
@@ -77,6 +83,8 @@ namespace google {
 namespace protobuf {
 template<> ::raftkv::raft::AppendEntriesReply* Arena::CreateMaybeMessage<::raftkv::raft::AppendEntriesReply>(Arena*);
 template<> ::raftkv::raft::AppendEntriesRequest* Arena::CreateMaybeMessage<::raftkv::raft::AppendEntriesRequest>(Arena*);
+template<> ::raftkv::raft::GetStatusReply* Arena::CreateMaybeMessage<::raftkv::raft::GetStatusReply>(Arena*);
+template<> ::raftkv::raft::GetStatusRequest* Arena::CreateMaybeMessage<::raftkv::raft::GetStatusRequest>(Arena*);
 template<> ::raftkv::raft::InstallSnapshotReply* Arena::CreateMaybeMessage<::raftkv::raft::InstallSnapshotReply>(Arena*);
 template<> ::raftkv::raft::InstallSnapshotRequest* Arena::CreateMaybeMessage<::raftkv::raft::InstallSnapshotRequest>(Arena*);
 template<> ::raftkv::raft::LogEntry* Arena::CreateMaybeMessage<::raftkv::raft::LogEntry>(Arena*);
@@ -1094,6 +1102,255 @@ class RaftPersistState : public ::google::protobuf::Message /* @@protoc_insertio
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_raft_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class GetStatusRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:raftkv.raft.GetStatusRequest) */ {
+ public:
+  GetStatusRequest();
+  virtual ~GetStatusRequest();
+
+  GetStatusRequest(const GetStatusRequest& from);
+
+  inline GetStatusRequest& operator=(const GetStatusRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetStatusRequest(GetStatusRequest&& from) noexcept
+    : GetStatusRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetStatusRequest& operator=(GetStatusRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetStatusRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetStatusRequest* internal_default_instance() {
+    return reinterpret_cast<const GetStatusRequest*>(
+               &_GetStatusRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  void Swap(GetStatusRequest* other);
+  friend void swap(GetStatusRequest& a, GetStatusRequest& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetStatusRequest* New() const final {
+    return CreateMaybeMessage<GetStatusRequest>(NULL);
+  }
+
+  GetStatusRequest* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetStatusRequest>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetStatusRequest& from);
+  void MergeFrom(const GetStatusRequest& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetStatusRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:raftkv.raft.GetStatusRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_raft_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class GetStatusReply : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:raftkv.raft.GetStatusReply) */ {
+ public:
+  GetStatusReply();
+  virtual ~GetStatusReply();
+
+  GetStatusReply(const GetStatusReply& from);
+
+  inline GetStatusReply& operator=(const GetStatusReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  GetStatusReply(GetStatusReply&& from) noexcept
+    : GetStatusReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetStatusReply& operator=(GetStatusReply&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetStatusReply& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetStatusReply* internal_default_instance() {
+    return reinterpret_cast<const GetStatusReply*>(
+               &_GetStatusReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  void Swap(GetStatusReply* other);
+  friend void swap(GetStatusReply& a, GetStatusReply& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetStatusReply* New() const final {
+    return CreateMaybeMessage<GetStatusReply>(NULL);
+  }
+
+  GetStatusReply* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<GetStatusReply>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const GetStatusReply& from);
+  void MergeFrom(const GetStatusReply& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetStatusReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string role = 3;
+  void clear_role();
+  static const int kRoleFieldNumber = 3;
+  const ::std::string& role() const;
+  void set_role(const ::std::string& value);
+  #if LANG_CXX11
+  void set_role(::std::string&& value);
+  #endif
+  void set_role(const char* value);
+  void set_role(const char* value, size_t size);
+  ::std::string* mutable_role();
+  ::std::string* release_role();
+  void set_allocated_role(::std::string* role);
+
+  // int32 node_id = 1;
+  void clear_node_id();
+  static const int kNodeIdFieldNumber = 1;
+  ::google::protobuf::int32 node_id() const;
+  void set_node_id(::google::protobuf::int32 value);
+
+  // int32 term = 2;
+  void clear_term();
+  static const int kTermFieldNumber = 2;
+  ::google::protobuf::int32 term() const;
+  void set_term(::google::protobuf::int32 value);
+
+  // int32 last_log_index = 4;
+  void clear_last_log_index();
+  static const int kLastLogIndexFieldNumber = 4;
+  ::google::protobuf::int32 last_log_index() const;
+  void set_last_log_index(::google::protobuf::int32 value);
+
+  // int32 commit_index = 5;
+  void clear_commit_index();
+  static const int kCommitIndexFieldNumber = 5;
+  ::google::protobuf::int32 commit_index() const;
+  void set_commit_index(::google::protobuf::int32 value);
+
+  // int32 last_applied = 6;
+  void clear_last_applied();
+  static const int kLastAppliedFieldNumber = 6;
+  ::google::protobuf::int32 last_applied() const;
+  void set_last_applied(::google::protobuf::int32 value);
+
+  // int32 last_snapshot_index = 7;
+  void clear_last_snapshot_index();
+  static const int kLastSnapshotIndexFieldNumber = 7;
+  ::google::protobuf::int32 last_snapshot_index() const;
+  void set_last_snapshot_index(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:raftkv.raft.GetStatusReply)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr role_;
+  ::google::protobuf::int32 node_id_;
+  ::google::protobuf::int32 term_;
+  ::google::protobuf::int32 last_log_index_;
+  ::google::protobuf::int32 commit_index_;
+  ::google::protobuf::int32 last_applied_;
+  ::google::protobuf::int32 last_snapshot_index_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_raft_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -1663,9 +1920,158 @@ inline void RaftPersistState::set_last_snapshot_term(::google::protobuf::int32 v
   // @@protoc_insertion_point(field_set:raftkv.raft.RaftPersistState.last_snapshot_term)
 }
 
+// -------------------------------------------------------------------
+
+// GetStatusRequest
+
+// -------------------------------------------------------------------
+
+// GetStatusReply
+
+// int32 node_id = 1;
+inline void GetStatusReply::clear_node_id() {
+  node_id_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::node_id() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.node_id)
+  return node_id_;
+}
+inline void GetStatusReply::set_node_id(::google::protobuf::int32 value) {
+  
+  node_id_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.node_id)
+}
+
+// int32 term = 2;
+inline void GetStatusReply::clear_term() {
+  term_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::term() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.term)
+  return term_;
+}
+inline void GetStatusReply::set_term(::google::protobuf::int32 value) {
+  
+  term_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.term)
+}
+
+// string role = 3;
+inline void GetStatusReply::clear_role() {
+  role_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GetStatusReply::role() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.role)
+  return role_.GetNoArena();
+}
+inline void GetStatusReply::set_role(const ::std::string& value) {
+  
+  role_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.role)
+}
+#if LANG_CXX11
+inline void GetStatusReply::set_role(::std::string&& value) {
+  
+  role_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:raftkv.raft.GetStatusReply.role)
+}
+#endif
+inline void GetStatusReply::set_role(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  
+  role_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:raftkv.raft.GetStatusReply.role)
+}
+inline void GetStatusReply::set_role(const char* value, size_t size) {
+  
+  role_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:raftkv.raft.GetStatusReply.role)
+}
+inline ::std::string* GetStatusReply::mutable_role() {
+  
+  // @@protoc_insertion_point(field_mutable:raftkv.raft.GetStatusReply.role)
+  return role_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GetStatusReply::release_role() {
+  // @@protoc_insertion_point(field_release:raftkv.raft.GetStatusReply.role)
+  
+  return role_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetStatusReply::set_allocated_role(::std::string* role) {
+  if (role != NULL) {
+    
+  } else {
+    
+  }
+  role_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), role);
+  // @@protoc_insertion_point(field_set_allocated:raftkv.raft.GetStatusReply.role)
+}
+
+// int32 last_log_index = 4;
+inline void GetStatusReply::clear_last_log_index() {
+  last_log_index_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::last_log_index() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.last_log_index)
+  return last_log_index_;
+}
+inline void GetStatusReply::set_last_log_index(::google::protobuf::int32 value) {
+  
+  last_log_index_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.last_log_index)
+}
+
+// int32 commit_index = 5;
+inline void GetStatusReply::clear_commit_index() {
+  commit_index_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::commit_index() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.commit_index)
+  return commit_index_;
+}
+inline void GetStatusReply::set_commit_index(::google::protobuf::int32 value) {
+  
+  commit_index_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.commit_index)
+}
+
+// int32 last_applied = 6;
+inline void GetStatusReply::clear_last_applied() {
+  last_applied_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::last_applied() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.last_applied)
+  return last_applied_;
+}
+inline void GetStatusReply::set_last_applied(::google::protobuf::int32 value) {
+  
+  last_applied_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.last_applied)
+}
+
+// int32 last_snapshot_index = 7;
+inline void GetStatusReply::clear_last_snapshot_index() {
+  last_snapshot_index_ = 0;
+}
+inline ::google::protobuf::int32 GetStatusReply::last_snapshot_index() const {
+  // @@protoc_insertion_point(field_get:raftkv.raft.GetStatusReply.last_snapshot_index)
+  return last_snapshot_index_;
+}
+inline void GetStatusReply::set_last_snapshot_index(::google::protobuf::int32 value) {
+  
+  last_snapshot_index_ = value;
+  // @@protoc_insertion_point(field_set:raftkv.raft.GetStatusReply.last_snapshot_index)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

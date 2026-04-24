@@ -61,10 +61,16 @@ sudo apt install cmake build-essential libgrpc++-dev libprotobuf-dev \
 
 ## 构建
 
-**一键构建**（编译 server、cli、bench）：
+**一键构建**（编译 server、cli、bench、gateway）：
 
 ```bash
 ./scripts/cmake_build.sh
+```
+
+**仅编译 gateway**（前端/网关开发时使用，无需重编译 server）：
+
+```bash
+./scripts/build_gateway.sh
 ```
 
 或手动：
@@ -73,7 +79,7 @@ sudo apt install cmake build-essential libgrpc++-dev libprotobuf-dev \
 cd my_raftkv
 mkdir -p build && cd build
 cmake ..
-make raftkv_server raftkv_cli raftkv_bench -j$(nproc)
+make raftkv_server raftkv_cli raftkv_bench raftkv_gateway -j$(nproc)
 ```
 
 生成的可执行文件位于 `build/bin/`：
@@ -83,10 +89,24 @@ make raftkv_server raftkv_cli raftkv_bench -j$(nproc)
 | `raftkv_server` | Raft 节点服务端 |
 | `raftkv_cli` | 命令行客户端 |
 | `raftkv_bench` | 性能测试工具 |
+| `raftkv_gateway` | REST 网关 + Web Dashboard 静态文件服务 |
 
 ## 快速开始
 
-### 一键演示
+### Web Dashboard
+
+```bash
+./scripts/start_demo.sh
+```
+
+启动 3 节点集群 + REST 网关，浏览器打开 http://localhost:8080 即可使用 Web Dashboard：
+
+- **KV 操作**：Get / Put / Append
+- **集群状态**：实时查看各节点角色、term、日志进度
+
+按 Ctrl+C 停止所有进程。
+
+### 一键演示（CLI）
 
 ```bash
 ./scripts/demo.sh
@@ -231,12 +251,14 @@ my_raftkv/
 │   ├── rpc/             # gRPC 服务层
 │   ├── client/          # 客户端库
 │   ├── proto/           # protobuf 生成代码
+│   ├── gateway/         # REST 网关（httplib + gRPC 转发）
 │   ├── main.cpp         # 服务端入口
 │   ├── cli.cpp          # CLI 客户端
 │   └── benchmark.cpp    # 性能测试工具
 ├── proto/               # .proto 定义文件
 ├── tests/               # 测试文件（Phase 0-6B）
 ├── config/              # JSON 配置文件模板
+├── web/                 # Web Dashboard 静态文件
 ├── scripts/             # 部署和测试脚本
 └── CMakeLists.txt
 ```

@@ -63,9 +63,23 @@ message RaftPersistState {
   int32           last_snapshot_term   = 5;
 }
 
+// ── GetStatus RPC (Phase 6D: REST gateway queries node status) ──
+message GetStatusRequest {}
+
+message GetStatusReply {
+  int32   node_id            = 1;
+  int32   term               = 2;
+  string  role               = 3;  // "Leader", "Follower", "Candidate"
+  int32   last_log_index     = 4;
+  int32   commit_index       = 5;
+  int32   last_applied       = 6;
+  int32   last_snapshot_index = 7;
+}
+
 // ── Raft internal RPC service ───────────────────────────────────
 service RaftService {
   rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesReply);
   rpc RequestVote(RequestVoteRequest) returns (RequestVoteReply);
   rpc InstallSnapshot(InstallSnapshotRequest) returns (InstallSnapshotReply);
+  rpc GetStatus(GetStatusRequest) returns (GetStatusReply);
 }

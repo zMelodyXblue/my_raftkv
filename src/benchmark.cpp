@@ -120,8 +120,8 @@ static double percentile(std::vector<double>& sorted, double p) {
 
 // ── Main ────────────────────────────────────────────────────────
 int main(int argc, char* argv[]) {
-  //spdlog::set_level(spdlog::level::warn);
-  spdlog::set_level(spdlog::level::debug);
+  spdlog::set_level(spdlog::level::warn);
+  //spdlog::set_level(spdlog::level::debug);
 
   BenchOptions opts;
   if (!parse_args(argc, argv, opts)) {

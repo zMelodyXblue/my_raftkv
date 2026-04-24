@@ -22,6 +22,7 @@ static const char* RaftService_method_names[] = {
   "/raftkv.raft.RaftService/AppendEntries",
   "/raftkv.raft.RaftService/RequestVote",
   "/raftkv.raft.RaftService/InstallSnapshot",
+  "/raftkv.raft.RaftService/GetStatus",
 };
 
 std::unique_ptr< RaftService::Stub> RaftService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -34,6 +35,7 @@ RaftService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channe
   : channel_(channel), rpcmethod_AppendEntries_(RaftService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_RequestVote_(RaftService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_InstallSnapshot_(RaftService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetStatus_(RaftService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status RaftService::Stub::AppendEntries(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest& request, ::raftkv::raft::AppendEntriesReply* response) {
@@ -84,6 +86,22 @@ void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContex
   return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::InstallSnapshotReply>::Create(channel_.get(), cq, rpcmethod_InstallSnapshot_, context, request, false);
 }
 
+::grpc::Status RaftService::Stub::GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::raftkv::raft::GetStatusReply* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetStatus_, context, request, response);
+}
+
+void RaftService::Stub::experimental_async::GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response, std::function<void(::grpc::Status)> f) {
+  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, std::move(f));
+}
+
+::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* RaftService::Stub::AsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* RaftService::Stub::PrepareAsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, false);
+}
+
 RaftService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       RaftService_method_names[0],
@@ -100,6 +118,11 @@ RaftService::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::InstallSnapshotRequest, ::raftkv::raft::InstallSnapshotReply>(
           std::mem_fn(&RaftService::Service::InstallSnapshot), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      RaftService_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::GetStatusRequest, ::raftkv::raft::GetStatusReply>(
+          std::mem_fn(&RaftService::Service::GetStatus), this)));
 }
 
 RaftService::Service::~Service() {
@@ -120,6 +143,13 @@ RaftService::Service::~Service() {
 }
 
 ::grpc::Status RaftService::Service::InstallSnapshot(::grpc::ServerContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status RaftService::Service::GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response) {
   (void) context;
   (void) request;
   (void) response;

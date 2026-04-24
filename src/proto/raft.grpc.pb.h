@@ -58,12 +58,20 @@ class RaftService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::InstallSnapshotReply>> PrepareAsyncInstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::InstallSnapshotReply>>(PrepareAsyncInstallSnapshotRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::raftkv::raft::GetStatusReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>> AsyncGetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>>(AsyncGetStatusRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>> PrepareAsyncGetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>>(PrepareAsyncGetStatusRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
       virtual void AppendEntries(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest* request, ::raftkv::raft::AppendEntriesReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RequestVote(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest* request, ::raftkv::raft::RequestVoteReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void InstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response, std::function<void(::grpc::Status)>) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -73,6 +81,8 @@ class RaftService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::RequestVoteReply>* PrepareAsyncRequestVoteRaw(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::InstallSnapshotReply>* AsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::InstallSnapshotReply>* PrepareAsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>* AsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::raft::GetStatusReply>* PrepareAsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -98,12 +108,20 @@ class RaftService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>> PrepareAsyncInstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>>(PrepareAsyncInstallSnapshotRaw(context, request, cq));
     }
+    ::grpc::Status GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::raftkv::raft::GetStatusReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>> AsyncGetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>>(AsyncGetStatusRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>> PrepareAsyncGetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>>(PrepareAsyncGetStatusRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
       void AppendEntries(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest* request, ::raftkv::raft::AppendEntriesReply* response, std::function<void(::grpc::Status)>) override;
       void RequestVote(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest* request, ::raftkv::raft::RequestVoteReply* response, std::function<void(::grpc::Status)>) override;
       void InstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response, std::function<void(::grpc::Status)>) override;
+      void GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response, std::function<void(::grpc::Status)>) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -121,9 +139,12 @@ class RaftService final {
     ::grpc::ClientAsyncResponseReader< ::raftkv::raft::RequestVoteReply>* PrepareAsyncRequestVoteRaw(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>* AsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>* PrepareAsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* AsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* PrepareAsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_AppendEntries_;
     const ::grpc::internal::RpcMethod rpcmethod_RequestVote_;
     const ::grpc::internal::RpcMethod rpcmethod_InstallSnapshot_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetStatus_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -134,6 +155,7 @@ class RaftService final {
     virtual ::grpc::Status AppendEntries(::grpc::ServerContext* context, const ::raftkv::raft::AppendEntriesRequest* request, ::raftkv::raft::AppendEntriesReply* response);
     virtual ::grpc::Status RequestVote(::grpc::ServerContext* context, const ::raftkv::raft::RequestVoteRequest* request, ::raftkv::raft::RequestVoteReply* response);
     virtual ::grpc::Status InstallSnapshot(::grpc::ServerContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response);
+    virtual ::grpc::Status GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_AppendEntries : public BaseClass {
@@ -195,7 +217,27 @@ class RaftService final {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_AppendEntries<WithAsyncMethod_RequestVote<WithAsyncMethod_InstallSnapshot<Service > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetStatus() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_GetStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetStatus(::grpc::ServerContext* context, ::raftkv::raft::GetStatusRequest* request, ::grpc::ServerAsyncResponseWriter< ::raftkv::raft::GetStatusReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_AppendEntries<WithAsyncMethod_RequestVote<WithAsyncMethod_InstallSnapshot<WithAsyncMethod_GetStatus<Service > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_AppendEntries : public BaseClass {
    private:
@@ -243,6 +285,23 @@ class RaftService final {
     }
     // disable synchronous version of this method
     ::grpc::Status InstallSnapshot(::grpc::ServerContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetStatus() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_GetStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -308,6 +367,26 @@ class RaftService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_GetStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithRawMethod_GetStatus() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_GetStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetStatus(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_AppendEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -367,9 +446,29 @@ class RaftService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedInstallSnapshot(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::raftkv::raft::InstallSnapshotRequest,::raftkv::raft::InstallSnapshotReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_AppendEntries<WithStreamedUnaryMethod_RequestVote<WithStreamedUnaryMethod_InstallSnapshot<Service > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithStreamedUnaryMethod_GetStatus() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler< ::raftkv::raft::GetStatusRequest, ::raftkv::raft::GetStatusReply>(std::bind(&WithStreamedUnaryMethod_GetStatus<BaseClass>::StreamedGetStatus, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetStatus(::grpc::ServerContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetStatus(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::raftkv::raft::GetStatusRequest,::raftkv::raft::GetStatusReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_AppendEntries<WithStreamedUnaryMethod_RequestVote<WithStreamedUnaryMethod_InstallSnapshot<WithStreamedUnaryMethod_GetStatus<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_AppendEntries<WithStreamedUnaryMethod_RequestVote<WithStreamedUnaryMethod_InstallSnapshot<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_AppendEntries<WithStreamedUnaryMethod_RequestVote<WithStreamedUnaryMethod_InstallSnapshot<WithStreamedUnaryMethod_GetStatus<Service > > > > StreamedService;
 };
 
 }  // namespace raft

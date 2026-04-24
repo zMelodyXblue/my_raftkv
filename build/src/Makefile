@@ -168,6 +168,20 @@ raftkv_bench/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/build
 .PHONY : raftkv_bench/fast
 
+# Convenience name for target.
+src/CMakeFiles/raftkv_gateway.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/raftkv_gateway.dir/rule
+.PHONY : src/CMakeFiles/raftkv_gateway.dir/rule
+
+# Convenience name for target.
+raftkv_gateway: src/CMakeFiles/raftkv_gateway.dir/rule
+.PHONY : raftkv_gateway
+
+# fast build rule for target.
+raftkv_gateway/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_gateway.dir/build.make src/CMakeFiles/raftkv_gateway.dir/build
+.PHONY : raftkv_gateway/fast
+
 benchmark.o: benchmark.cpp.o
 .PHONY : benchmark.o
 
@@ -216,6 +230,30 @@ cli.cpp.s:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_cli.dir/build.make src/CMakeFiles/raftkv_cli.dir/cli.cpp.s
 .PHONY : cli.cpp.s
 
+gateway/gateway.o: gateway/gateway.cpp.o
+.PHONY : gateway/gateway.o
+
+# target to build an object file
+gateway/gateway.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_gateway.dir/build.make src/CMakeFiles/raftkv_gateway.dir/gateway/gateway.cpp.o
+.PHONY : gateway/gateway.cpp.o
+
+gateway/gateway.i: gateway/gateway.cpp.i
+.PHONY : gateway/gateway.i
+
+# target to preprocess a source file
+gateway/gateway.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_gateway.dir/build.make src/CMakeFiles/raftkv_gateway.dir/gateway/gateway.cpp.i
+.PHONY : gateway/gateway.cpp.i
+
+gateway/gateway.s: gateway/gateway.cpp.s
+.PHONY : gateway/gateway.s
+
+# target to generate assembly for a file
+gateway/gateway.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_gateway.dir/build.make src/CMakeFiles/raftkv_gateway.dir/gateway/gateway.cpp.s
+.PHONY : gateway/gateway.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -251,6 +289,7 @@ help:
 	@echo "... test"
 	@echo "... raftkv_bench"
 	@echo "... raftkv_cli"
+	@echo "... raftkv_gateway"
 	@echo "... raftkv_server"
 	@echo "... benchmark.o"
 	@echo "... benchmark.i"
@@ -258,6 +297,9 @@ help:
 	@echo "... cli.o"
 	@echo "... cli.i"
 	@echo "... cli.s"
+	@echo "... gateway/gateway.o"
+	@echo "... gateway/gateway.i"
+	@echo "... gateway/gateway.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

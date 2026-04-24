@@ -5,6 +5,7 @@
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/raftkv_server.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/raftkv_cli.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/raftkv_bench.dir
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/raftkv_gateway.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/test.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/edit_cache.dir
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/CMakeFiles/rebuild_cache.dir

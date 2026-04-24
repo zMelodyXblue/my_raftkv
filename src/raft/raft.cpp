@@ -75,6 +75,19 @@ std::string Raft::read_persisted_snapshot() const {
   return persister_->load_snapshot();
 }
 
+Raft::RaftStatus Raft::get_status() const {
+  std::lock_guard<std::mutex> lock(mu_);
+  RaftStatus s;
+  s.node_id            = config_.node_id;
+  s.term               = current_term_;
+  s.role               = role_;
+  s.last_log_index     = last_log_index();
+  s.commit_index       = commit_index_;
+  s.last_applied       = last_applied_;
+  s.last_snapshot_index = last_snapshot_index_;
+  return s;
+}
+
 // ── Log Helpers ───────────────────────────────────────────────────
 // All helpers below require mu_ to be held by the caller.
 

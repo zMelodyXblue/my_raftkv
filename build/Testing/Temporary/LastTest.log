@@ -1,10 +1,1103 @@
-Start testing: Apr 24 14:14 CST
+Start testing: Apr 24 20:54 CST
 ----------------------------------------------------------
+1/9 Testing: smoke
+1/9 Test: smoke
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_smoke"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"smoke" start time: Apr 24 20:54 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 9 tests from 3 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Types
+[ RUN      ] Types.LogEntryDefaultInit
+[       OK ] Types.LogEntryDefaultInit (0 ms)
+[ RUN      ] Types.ApplyMsgBothFlagsDefaultFalse
+[       OK ] Types.ApplyMsgBothFlagsDefaultFalse (0 ms)
+[ RUN      ] Types.StartResultDefaultNotLeader
+[       OK ] Types.StartResultDefaultNotLeader (0 ms)
+[ RUN      ] Types.RoleName
+[       OK ] Types.RoleName (0 ms)
+[----------] 4 tests from Types (0 ms total)
+
+[----------] 4 tests from TSQueue
+[ RUN      ] TSQueue.PushPop
+[       OK ] TSQueue.PushPop (0 ms)
+[ RUN      ] TSQueue.TryPopTimeout
+[       OK ] TSQueue.TryPopTimeout (10 ms)
+[ RUN      ] TSQueue.CloseUnblocksWaiter
+[       OK ] TSQueue.CloseUnblocksWaiter (0 ms)
+[ RUN      ] TSQueue.PushAfterCloseIsNoOp
+[       OK ] TSQueue.PushAfterCloseIsNoOp (0 ms)
+[----------] 4 tests from TSQueue (10 ms total)
+
+[----------] 1 test from Config
+[ RUN      ] Config.RaftConfigDefaults
+[       OK ] Config.RaftConfigDefaults (0 ms)
+[----------] 1 test from Config (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 3 test suites ran. (10 ms total)
+[  PASSED  ] 9 tests.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"smoke" end time: Apr 24 20:54 CST
+"smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: persister
+2/9 Test: persister
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_persister"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"persister" start time: Apr 24 20:54 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from PersisterTest
+[ RUN      ] PersisterTest.EmptyOnFirstLoad
+[       OK ] PersisterTest.EmptyOnFirstLoad (7 ms)
+[ RUN      ] PersisterTest.SaveAndLoadRaftState
+[       OK ] PersisterTest.SaveAndLoadRaftState (4 ms)
+[ RUN      ] PersisterTest.SaveAndLoadSnapshot
+[       OK ] PersisterTest.SaveAndLoadSnapshot (3 ms)
+[ RUN      ] PersisterTest.SaveBothAtomically
+[       OK ] PersisterTest.SaveBothAtomically (4 ms)
+[ RUN      ] PersisterTest.RaftStateSizeMatchesBytes
+[       OK ] PersisterTest.RaftStateSizeMatchesBytes (3 ms)
+[ RUN      ] PersisterTest.RaftStateSizeZeroWhenEmpty
+[       OK ] PersisterTest.RaftStateSizeZeroWhenEmpty (3 ms)
+[ RUN      ] PersisterTest.PersistsAcrossRestart
+[       OK ] PersisterTest.PersistsAcrossRestart (3 ms)
+[ RUN      ] PersisterTest.OverwriteUpdatesState
+[       OK ] PersisterTest.OverwriteUpdatesState (4 ms)
+[ RUN      ] PersisterTest.DifferentNodesDontShareFiles
+[       OK ] PersisterTest.DifferentNodesDontShareFiles (4 ms)
+[ RUN      ] PersisterTest.BinaryDataRoundTrip
+[       OK ] PersisterTest.BinaryDataRoundTrip (4 ms)
+[----------] 10 tests from PersisterTest (39 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (39 ms total)
+[  PASSED  ] 10 tests.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"persister" end time: Apr 24 20:54 CST
+"persister" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/9 Testing: election
+3/9 Test: election
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_election"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"election" start time: Apr 24 20:54 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from ElectionTest
+[ RUN      ] ElectionTest.SingleNodeBecomesLeader
+E0424 20:54:21.340433220      25 server_chttp2.cc:40]        {"created":"@1777035261.340384870","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035261.340382923","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59100"}]}
+[2026-04-24 20:54:21.533] [info] [0] became Leader, term=1
+[       OK ] ElectionTest.SingleNodeBecomesLeader (263 ms)
+[ RUN      ] ElectionTest.ThreeNodesElectOneLeader
+E0424 20:54:21.595501177      25 server_chttp2.cc:40]        {"created":"@1777035261.595483986","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035261.595482443","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59200"}]}
+E0424 20:54:21.596196901      25 server_chttp2.cc:40]        {"created":"@1777035261.596179520","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035261.596178321","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59201"}]}
+E0424 20:54:21.596793364      25 server_chttp2.cc:40]        {"created":"@1777035261.596778873","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035261.596777807","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59202"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp:137: Failure
+Expected: (-1) != (c.check_one_leader()), actual: -1 vs -1
+[  FAILED  ] ElectionTest.ThreeNodesElectOneLeader (5112 ms)
+[ RUN      ] ElectionTest.LeaderIsStable
+E0424 20:54:26.707058738      25 server_chttp2.cc:40]        {"created":"@1777035266.707040291","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035266.707038003","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59300"}]}
+E0424 20:54:26.707427430      25 server_chttp2.cc:40]        {"created":"@1777035266.707410477","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035266.707408925","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59301"}]}
+E0424 20:54:26.707802626      25 server_chttp2.cc:40]        {"created":"@1777035266.707788763","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035266.707787770","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59302"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp:145: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[  FAILED  ] ElectionTest.LeaderIsStable (5060 ms)
+[ RUN      ] ElectionTest.ReElectionAfterLeaderCrash
+E0424 20:54:31.767332261      25 server_chttp2.cc:40]        {"created":"@1777035271.767314551","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035271.767311681","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59400"}]}
+E0424 20:54:31.768091074      25 server_chttp2.cc:40]        {"created":"@1777035271.768065362","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035271.768060811","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59401"}]}
+E0424 20:54:31.768735044      25 server_chttp2.cc:40]        {"created":"@1777035271.768719089","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035271.768717783","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59402"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp:160: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[  FAILED  ] ElectionTest.ReElectionAfterLeaderCrash (5118 ms)
+[ RUN      ] ElectionTest.FiveNodesElectOneLeader
+E0424 20:54:36.885937613      25 server_chttp2.cc:40]        {"created":"@1777035276.885901055","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035276.885896169","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59500"}]}
+E0424 20:54:36.887165797      25 server_chttp2.cc:40]        {"created":"@1777035276.887136958","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035276.887134279","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59501"}]}
+E0424 20:54:36.888140291      25 server_chttp2.cc:40]        {"created":"@1777035276.888123281","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035276.888121874","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59502"}]}
+E0424 20:54:36.888761055      25 server_chttp2.cc:40]        {"created":"@1777035276.888748376","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035276.888747017","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59503"}]}
+E0424 20:54:36.889827526      25 server_chttp2.cc:40]        {"created":"@1777035276.889800049","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035276.889795361","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59504"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/election_test.cpp:172: Failure
+Expected: (-1) != (c.check_one_leader()), actual: -1 vs -1
+[  FAILED  ] ElectionTest.FiveNodesElectOneLeader (5114 ms)
+[----------] 5 tests from ElectionTest (20667 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (20667 ms total)
+[  PASSED  ] 1 test.
+[  FAILED  ] 4 tests, listed below:
+[  FAILED  ] ElectionTest.ThreeNodesElectOneLeader
+[  FAILED  ] ElectionTest.LeaderIsStable
+[  FAILED  ] ElectionTest.ReElectionAfterLeaderCrash
+[  FAILED  ] ElectionTest.FiveNodesElectOneLeader
+
+ 4 FAILED TESTS
+<end of output>
+Test time =  20.73 sec
+----------------------------------------------------------
+Test Failed.
+"election" end time: Apr 24 20:54 CST
+"election" time elapsed: 00:00:20
+----------------------------------------------------------
+
+4/9 Testing: replication
+4/9 Test: replication
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_replication"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"replication" start time: Apr 24 20:54 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 5 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 5 tests from ReplicationTest
+[ RUN      ] ReplicationTest.BasicAgreement
+E0424 20:54:42.027364712     908 server_chttp2.cc:40]        {"created":"@1777035282.027334669","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035282.027332047","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59600"}]}
+E0424 20:54:42.029802730     908 server_chttp2.cc:40]        {"created":"@1777035282.029773425","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035282.029769995","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59601"}]}
+E0424 20:54:42.031507342     908 server_chttp2.cc:40]        {"created":"@1777035282.031485069","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035282.031478891","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59602"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp:172: Failure
+Expected: (-1) != (leader), actual: -1 vs -1
+[  FAILED  ] ReplicationTest.BasicAgreement (5077 ms)
+[ RUN      ] ReplicationTest.MultipleCommands
+E0424 20:54:47.102992489     908 server_chttp2.cc:40]        {"created":"@1777035287.102974316","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035287.102971248","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59700"}]}
+E0424 20:54:47.103797101     908 server_chttp2.cc:40]        {"created":"@1777035287.103780664","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035287.103779345","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59701"}]}
+E0424 20:54:47.104642740     908 server_chttp2.cc:40]        {"created":"@1777035287.104628021","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035287.104626599","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59702"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp:187: Failure
+Expected: (-1) != (c.check_one_leader()), actual: -1 vs -1
+[  FAILED  ] ReplicationTest.MultipleCommands (5061 ms)
+[ RUN      ] ReplicationTest.FailAgree
+E0424 20:54:52.163636109     908 server_chttp2.cc:40]        {"created":"@1777035292.163614042","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035292.163612032","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59800"}]}
+E0424 20:54:52.164385396     908 server_chttp2.cc:40]        {"created":"@1777035292.164368749","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035292.164367123","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59801"}]}
+E0424 20:54:52.165089816     908 server_chttp2.cc:40]        {"created":"@1777035292.165071992","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035292.165070646","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59802"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp:210: Failure
+Expected: (-1) != (leader), actual: -1 vs -1
+[  FAILED  ] ReplicationTest.FailAgree (5120 ms)
+[ RUN      ] ReplicationTest.FailNoAgree
+E0424 20:54:57.283675831     908 server_chttp2.cc:40]        {"created":"@1777035297.283657912","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035297.283650750","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59900"}]}
+E0424 20:54:57.284407779     908 server_chttp2.cc:40]        {"created":"@1777035297.284376303","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035297.284370787","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59901"}]}
+E0424 20:54:57.285151014     908 server_chttp2.cc:40]        {"created":"@1777035297.285136572","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035297.285134511","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:59902"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp:229: Failure
+Expected: (-1) != (leader), actual: -1 vs -1
+[  FAILED  ] ReplicationTest.FailNoAgree (5121 ms)
+[ RUN      ] ReplicationTest.LeaderCrashThenNewCommands
+E0424 20:55:02.404240497     908 server_chttp2.cc:40]        {"created":"@1777035302.404222367","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035302.404216966","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60000"}]}
+E0424 20:55:02.404687376     908 server_chttp2.cc:40]        {"created":"@1777035302.404672987","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035302.404670932","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60001"}]}
+E0424 20:55:02.405145753     908 server_chttp2.cc:40]        {"created":"@1777035302.405131234","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035302.405129690","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60002"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/replication_test.cpp:248: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[  FAILED  ] ReplicationTest.LeaderCrashThenNewCommands (5061 ms)
+[----------] 5 tests from ReplicationTest (25440 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 1 test suite ran. (25440 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 5 tests, listed below:
+[  FAILED  ] ReplicationTest.BasicAgreement
+[  FAILED  ] ReplicationTest.MultipleCommands
+[  FAILED  ] ReplicationTest.FailAgree
+[  FAILED  ] ReplicationTest.FailNoAgree
+[  FAILED  ] ReplicationTest.LeaderCrashThenNewCommands
+
+ 5 FAILED TESTS
+<end of output>
+Test time =  25.46 sec
+----------------------------------------------------------
+Test Failed.
+"replication" end time: Apr 24 20:55 CST
+"replication" time elapsed: 00:00:25
+----------------------------------------------------------
+
+5/9 Testing: kv
+5/9 Test: kv
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_kv"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"kv" start time: Apr 24 20:55 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from KvTest
+[ RUN      ] KvTest.BasicPutGet
+E0424 20:55:07.489784838    1644 server_chttp2.cc:40]        {"created":"@1777035307.489748749","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035307.489743226","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60100"}]}
+E0424 20:55:07.490802312    1644 server_chttp2.cc:40]        {"created":"@1777035307.490772624","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035307.490769293","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60101"}]}
+E0424 20:55:07.491644299    1644 server_chttp2.cc:40]        {"created":"@1777035307.491614243","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035307.491610464","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60102"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:142: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.BasicPutGet (5024 ms)
+[ RUN      ] KvTest.Append
+E0424 20:55:12.511926380    1644 server_chttp2.cc:40]        {"created":"@1777035312.511901057","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035312.511897485","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60200"}]}
+E0424 20:55:12.512696572    1644 server_chttp2.cc:40]        {"created":"@1777035312.512683458","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035312.512681293","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60201"}]}
+E0424 20:55:12.513600595    1644 server_chttp2.cc:40]        {"created":"@1777035312.513584359","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035312.513582641","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60202"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:152: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.Append (5071 ms)
+[ RUN      ] KvTest.GetMissing
+E0424 20:55:17.583999622    1644 server_chttp2.cc:40]        {"created":"@1777035317.583979587","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035317.583977385","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60300"}]}
+E0424 20:55:17.585308066    1644 server_chttp2.cc:40]        {"created":"@1777035317.585291291","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035317.585289211","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60301"}]}
+E0424 20:55:17.586133230    1644 server_chttp2.cc:40]        {"created":"@1777035317.586117866","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035317.586115042","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60302"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:163: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.GetMissing (5068 ms)
+[ RUN      ] KvTest.MultipleKeys
+E0424 20:55:22.651996648    1644 server_chttp2.cc:40]        {"created":"@1777035322.651959509","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035322.651952874","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60400"}]}
+E0424 20:55:22.652807489    1644 server_chttp2.cc:40]        {"created":"@1777035322.652776008","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035322.652769111","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60401"}]}
+E0424 20:55:22.653670551    1644 server_chttp2.cc:40]        {"created":"@1777035322.653638389","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035322.653634453","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60402"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:172: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.MultipleKeys (5063 ms)
+[ RUN      ] KvTest.Overwrite
+E0424 20:55:27.714428588    1644 server_chttp2.cc:40]        {"created":"@1777035327.714407780","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035327.714404820","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60500"}]}
+E0424 20:55:27.715197951    1644 server_chttp2.cc:40]        {"created":"@1777035327.715183336","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035327.715181416","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60501"}]}
+E0424 20:55:27.715954289    1644 server_chttp2.cc:40]        {"created":"@1777035327.715941902","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035327.715940296","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60502"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:186: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.Overwrite (5061 ms)
+[ RUN      ] KvTest.TwoClients
+E0424 20:55:32.775287689    1644 server_chttp2.cc:40]        {"created":"@1777035332.775268911","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035332.775266149","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60600"}]}
+E0424 20:55:32.776069263    1644 server_chttp2.cc:40]        {"created":"@1777035332.776052258","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035332.776049890","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60601"}]}
+E0424 20:55:32.776779006    1644 server_chttp2.cc:40]        {"created":"@1777035332.776763802","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035332.776762229","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60602"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:197: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.TwoClients (5060 ms)
+[ RUN      ] KvTest.LeaderCrash
+E0424 20:55:37.835606511    1644 server_chttp2.cc:40]        {"created":"@1777035337.835586393","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035337.835583728","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60700"}]}
+E0424 20:55:37.836462520    1644 server_chttp2.cc:40]        {"created":"@1777035337.836433657","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035337.836429158","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60701"}]}
+E0424 20:55:37.837285764    1644 server_chttp2.cc:40]        {"created":"@1777035337.837254094","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035337.837249530","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60702"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:213: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[  FAILED  ] KvTest.LeaderCrash (5113 ms)
+[ RUN      ] KvTest.AppendSequence
+E0424 20:55:42.947808963    1644 server_chttp2.cc:40]        {"created":"@1777035342.947790460","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035342.947788350","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60800"}]}
+E0424 20:55:42.948536475    1644 server_chttp2.cc:40]        {"created":"@1777035342.948518419","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035342.948515543","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60801"}]}
+E0424 20:55:42.949418264    1644 server_chttp2.cc:40]        {"created":"@1777035342.949348663","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035342.949343698","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:60802"}]}
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/kv_test.cpp:241: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] KvTest.AppendSequence (5069 ms)
+[----------] 8 tests from KvTest (40529 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (40529 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 8 tests, listed below:
+[  FAILED  ] KvTest.BasicPutGet
+[  FAILED  ] KvTest.Append
+[  FAILED  ] KvTest.GetMissing
+[  FAILED  ] KvTest.MultipleKeys
+[  FAILED  ] KvTest.Overwrite
+[  FAILED  ] KvTest.TwoClients
+[  FAILED  ] KvTest.LeaderCrash
+[  FAILED  ] KvTest.AppendSequence
+
+ 8 FAILED TESTS
+<end of output>
+Test time =  40.55 sec
+----------------------------------------------------------
+Test Failed.
+"kv" end time: Apr 24 20:55 CST
+"kv" time elapsed: 00:00:40
+----------------------------------------------------------
+
+6/9 Testing: snapshot
+6/9 Test: snapshot
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_snapshot"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"snapshot" start time: Apr 24 20:55 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from SnapshotTest
+[ RUN      ] SnapshotTest.BasicSnapshot
+E0424 20:55:48.037897483    2805 server_chttp2.cc:40]        {"created":"@1777035348.037881727","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035348.037879567","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61000"}]}
+E0424 20:55:48.038718265    2805 server_chttp2.cc:40]        {"created":"@1777035348.038687152","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035348.038683623","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61001"}]}
+E0424 20:55:48.039519779    2805 server_chttp2.cc:40]        {"created":"@1777035348.039507386","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035348.039503377","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61002"}]}
+[2026-04-24 20:55:48.241] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:55:48.310] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:55:48.320] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:55:48.474] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:55:48.492] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:55:48.503] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:55:48.654] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:55:48.685] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:55:48.705] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:55:48.845] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:55:48.858] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:55:48.967] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:55:49.110] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:55:49.138] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:55:49.180] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:55:49.341] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:55:49.403] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:55:49.422] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:55:49.493] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:55:49.645] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:55:49.676] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:55:49.796] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:55:49.817] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:55:49.898] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:55:49.968] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:55:50.070] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:55:50.160] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:55:50.180] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:55:50.271] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:55:50.423] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:55:50.432] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:55:50.462] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:55:50.635] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:55:50.644] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:55:50.724] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:55:50.897] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:55:50.947] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:55:50.947] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:55:51.109] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:55:51.179] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:55:51.250] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:55:51.371] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:55:51.381] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:55:51.402] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:55:51.583] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:55:51.663] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:55:51.704] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:55:51.755] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:55:51.885] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:55:52.007] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:55:52.048] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:55:52.188] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:55:52.219] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:55:52.270] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:55:52.350] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:55:52.431] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:55:52.531] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:55:52.552] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:55:52.734] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:55:52.744] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:55:52.814] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:55:52.946] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:55:52.976] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:55:52.985] [info] [Node 1] [term=22] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:152: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] SnapshotTest.BasicSnapshot (5064 ms)
+[ RUN      ] SnapshotTest.ContinueAfterSnapshot
+E0424 20:55:53.101431735    2805 server_chttp2.cc:40]        {"created":"@1777035353.101412457","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035353.101410276","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61100"}]}
+E0424 20:55:53.102224383    2805 server_chttp2.cc:40]        {"created":"@1777035353.102197173","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035353.102192128","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61101"}]}
+E0424 20:55:53.102962358    2805 server_chttp2.cc:40]        {"created":"@1777035353.102947376","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035353.102946242","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61102"}]}
+[2026-04-24 20:55:53.272] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:55:53.334] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:55:53.374] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:55:53.566] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:55:53.575] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:55:53.586] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:55:53.746] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:55:53.788] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:55:53.889] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:55:53.918] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:55:54.071] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:55:54.162] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:55:54.190] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:55:54.283] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:55:54.392] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:55:54.454] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:55:54.465] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:55:54.574] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:55:54.676] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:55:54.718] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:55:54.856] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:55:54.949] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:55:54.980] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:55:55.141] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:55:55.149] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:55:55.151] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:55:55.360] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:55:55.373] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:55:55.423] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:55:55.585] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:55:55.592] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:55:55.595] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:55:55.777] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:55:55.777] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:55:55.814] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:55:55.949] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:55:55.969] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:55:56.007] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:55:56.152] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:55:56.209] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:55:56.232] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:55:56.404] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:55:56.444] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:55:56.511] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:55:56.626] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:55:56.696] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:55:56.713] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:55:56.808] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:55:56.867] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:55:56.995] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:55:57.080] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:55:57.090] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:55:57.238] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:55:57.332] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:55:57.342] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:55:57.520] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:55:57.564] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:55:57.645] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:55:57.742] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:55:57.746] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:55:57.877] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:55:57.948] [info] [Node 2] [term=22] [Candidate] starting election
+[2026-04-24 20:55:58.014] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:55:58.110] [info] [Node 2] [term=23] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:172: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] SnapshotTest.ContinueAfterSnapshot (5061 ms)
+[ RUN      ] SnapshotTest.AppendAfterSnapshot
+E0424 20:55:58.162329581    2805 server_chttp2.cc:40]        {"created":"@1777035358.162310552","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035358.162308212","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61200"}]}
+E0424 20:55:58.163086724    2805 server_chttp2.cc:40]        {"created":"@1777035358.163068708","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035358.163066900","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61201"}]}
+E0424 20:55:58.163762734    2805 server_chttp2.cc:40]        {"created":"@1777035358.163747354","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035358.163745635","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61202"}]}
+[2026-04-24 20:55:58.354] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:55:58.394] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:55:58.454] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:55:58.606] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:55:58.617] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:55:58.676] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:55:58.788] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:55:58.909] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:55:58.949] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:55:59.080] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:55:59.111] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:55:59.251] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:55:59.272] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:55:59.312] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:55:59.413] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:55:59.474] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:55:59.575] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:55:59.635] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:55:59.747] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:55:59.847] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:55:59.858] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:55:59.968] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:00.020] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:00.130] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:00.139] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:00.292] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:00.331] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:00.402] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:00.522] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:00.524] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:00.594] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:00.725] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:00.786] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:00.795] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:00.947] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:00.958] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:00.997] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:01.139] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:01.140] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:01.289] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:01.391] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:01.392] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:01.531] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:01.563] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:01.614] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:01.775] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:01.793] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:01.806] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:01.975] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:02.037] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:02.058] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:02.239] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:02.247] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:02.350] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:02.390] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:02.550] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:02.582] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:02.612] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:02.743] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:02.751] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:02.774] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:02.973] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:02.975] [info] [Node 2] [term=22] [Candidate] starting election
+[2026-04-24 20:56:03.006] [info] [Node 1] [term=22] [Candidate] starting election
+[2026-04-24 20:56:03.155] [info] [Node 0] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:197: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[2026-04-24 20:56:03.197] [info] [Node 2] [term=23] [Candidate] starting election
+[  FAILED  ] SnapshotTest.AppendAfterSnapshot (5061 ms)
+[ RUN      ] SnapshotTest.FullClusterRestart
+E0424 20:56:03.223832174    2805 server_chttp2.cc:40]        {"created":"@1777035363.223812015","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035363.223809358","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61300"}]}
+E0424 20:56:03.224665537    2805 server_chttp2.cc:40]        {"created":"@1777035363.224649789","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035363.224647498","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61301"}]}
+E0424 20:56:03.225419409    2805 server_chttp2.cc:40]        {"created":"@1777035363.225402865","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035363.225401623","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61302"}]}
+[2026-04-24 20:56:03.406] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:03.425] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:03.526] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:03.568] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:03.647] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:03.749] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:03.768] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:03.899] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:04.042] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:04.071] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:04.122] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:04.305] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:04.355] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:04.416] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:04.487] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:04.516] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:04.678] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:04.698] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:04.729] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:04.891] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:04.940] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:04.960] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:05.092] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:05.142] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:05.192] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:05.294] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:05.374] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:05.375] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:05.546] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:05.587] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:05.647] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:05.759] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:05.810] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:05.869] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:05.931] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:06.022] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:06.051] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:06.102] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:06.202] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:06.254] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:06.284] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:06.445] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:06.466] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:06.526] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:06.636] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:06.638] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:06.789] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:06.840] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:06.918] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:07.041] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:07.082] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:07.191] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:07.233] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:07.344] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:07.493] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:07.505] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:07.526] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:07.655] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:07.807] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:07.808] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:07.867] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:08.019] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:08.081] [info] [Node 2] [term=22] [Candidate] starting election
+[2026-04-24 20:56:08.159] [info] [Node 0] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:214: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[2026-04-24 20:56:08.263] [info] [Node 2] [term=23] [Candidate] starting election
+[  FAILED  ] SnapshotTest.FullClusterRestart (5062 ms)
+[ RUN      ] SnapshotTest.InstallSnapshot
+E0424 20:56:08.285286792    2805 server_chttp2.cc:40]        {"created":"@1777035368.285268720","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035368.285266842","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61400"}]}
+E0424 20:56:08.286006406    2805 server_chttp2.cc:40]        {"created":"@1777035368.285988768","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035368.285986311","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61401"}]}
+E0424 20:56:08.286805345    2805 server_chttp2.cc:40]        {"created":"@1777035368.286787238","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035368.286783936","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61402"}]}
+[2026-04-24 20:56:08.446] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:08.467] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:08.547] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:08.658] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:08.770] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:08.770] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:08.940] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:08.982] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:09.003] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:09.142] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:09.184] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:09.295] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:09.344] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:09.346] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:09.507] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:09.535] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:09.568] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:09.798] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:09.800] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:09.861] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:10.022] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:10.060] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:10.062] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:10.244] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:10.292] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:10.325] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:10.456] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:10.494] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:10.517] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:10.647] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:10.728] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:10.746] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:10.870] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:10.950] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:11.008] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:11.042] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:11.213] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:11.291] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:11.324] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:11.395] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:11.452] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:11.586] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:11.617] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:11.704] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:11.748] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:11.919] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:11.970] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:11.996] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:12.162] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:12.182] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:12.188] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:12.414] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:12.461] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:12.484] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:12.663] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:12.686] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:12.697] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:12.868] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:12.915] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:12.948] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:13.040] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:13.130] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:13.217] [info] [Node 0] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:261: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[2026-04-24 20:56:13.302] [info] [Node 2] [term=22] [Candidate] starting election
+[2026-04-24 20:56:13.302] [info] [Node 1] [term=22] [Candidate] starting election
+[  FAILED  ] SnapshotTest.InstallSnapshot (5061 ms)
+[ RUN      ] SnapshotTest.LeaderCrashAfterSnapshot
+E0424 20:56:13.346392681    2805 server_chttp2.cc:40]        {"created":"@1777035373.346373745","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035373.346370702","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61500"}]}
+E0424 20:56:13.347179054    2805 server_chttp2.cc:40]        {"created":"@1777035373.347160843","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035373.347157534","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61501"}]}
+E0424 20:56:13.347953737    2805 server_chttp2.cc:40]        {"created":"@1777035373.347938838","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035373.347937394","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:61502"}]}
+[2026-04-24 20:56:13.558] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:13.628] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:13.640] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:13.770] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:13.862] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:13.900] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:14.012] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:14.054] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:14.172] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:14.234] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:14.285] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:14.334] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:14.497] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:14.516] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:14.626] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:14.718] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:14.750] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:14.888] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:14.990] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:14.992] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:15.110] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:15.161] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:15.224] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:15.292] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:15.413] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:15.476] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:15.574] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:15.635] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:15.718] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:15.837] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:15.938] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:15.970] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:16.069] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:16.231] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:16.252] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:16.261] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:16.454] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:16.533] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:16.543] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:16.695] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:16.737] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:16.785] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:16.967] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:16.979] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:17.017] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:17.149] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:17.231] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:17.290] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:17.391] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:17.402] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:17.572] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:17.633] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:17.664] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:17.825] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:17.834] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:17.957] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:18.016] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:18.107] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:18.218] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:18.239] [info] [Node 2] [term=20] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/snapshot_test.cpp:307: Failure
+Expected: (-1) != (leader1), actual: -1 vs -1
+[2026-04-24 20:56:18.359] [info] [Node 1] [term=21] [Candidate] starting election
+[  FAILED  ] SnapshotTest.LeaderCrashAfterSnapshot (5113 ms)
+[----------] 6 tests from SnapshotTest (30422 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (30423 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 6 tests, listed below:
+[  FAILED  ] SnapshotTest.BasicSnapshot
+[  FAILED  ] SnapshotTest.ContinueAfterSnapshot
+[  FAILED  ] SnapshotTest.AppendAfterSnapshot
+[  FAILED  ] SnapshotTest.FullClusterRestart
+[  FAILED  ] SnapshotTest.InstallSnapshot
+[  FAILED  ] SnapshotTest.LeaderCrashAfterSnapshot
+
+ 6 FAILED TESTS
+<end of output>
+Test time =  30.44 sec
+----------------------------------------------------------
+Test Failed.
+"snapshot" end time: Apr 24 20:56 CST
+"snapshot" time elapsed: 00:00:30
+----------------------------------------------------------
+
+7/9 Testing: stress
+7/9 Test: stress
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_stress"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"stress" start time: Apr 24 20:56 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 4 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 4 tests from StressTest
+[ RUN      ] StressTest.ManyPutGet
+E0424 20:56:18.483491274    3671 server_chttp2.cc:40]        {"created":"@1777035378.483474665","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035378.483473278","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62000"}]}
+E0424 20:56:18.484302645    3671 server_chttp2.cc:40]        {"created":"@1777035378.484286760","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035378.484285281","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62001"}]}
+E0424 20:56:18.485059818    3671 server_chttp2.cc:40]        {"created":"@1777035378.485045231","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035378.485043880","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62002"}]}
+[2026-04-24 20:56:18.646] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:18.665] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:18.704] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:18.826] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:18.868] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:18.917] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:18.978] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:19.111] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:19.169] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:19.200] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:19.322] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:19.392] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:19.461] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:19.545] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:19.666] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:19.734] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:19.748] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:19.847] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:19.896] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:20.010] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:20.130] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:20.148] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:20.272] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:20.311] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:20.320] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:20.542] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:20.575] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:20.594] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:20.784] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:20.836] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:20.837] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:21.016] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:21.039] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:21.058] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:21.198] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:21.200] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:21.240] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:21.430] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:21.452] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:21.453] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:21.652] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:21.704] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:21.715] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:21.894] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:21.956] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:21.967] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:22.055] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:22.178] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:22.199] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:22.268] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:22.400] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:22.492] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:22.500] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:22.612] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:22.704] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:22.784] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:22.802] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:22.865] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:22.965] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:23.065] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:23.117] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:23.187] [info] [Node 1] [term=22] [Candidate] starting election
+[2026-04-24 20:56:23.289] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:23.328] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:23.379] [info] [Node 1] [term=23] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/stress_test.cpp:148: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[2026-04-24 20:56:23.521] [info] [Node 2] [term=22] [Candidate] starting election
+[  FAILED  ] StressTest.ManyPutGet (5072 ms)
+[ RUN      ] StressTest.ConcurrentClients
+E0424 20:56:23.554817999    3671 server_chttp2.cc:40]        {"created":"@1777035383.554799130","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035383.554796560","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62100"}]}
+E0424 20:56:23.556730360    3671 server_chttp2.cc:40]        {"created":"@1777035383.556709760","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035383.556706496","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62101"}]}
+E0424 20:56:23.557561077    3671 server_chttp2.cc:40]        {"created":"@1777035383.557544567","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035383.557543248","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62102"}]}
+[2026-04-24 20:56:23.716] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:23.727] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:23.768] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:23.970] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:24.018] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:24.041] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:24.192] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:24.203] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:24.260] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:24.393] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:24.465] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:24.492] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:24.595] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:24.734] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:24.767] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:24.877] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:24.906] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:24.959] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:25.088] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:25.140] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:25.161] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:25.250] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:25.373] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:25.384] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:25.491] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:25.525] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:25.656] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:25.703] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:25.787] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:25.817] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:25.966] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:26.040] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:26.121] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:26.209] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:26.272] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:26.403] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:26.501] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:26.504] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:26.584] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:26.726] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:26.743] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:26.746] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:26.928] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:27.006] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:27.009] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:27.160] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:27.171] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:27.278] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:27.402] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:27.473] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:27.500] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:27.704] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:27.712] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:27.745] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:27.914] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:27.957] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:27.996] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:28.169] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:28.208] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:28.216] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:28.381] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:28.458] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:28.471] [info] [Node 2] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/stress_test.cpp:166: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[2026-04-24 20:56:28.593] [info] [Node 1] [term=22] [Candidate] starting election
+[  FAILED  ] StressTest.ConcurrentClients (5072 ms)
+[ RUN      ] StressTest.LeaderSwitchDuringLoad
+E0424 20:56:28.626277429    3671 server_chttp2.cc:40]        {"created":"@1777035388.626238785","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035388.626233337","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62200"}]}
+E0424 20:56:28.627073898    3671 server_chttp2.cc:40]        {"created":"@1777035388.627056620","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035388.627052746","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62201"}]}
+E0424 20:56:28.627798392    3671 server_chttp2.cc:40]        {"created":"@1777035388.627784640","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035388.627783007","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62202"}]}
+[2026-04-24 20:56:28.829] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:28.849] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:28.868] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:29.030] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:29.061] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:29.111] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:29.191] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:29.253] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:29.283] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:29.353] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:29.494] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:29.495] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:29.635] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:29.727] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:29.757] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:29.887] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:29.949] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:29.989] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:30.111] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:30.170] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:30.211] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:30.333] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:30.442] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:30.453] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:30.495] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:30.725] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:30.736] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:30.767] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:30.896] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:31.038] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:31.060] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:31.168] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:31.290] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:31.302] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:31.350] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:31.502] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:31.584] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:31.603] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:31.744] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:31.755] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:31.845] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:31.946] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:31.967] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:32.050] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:32.158] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:32.189] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:32.272] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:32.370] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:32.451] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:32.514] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:32.602] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:32.653] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:32.816] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:32.884] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:32.955] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:33.028] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:33.106] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:33.228] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:33.230] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:33.359] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:33.432] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:33.490] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:33.540] [info] [Node 0] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/stress_test.cpp:199: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] StressTest.LeaderSwitchDuringLoad (5071 ms)
+[ RUN      ] StressTest.AppendUnderStress
+E0424 20:56:33.697625485    3671 server_chttp2.cc:40]        {"created":"@1777035393.697606067","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035393.697601748","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62300"}]}
+E0424 20:56:33.698425460    3671 server_chttp2.cc:40]        {"created":"@1777035393.698392132","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035393.698385841","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62301"}]}
+E0424 20:56:33.699173297    3671 server_chttp2.cc:40]        {"created":"@1777035393.699158940","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035393.699156857","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:62302"}]}
+[2026-04-24 20:56:33.879] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:33.940] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:33.999] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:34.123] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:34.152] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:34.272] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:34.284] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:34.405] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:34.486] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:34.494] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:34.647] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:34.738] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:34.746] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:34.909] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:34.939] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:35.028] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:35.081] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:35.122] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:35.233] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:35.270] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:35.283] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:35.442] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:35.505] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:35.506] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:35.594] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:35.755] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:35.767] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:35.778] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:35.918] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:36.027] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:36.051] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:36.071] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:36.189] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:36.243] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:36.323] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:36.401] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:36.535] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:36.545] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:36.633] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:36.717] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:36.807] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:36.814] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:36.976] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:36.999] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:37.010] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:37.232] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:37.262] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:37.268] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:37.454] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:37.494] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:37.520] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:37.696] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:37.702] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:37.747] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:37.884] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:37.969] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:37.978] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:38.106] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:38.211] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:38.220] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:38.277] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:38.433] [info] [Node 2] [term=22] [Candidate] starting election
+[2026-04-24 20:56:38.433] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:38.530] [info] [Node 0] [term=22] [Candidate] starting election
+[2026-04-24 20:56:38.604] [info] [Node 2] [term=23] [Candidate] starting election
+[2026-04-24 20:56:38.705] [info] [Node 1] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/stress_test.cpp:236: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] StressTest.AppendUnderStress (5071 ms)
+[----------] 4 tests from StressTest (20286 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 1 test suite ran. (20286 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 4 tests, listed below:
+[  FAILED  ] StressTest.ManyPutGet
+[  FAILED  ] StressTest.ConcurrentClients
+[  FAILED  ] StressTest.LeaderSwitchDuringLoad
+[  FAILED  ] StressTest.AppendUnderStress
+
+ 4 FAILED TESTS
+<end of output>
+Test time =  20.31 sec
+----------------------------------------------------------
+Test Failed.
+"stress" end time: Apr 24 20:56 CST
+"stress" time elapsed: 00:00:20
+----------------------------------------------------------
+
 8/9 Testing: dedup
 8/9 Test: dedup
 Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_dedup"
 Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
-"dedup" start time: Apr 24 14:14 CST
+"dedup" start time: Apr 24 20:56 CST
 Output:
 ----------------------------------------------------------
 Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
@@ -12,40 +1105,346 @@ Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gt
 [----------] Global test environment set-up.
 [----------] 4 tests from DedupTest
 [ RUN      ] DedupTest.DuplicatePutIgnored
-[2026-04-24 14:14:57.053] [info] [Node 1] [term=1] [Candidate] starting election
-[2026-04-24 14:14:57.056] [info] [Node 2] [term=1] [Follower] stepped down
-[2026-04-24 14:14:57.057] [info] [Node 1] [term=1] [Leader] became leader
-[2026-04-24 14:14:57.057] [info] [Node 0] [term=1] [Follower] stepped down
-[       OK ] DedupTest.DuplicatePutIgnored (757 ms)
+E0424 20:56:38.791230533    4259 server_chttp2.cc:40]        {"created":"@1777035398.791211284","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035398.791209692","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63000"}]}
+E0424 20:56:38.792051311    4259 server_chttp2.cc:40]        {"created":"@1777035398.792026185","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035398.792023285","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63001"}]}
+E0424 20:56:38.792865007    4259 server_chttp2.cc:40]        {"created":"@1777035398.792832581","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035398.792831394","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63002"}]}
+[2026-04-24 20:56:38.983] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:38.983] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:39.044] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:39.165] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:39.226] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:39.256] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:39.407] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:39.438] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:39.549] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:39.590] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:39.600] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:39.782] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:39.792] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:39.883] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:39.996] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:40.054] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:40.157] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:40.268] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:40.327] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:40.389] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:40.470] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:40.478] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:40.641] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:40.691] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:40.741] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:40.923] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:40.974] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:40.993] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:41.105] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:41.226] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:41.285] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:41.407] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:41.488] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:41.568] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:41.710] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:41.791] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:41.860] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:41.962] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:42.032] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:42.073] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:42.174] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:42.244] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:42.326] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:42.365] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:42.405] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:42.487] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:42.547] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:42.608] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:42.699] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:42.739] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:42.860] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:42.911] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:42.971] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:43.052] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:43.163] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:43.163] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:43.314] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:43.354] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:43.385] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:43.576] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:43.596] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:43.597] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:43.799] [info] [Node 1] [term=22] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp:192: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] DedupTest.DuplicatePutIgnored (5113 ms)
 [ RUN      ] DedupTest.DuplicateGetReturnsValue
-[2026-04-24 14:14:57.770] [info] [Node 2] [term=1] [Candidate] starting election
-[2026-04-24 14:14:57.772] [info] [Node 1] [term=1] [Follower] stepped down
-[2026-04-24 14:14:57.772] [info] [Node 0] [term=1] [Follower] stepped down
-[2026-04-24 14:14:57.773] [info] [Node 2] [term=1] [Leader] became leader
-[       OK ] DedupTest.DuplicateGetReturnsValue (660 ms)
+E0424 20:56:43.904009436    4259 server_chttp2.cc:40]        {"created":"@1777035403.903991766","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035403.903989330","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63100"}]}
+E0424 20:56:43.904891209    4259 server_chttp2.cc:40]        {"created":"@1777035403.904873843","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035403.904871669","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63101"}]}
+E0424 20:56:43.905663614    4259 server_chttp2.cc:40]        {"created":"@1777035403.905648275","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035403.905647115","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63102"}]}
+[2026-04-24 20:56:44.086] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:44.106] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:44.117] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:44.277] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:44.319] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:44.348] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:44.540] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:44.570] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:44.571] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:44.772] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:44.813] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:44.852] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:44.954] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:45.014] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:45.105] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:45.197] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:45.256] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:45.327] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:45.480] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:45.488] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:45.549] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:45.690] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:45.762] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:45.791] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:45.841] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:45.943] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:46.014] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:46.043] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:46.196] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:46.315] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:46.316] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:46.417] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:46.478] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:46.569] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:46.608] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:46.740] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:46.819] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:46.831] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:46.971] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:46.992] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:47.033] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:47.263] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:47.295] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:47.296] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:47.487] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:47.505] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:47.598] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:47.698] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:47.768] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:47.770] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:47.971] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:48.032] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:48.040] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:48.224] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:48.263] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:48.272] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:48.456] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:48.474] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:48.475] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:48.645] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:48.677] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:48.687] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:48.887] [info] [Node 1] [term=22] [Candidate] starting election
+[2026-04-24 20:56:48.899] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:48.899] [info] [Node 0] [term=22] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp:215: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] DedupTest.DuplicateGetReturnsValue (5013 ms)
 [ RUN      ] DedupTest.DifferentClientsSameRequestId
-[2026-04-24 14:14:58.451] [info] [Node 0] [term=1] [Candidate] starting election
-[2026-04-24 14:14:58.453] [info] [Node 2] [term=1] [Follower] stepped down
-[2026-04-24 14:14:58.453] [info] [Node 1] [term=1] [Follower] stepped down
-[2026-04-24 14:14:58.454] [info] [Node 0] [term=1] [Leader] became leader
-[       OK ] DedupTest.DifferentClientsSameRequestId (455 ms)
+E0424 20:56:48.917937755    4259 server_chttp2.cc:40]        {"created":"@1777035408.917841453","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035408.917836015","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63200"}]}
+E0424 20:56:48.919000815    4259 server_chttp2.cc:40]        {"created":"@1777035408.918961926","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035408.918958322","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63201"}]}
+E0424 20:56:48.919986276    4259 server_chttp2.cc:40]        {"created":"@1777035408.919969978","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035408.919968871","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63202"}]}
+[2026-04-24 20:56:49.141] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:49.162] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:49.189] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:49.323] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:49.382] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:49.435] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:49.484] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:49.654] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:49.696] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:49.708] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:49.876] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:49.878] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:49.960] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:50.078] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:50.182] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:50.223] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:50.290] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:50.344] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:50.454] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:50.512] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:50.606] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:50.727] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:50.765] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:50.908] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:51.009] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:51.037] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:51.101] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:51.181] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:51.333] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:51.340] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:51.382] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:51.492] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:51.636] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:51.655] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:51.784] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:51.928] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:51.947] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:51.986] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:52.139] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:52.232] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:52.239] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:52.394] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:52.404] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:52.451] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:52.566] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:52.636] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:52.673] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:52.818] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:52.835] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:52.847] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:53.010] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:53.137] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:53.140] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:53.202] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:53.311] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:53.379] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:53.424] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:53.493] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:53.645] [info] [Node 1] [term=21] [Candidate] starting election
+[2026-04-24 20:56:53.652] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:53.664] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:53.817] [info] [Node 1] [term=22] [Candidate] starting election
+[2026-04-24 20:56:53.823] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:53.826] [info] [Node 2] [term=21] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp:230: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] DedupTest.DifferentClientsSameRequestId (5115 ms)
 [ RUN      ] DedupTest.MonotonicRequestId
-[2026-04-24 14:14:58.906] [info] [Node 2] [term=1] [Candidate] starting election
-[2026-04-24 14:14:58.908] [info] [Node 0] [term=1] [Follower] stepped down
-[2026-04-24 14:14:58.909] [info] [Node 2] [term=1] [Leader] became leader
-[2026-04-24 14:14:58.911] [info] [Node 1] [term=1] [Follower] stepped down
-[       OK ] DedupTest.MonotonicRequestId (658 ms)
-[----------] 4 tests from DedupTest (2531 ms total)
+E0424 20:56:54.032898828    4259 server_chttp2.cc:40]        {"created":"@1777035414.032879393","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035414.032877353","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63300"}]}
+E0424 20:56:54.033648173    4259 server_chttp2.cc:40]        {"created":"@1777035414.033612174","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035414.033606774","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63301"}]}
+E0424 20:56:54.034541122    4259 server_chttp2.cc:40]        {"created":"@1777035414.034508708","description":"No address added out of total 1 resolved","file":"src/core/ext/transport/chttp2/server/chttp2_server.cc","file_line":307,"referenced_errors":[{"created":"@1777035414.034505337","description":"OS Error","errno":1,"file":"src/core/lib/iomgr/socket_utils_common_posix.cc","file_line":373,"os_error":"Operation not permitted","syscall":"socket","target_address":"[::ffff:127.0.0.1]:63302"}]}
+[2026-04-24 20:56:54.225] [info] [Node 1] [term=1] [Candidate] starting election
+[2026-04-24 20:56:54.274] [info] [Node 0] [term=1] [Candidate] starting election
+[2026-04-24 20:56:54.327] [info] [Node 2] [term=1] [Candidate] starting election
+[2026-04-24 20:56:54.447] [info] [Node 1] [term=2] [Candidate] starting election
+[2026-04-24 20:56:54.456] [info] [Node 0] [term=2] [Candidate] starting election
+[2026-04-24 20:56:54.489] [info] [Node 2] [term=2] [Candidate] starting election
+[2026-04-24 20:56:54.678] [info] [Node 0] [term=3] [Candidate] starting election
+[2026-04-24 20:56:54.679] [info] [Node 1] [term=3] [Candidate] starting election
+[2026-04-24 20:56:54.731] [info] [Node 2] [term=3] [Candidate] starting election
+[2026-04-24 20:56:54.869] [info] [Node 0] [term=4] [Candidate] starting election
+[2026-04-24 20:56:54.974] [info] [Node 1] [term=4] [Candidate] starting election
+[2026-04-24 20:56:55.034] [info] [Node 2] [term=4] [Candidate] starting election
+[2026-04-24 20:56:55.105] [info] [Node 0] [term=5] [Candidate] starting election
+[2026-04-24 20:56:55.176] [info] [Node 1] [term=5] [Candidate] starting election
+[2026-04-24 20:56:55.215] [info] [Node 2] [term=5] [Candidate] starting election
+[2026-04-24 20:56:55.372] [info] [Node 2] [term=6] [Candidate] starting election
+[2026-04-24 20:56:55.378] [info] [Node 0] [term=6] [Candidate] starting election
+[2026-04-24 20:56:55.448] [info] [Node 1] [term=6] [Candidate] starting election
+[2026-04-24 20:56:55.549] [info] [Node 0] [term=7] [Candidate] starting election
+[2026-04-24 20:56:55.645] [info] [Node 2] [term=7] [Candidate] starting election
+[2026-04-24 20:56:55.720] [info] [Node 1] [term=7] [Candidate] starting election
+[2026-04-24 20:56:55.832] [info] [Node 0] [term=8] [Candidate] starting election
+[2026-04-24 20:56:55.907] [info] [Node 2] [term=8] [Candidate] starting election
+[2026-04-24 20:56:55.932] [info] [Node 1] [term=8] [Candidate] starting election
+[2026-04-24 20:56:56.094] [info] [Node 1] [term=9] [Candidate] starting election
+[2026-04-24 20:56:56.119] [info] [Node 2] [term=9] [Candidate] starting election
+[2026-04-24 20:56:56.125] [info] [Node 0] [term=9] [Candidate] starting election
+[2026-04-24 20:56:56.300] [info] [Node 2] [term=10] [Candidate] starting election
+[2026-04-24 20:56:56.306] [info] [Node 1] [term=10] [Candidate] starting election
+[2026-04-24 20:56:56.377] [info] [Node 0] [term=10] [Candidate] starting election
+[2026-04-24 20:56:56.452] [info] [Node 2] [term=11] [Candidate] starting election
+[2026-04-24 20:56:56.518] [info] [Node 1] [term=11] [Candidate] starting election
+[2026-04-24 20:56:56.679] [info] [Node 0] [term=11] [Candidate] starting election
+[2026-04-24 20:56:56.689] [info] [Node 1] [term=12] [Candidate] starting election
+[2026-04-24 20:56:56.734] [info] [Node 2] [term=12] [Candidate] starting election
+[2026-04-24 20:56:56.871] [info] [Node 0] [term=12] [Candidate] starting election
+[2026-04-24 20:56:56.957] [info] [Node 2] [term=13] [Candidate] starting election
+[2026-04-24 20:56:56.981] [info] [Node 1] [term=13] [Candidate] starting election
+[2026-04-24 20:56:57.123] [info] [Node 0] [term=13] [Candidate] starting election
+[2026-04-24 20:56:57.220] [info] [Node 2] [term=14] [Candidate] starting election
+[2026-04-24 20:56:57.284] [info] [Node 1] [term=14] [Candidate] starting election
+[2026-04-24 20:56:57.295] [info] [Node 0] [term=14] [Candidate] starting election
+[2026-04-24 20:56:57.412] [info] [Node 2] [term=15] [Candidate] starting election
+[2026-04-24 20:56:57.547] [info] [Node 0] [term=15] [Candidate] starting election
+[2026-04-24 20:56:57.567] [info] [Node 1] [term=15] [Candidate] starting election
+[2026-04-24 20:56:57.583] [info] [Node 2] [term=16] [Candidate] starting election
+[2026-04-24 20:56:57.739] [info] [Node 0] [term=16] [Candidate] starting election
+[2026-04-24 20:56:57.808] [info] [Node 1] [term=16] [Candidate] starting election
+[2026-04-24 20:56:57.826] [info] [Node 2] [term=17] [Candidate] starting election
+[2026-04-24 20:56:57.911] [info] [Node 0] [term=17] [Candidate] starting election
+[2026-04-24 20:56:58.061] [info] [Node 1] [term=17] [Candidate] starting election
+[2026-04-24 20:56:58.088] [info] [Node 2] [term=18] [Candidate] starting election
+[2026-04-24 20:56:58.142] [info] [Node 0] [term=18] [Candidate] starting election
+[2026-04-24 20:56:58.270] [info] [Node 2] [term=19] [Candidate] starting election
+[2026-04-24 20:56:58.292] [info] [Node 1] [term=18] [Candidate] starting election
+[2026-04-24 20:56:58.394] [info] [Node 0] [term=19] [Candidate] starting election
+[2026-04-24 20:56:58.512] [info] [Node 2] [term=20] [Candidate] starting election
+[2026-04-24 20:56:58.575] [info] [Node 1] [term=19] [Candidate] starting election
+[2026-04-24 20:56:58.657] [info] [Node 0] [term=20] [Candidate] starting election
+[2026-04-24 20:56:58.804] [info] [Node 2] [term=21] [Candidate] starting election
+[2026-04-24 20:56:58.847] [info] [Node 1] [term=20] [Candidate] starting election
+[2026-04-24 20:56:58.909] [info] [Node 0] [term=21] [Candidate] starting election
+[2026-04-24 20:56:59.036] [info] [Node 2] [term=22] [Candidate] starting election
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/tests/dedup_test.cpp:244: Failure
+Expected: (-1) != (c.wait_leader()), actual: -1 vs -1
+[  FAILED  ] DedupTest.MonotonicRequestId (5163 ms)
+[----------] 4 tests from DedupTest (20405 ms total)
 
 [----------] Global test environment tear-down
-[==========] 4 tests from 1 test suite ran. (2531 ms total)
-[  PASSED  ] 4 tests.
+[==========] 4 tests from 1 test suite ran. (20406 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 4 tests, listed below:
+[  FAILED  ] DedupTest.DuplicatePutIgnored
+[  FAILED  ] DedupTest.DuplicateGetReturnsValue
+[  FAILED  ] DedupTest.DifferentClientsSameRequestId
+[  FAILED  ] DedupTest.MonotonicRequestId
+
+ 4 FAILED TESTS
 <end of output>
-Test time =   2.54 sec
+Test time =  20.42 sec
 ----------------------------------------------------------
-Test Passed.
-"dedup" end time: Apr 24 14:14 CST
-"dedup" time elapsed: 00:00:02
+Test Failed.
+"dedup" end time: Apr 24 20:56 CST
+"dedup" time elapsed: 00:00:20
 ----------------------------------------------------------
 
-End testing: Apr 24 14:14 CST
+9/9 Testing: skiplist
+9/9 Test: skiplist
+Command: "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/bin/test_skiplist"
+Directory: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/tests
+"skiplist" start time: Apr 24 20:56 CST
+Output:
+----------------------------------------------------------
+Running main() from /build/googletest-j5yxiC/googletest-1.10.0/googletest/src/gtest_main.cc
+[==========] Running 8 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 8 tests from SkipListTest
+[ RUN      ] SkipListTest.InsertAndSearch
+[       OK ] SkipListTest.InsertAndSearch (0 ms)
+[ RUN      ] SkipListTest.SearchNotFound
+[       OK ] SkipListTest.SearchNotFound (0 ms)
+[ RUN      ] SkipListTest.OverwriteExisting
+[       OK ] SkipListTest.OverwriteExisting (0 ms)
+[ RUN      ] SkipListTest.Remove
+[       OK ] SkipListTest.Remove (0 ms)
+[ RUN      ] SkipListTest.RemoveNonExistent
+[       OK ] SkipListTest.RemoveNonExistent (0 ms)
+[ RUN      ] SkipListTest.ForEachOrdered
+[       OK ] SkipListTest.ForEachOrdered (0 ms)
+[ RUN      ] SkipListTest.Clear
+[       OK ] SkipListTest.Clear (0 ms)
+[ RUN      ] SkipListTest.StressRandomOps
+[       OK ] SkipListTest.StressRandomOps (1 ms)
+[----------] 8 tests from SkipListTest (1 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 1 test suite ran. (1 ms total)
+[  PASSED  ] 8 tests.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"skiplist" end time: Apr 24 20:56 CST
+"skiplist" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 24 20:56 CST

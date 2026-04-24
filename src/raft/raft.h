@@ -69,6 +69,18 @@ class Raft : public std::enable_shared_from_this<Raft> {
   int  snapshot_index() const;                    // Phase 5: expose last_snapshot_index_
   std::string read_persisted_snapshot() const;    // Phase 5: read snapshot from Persister
 
+  // Phase 6D: aggregated status for REST gateway
+  struct RaftStatus {
+    int  node_id;
+    int  term;
+    Role role;
+    int  last_log_index;
+    int  commit_index;
+    int  last_applied;
+    int  last_snapshot_index;
+  };
+  RaftStatus get_status() const;
+
   // ── Inbound RPC Handlers ─────────────────────────────────────
   // Called by RaftServiceImpl (the gRPC adapter) after it has
   // translated the protobuf request into the internal DTO.

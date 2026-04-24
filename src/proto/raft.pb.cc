@@ -64,6 +64,16 @@ class RaftPersistStateDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<RaftPersistState>
       _instance;
 } _RaftPersistState_default_instance_;
+class GetStatusRequestDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<GetStatusRequest>
+      _instance;
+} _GetStatusRequest_default_instance_;
+class GetStatusReplyDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<GetStatusReply>
+      _instance;
+} _GetStatusReply_default_instance_;
 }  // namespace raft
 }  // namespace raftkv
 namespace protobuf_raft_2eproto {
@@ -181,6 +191,34 @@ static void InitDefaultsRaftPersistState() {
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsRaftPersistState}, {
       &protobuf_raft_2eproto::scc_info_LogEntry.base,}};
 
+static void InitDefaultsGetStatusRequest() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::raftkv::raft::_GetStatusRequest_default_instance_;
+    new (ptr) ::raftkv::raft::GetStatusRequest();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::raftkv::raft::GetStatusRequest::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_GetStatusRequest =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGetStatusRequest}, {}};
+
+static void InitDefaultsGetStatusReply() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::raftkv::raft::_GetStatusReply_default_instance_;
+    new (ptr) ::raftkv::raft::GetStatusReply();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::raftkv::raft::GetStatusReply::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_GetStatusReply =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGetStatusReply}, {}};
+
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_LogEntry.base);
   ::google::protobuf::internal::InitSCC(&scc_info_AppendEntriesRequest.base);
@@ -190,9 +228,11 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_InstallSnapshotRequest.base);
   ::google::protobuf::internal::InitSCC(&scc_info_InstallSnapshotReply.base);
   ::google::protobuf::internal::InitSCC(&scc_info_RaftPersistState.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_GetStatusRequest.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_GetStatusReply.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[8];
+::google::protobuf::Metadata file_level_metadata[10];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -265,6 +305,23 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, logs_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, last_snapshot_index_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::RaftPersistState, last_snapshot_term_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, node_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, term_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, role_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, last_log_index_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, commit_index_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, last_applied_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::raft::GetStatusReply, last_snapshot_index_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::raftkv::raft::LogEntry)},
@@ -275,6 +332,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 44, -1, sizeof(::raftkv::raft::InstallSnapshotRequest)},
   { 54, -1, sizeof(::raftkv::raft::InstallSnapshotReply)},
   { 60, -1, sizeof(::raftkv::raft::RaftPersistState)},
+  { 70, -1, sizeof(::raftkv::raft::GetStatusRequest)},
+  { 75, -1, sizeof(::raftkv::raft::GetStatusReply)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -286,6 +345,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::raft::_InstallSnapshotRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::raft::_InstallSnapshotReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::raft::_RaftPersistState_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::raft::_GetStatusRequest_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::raft::_GetStatusReply_default_instance_),
 };
 
 void protobuf_AssignDescriptors() {
@@ -303,7 +364,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 8);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 10);
 }
 
 void AddDescriptorsImpl() {
@@ -329,17 +390,24 @@ void AddDescriptorsImpl() {
       "\005\"\231\001\n\020RaftPersistState\022\024\n\014current_term\030\001"
       " \001(\005\022\021\n\tvoted_for\030\002 \001(\005\022#\n\004logs\030\003 \003(\0132\025."
       "raftkv.raft.LogEntry\022\033\n\023last_snapshot_in"
-      "dex\030\004 \001(\005\022\032\n\022last_snapshot_term\030\005 \001(\0052\214\002"
-      "\n\013RaftService\022S\n\rAppendEntries\022!.raftkv."
-      "raft.AppendEntriesRequest\032\037.raftkv.raft."
-      "AppendEntriesReply\022M\n\013RequestVote\022\037.raft"
-      "kv.raft.RequestVoteRequest\032\035.raftkv.raft"
-      ".RequestVoteReply\022Y\n\017InstallSnapshot\022#.r"
-      "aftkv.raft.InstallSnapshotRequest\032!.raft"
-      "kv.raft.InstallSnapshotReplyb\006proto3"
+      "dex\030\004 \001(\005\022\032\n\022last_snapshot_term\030\005 \001(\005\"\022\n"
+      "\020GetStatusRequest\"\236\001\n\016GetStatusReply\022\017\n\007"
+      "node_id\030\001 \001(\005\022\014\n\004term\030\002 \001(\005\022\014\n\004role\030\003 \001("
+      "\t\022\026\n\016last_log_index\030\004 \001(\005\022\024\n\014commit_inde"
+      "x\030\005 \001(\005\022\024\n\014last_applied\030\006 \001(\005\022\033\n\023last_sn"
+      "apshot_index\030\007 \001(\0052\325\002\n\013RaftService\022S\n\rAp"
+      "pendEntries\022!.raftkv.raft.AppendEntriesR"
+      "equest\032\037.raftkv.raft.AppendEntriesReply\022"
+      "M\n\013RequestVote\022\037.raftkv.raft.RequestVote"
+      "Request\032\035.raftkv.raft.RequestVoteReply\022Y"
+      "\n\017InstallSnapshot\022#.raftkv.raft.InstallS"
+      "napshotRequest\032!.raftkv.raft.InstallSnap"
+      "shotReply\022G\n\tGetStatus\022\035.raftkv.raft.Get"
+      "StatusRequest\032\033.raftkv.raft.GetStatusRep"
+      "lyb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1116);
+      descriptor, 1370);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "raft.proto", &protobuf_RegisterTypes);
 }
@@ -3010,6 +3078,652 @@ void RaftPersistState::InternalSwap(RaftPersistState* other) {
 }
 
 
+// ===================================================================
+
+void GetStatusRequest::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+GetStatusRequest::GetStatusRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_raft_2eproto::scc_info_GetStatusRequest.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:raftkv.raft.GetStatusRequest)
+}
+GetStatusRequest::GetStatusRequest(const GetStatusRequest& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:raftkv.raft.GetStatusRequest)
+}
+
+void GetStatusRequest::SharedCtor() {
+}
+
+GetStatusRequest::~GetStatusRequest() {
+  // @@protoc_insertion_point(destructor:raftkv.raft.GetStatusRequest)
+  SharedDtor();
+}
+
+void GetStatusRequest::SharedDtor() {
+}
+
+void GetStatusRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* GetStatusRequest::descriptor() {
+  ::protobuf_raft_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_raft_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const GetStatusRequest& GetStatusRequest::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_raft_2eproto::scc_info_GetStatusRequest.base);
+  return *internal_default_instance();
+}
+
+
+void GetStatusRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:raftkv.raft.GetStatusRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear();
+}
+
+bool GetStatusRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:raftkv.raft.GetStatusRequest)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormat::SkipField(
+          input, tag, _internal_metadata_.mutable_unknown_fields()));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:raftkv.raft.GetStatusRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:raftkv.raft.GetStatusRequest)
+  return false;
+#undef DO_
+}
+
+void GetStatusRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:raftkv.raft.GetStatusRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:raftkv.raft.GetStatusRequest)
+}
+
+::google::protobuf::uint8* GetStatusRequest::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:raftkv.raft.GetStatusRequest)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:raftkv.raft.GetStatusRequest)
+  return target;
+}
+
+size_t GetStatusRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:raftkv.raft.GetStatusRequest)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetStatusRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:raftkv.raft.GetStatusRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetStatusRequest* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const GetStatusRequest>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:raftkv.raft.GetStatusRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:raftkv.raft.GetStatusRequest)
+    MergeFrom(*source);
+  }
+}
+
+void GetStatusRequest::MergeFrom(const GetStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:raftkv.raft.GetStatusRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void GetStatusRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:raftkv.raft.GetStatusRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetStatusRequest::CopyFrom(const GetStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:raftkv.raft.GetStatusRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetStatusRequest::IsInitialized() const {
+  return true;
+}
+
+void GetStatusRequest::Swap(GetStatusRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void GetStatusRequest::InternalSwap(GetStatusRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata GetStatusRequest::GetMetadata() const {
+  protobuf_raft_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_raft_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
+void GetStatusReply::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int GetStatusReply::kNodeIdFieldNumber;
+const int GetStatusReply::kTermFieldNumber;
+const int GetStatusReply::kRoleFieldNumber;
+const int GetStatusReply::kLastLogIndexFieldNumber;
+const int GetStatusReply::kCommitIndexFieldNumber;
+const int GetStatusReply::kLastAppliedFieldNumber;
+const int GetStatusReply::kLastSnapshotIndexFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+GetStatusReply::GetStatusReply()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_raft_2eproto::scc_info_GetStatusReply.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:raftkv.raft.GetStatusReply)
+}
+GetStatusReply::GetStatusReply(const GetStatusReply& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  role_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.role().size() > 0) {
+    role_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.role_);
+  }
+  ::memcpy(&node_id_, &from.node_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&last_snapshot_index_) -
+    reinterpret_cast<char*>(&node_id_)) + sizeof(last_snapshot_index_));
+  // @@protoc_insertion_point(copy_constructor:raftkv.raft.GetStatusReply)
+}
+
+void GetStatusReply::SharedCtor() {
+  role_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&node_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&last_snapshot_index_) -
+      reinterpret_cast<char*>(&node_id_)) + sizeof(last_snapshot_index_));
+}
+
+GetStatusReply::~GetStatusReply() {
+  // @@protoc_insertion_point(destructor:raftkv.raft.GetStatusReply)
+  SharedDtor();
+}
+
+void GetStatusReply::SharedDtor() {
+  role_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetStatusReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* GetStatusReply::descriptor() {
+  ::protobuf_raft_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_raft_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const GetStatusReply& GetStatusReply::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_raft_2eproto::scc_info_GetStatusReply.base);
+  return *internal_default_instance();
+}
+
+
+void GetStatusReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:raftkv.raft.GetStatusReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  role_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(&node_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&last_snapshot_index_) -
+      reinterpret_cast<char*>(&node_id_)) + sizeof(last_snapshot_index_));
+  _internal_metadata_.Clear();
+}
+
+bool GetStatusReply::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:raftkv.raft.GetStatusReply)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 node_id = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &node_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 term = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &term_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string role = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_role()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->role().data(), static_cast<int>(this->role().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "raftkv.raft.GetStatusReply.role"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 last_log_index = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &last_log_index_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 commit_index = 5;
+      case 5: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &commit_index_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 last_applied = 6;
+      case 6: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &last_applied_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 last_snapshot_index = 7;
+      case 7: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(56u /* 56 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &last_snapshot_index_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:raftkv.raft.GetStatusReply)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:raftkv.raft.GetStatusReply)
+  return false;
+#undef DO_
+}
+
+void GetStatusReply::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:raftkv.raft.GetStatusReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 node_id = 1;
+  if (this->node_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->node_id(), output);
+  }
+
+  // int32 term = 2;
+  if (this->term() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->term(), output);
+  }
+
+  // string role = 3;
+  if (this->role().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->role().data(), static_cast<int>(this->role().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.raft.GetStatusReply.role");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->role(), output);
+  }
+
+  // int32 last_log_index = 4;
+  if (this->last_log_index() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->last_log_index(), output);
+  }
+
+  // int32 commit_index = 5;
+  if (this->commit_index() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->commit_index(), output);
+  }
+
+  // int32 last_applied = 6;
+  if (this->last_applied() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->last_applied(), output);
+  }
+
+  // int32 last_snapshot_index = 7;
+  if (this->last_snapshot_index() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->last_snapshot_index(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:raftkv.raft.GetStatusReply)
+}
+
+::google::protobuf::uint8* GetStatusReply::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:raftkv.raft.GetStatusReply)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 node_id = 1;
+  if (this->node_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->node_id(), target);
+  }
+
+  // int32 term = 2;
+  if (this->term() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->term(), target);
+  }
+
+  // string role = 3;
+  if (this->role().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->role().data(), static_cast<int>(this->role().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.raft.GetStatusReply.role");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->role(), target);
+  }
+
+  // int32 last_log_index = 4;
+  if (this->last_log_index() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->last_log_index(), target);
+  }
+
+  // int32 commit_index = 5;
+  if (this->commit_index() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->commit_index(), target);
+  }
+
+  // int32 last_applied = 6;
+  if (this->last_applied() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->last_applied(), target);
+  }
+
+  // int32 last_snapshot_index = 7;
+  if (this->last_snapshot_index() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->last_snapshot_index(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:raftkv.raft.GetStatusReply)
+  return target;
+}
+
+size_t GetStatusReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:raftkv.raft.GetStatusReply)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string role = 3;
+  if (this->role().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->role());
+  }
+
+  // int32 node_id = 1;
+  if (this->node_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->node_id());
+  }
+
+  // int32 term = 2;
+  if (this->term() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->term());
+  }
+
+  // int32 last_log_index = 4;
+  if (this->last_log_index() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->last_log_index());
+  }
+
+  // int32 commit_index = 5;
+  if (this->commit_index() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->commit_index());
+  }
+
+  // int32 last_applied = 6;
+  if (this->last_applied() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->last_applied());
+  }
+
+  // int32 last_snapshot_index = 7;
+  if (this->last_snapshot_index() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->last_snapshot_index());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetStatusReply::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:raftkv.raft.GetStatusReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetStatusReply* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const GetStatusReply>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:raftkv.raft.GetStatusReply)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:raftkv.raft.GetStatusReply)
+    MergeFrom(*source);
+  }
+}
+
+void GetStatusReply::MergeFrom(const GetStatusReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:raftkv.raft.GetStatusReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.role().size() > 0) {
+
+    role_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.role_);
+  }
+  if (from.node_id() != 0) {
+    set_node_id(from.node_id());
+  }
+  if (from.term() != 0) {
+    set_term(from.term());
+  }
+  if (from.last_log_index() != 0) {
+    set_last_log_index(from.last_log_index());
+  }
+  if (from.commit_index() != 0) {
+    set_commit_index(from.commit_index());
+  }
+  if (from.last_applied() != 0) {
+    set_last_applied(from.last_applied());
+  }
+  if (from.last_snapshot_index() != 0) {
+    set_last_snapshot_index(from.last_snapshot_index());
+  }
+}
+
+void GetStatusReply::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:raftkv.raft.GetStatusReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetStatusReply::CopyFrom(const GetStatusReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:raftkv.raft.GetStatusReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetStatusReply::IsInitialized() const {
+  return true;
+}
+
+void GetStatusReply::Swap(GetStatusReply* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void GetStatusReply::InternalSwap(GetStatusReply* other) {
+  using std::swap;
+  role_.Swap(&other->role_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(node_id_, other->node_id_);
+  swap(term_, other->term_);
+  swap(last_log_index_, other->last_log_index_);
+  swap(commit_index_, other->commit_index_);
+  swap(last_applied_, other->last_applied_);
+  swap(last_snapshot_index_, other->last_snapshot_index_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata GetStatusReply::GetMetadata() const {
+  protobuf_raft_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_raft_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace raft
 }  // namespace raftkv
@@ -3038,6 +3752,12 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::raft::InstallSnapshotRep
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::raft::RaftPersistState* Arena::CreateMaybeMessage< ::raftkv::raft::RaftPersistState >(Arena* arena) {
   return Arena::CreateInternal< ::raftkv::raft::RaftPersistState >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::raft::GetStatusRequest* Arena::CreateMaybeMessage< ::raftkv::raft::GetStatusRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::raftkv::raft::GetStatusRequest >(arena);
+}
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::raft::GetStatusReply* Arena::CreateMaybeMessage< ::raftkv::raft::GetStatusReply >(Arena* arena) {
+  return Arena::CreateInternal< ::raftkv::raft::GetStatusReply >(arena);
 }
 }  // namespace protobuf
 }  // namespace google
