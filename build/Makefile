@@ -166,6 +166,19 @@ raftkv_cli/fast:
 .PHONY : raftkv_cli/fast
 
 #=============================================================================
+# Target rules for targets named raftkv_bench
+
+# Build rule for target.
+raftkv_bench: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 raftkv_bench
+.PHONY : raftkv_bench
+
+# fast build rule for target.
+raftkv_bench/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/build
+.PHONY : raftkv_bench/fast
+
+#=============================================================================
 # Target rules for targets named raft
 
 # Build rule for target.
@@ -443,6 +456,7 @@ help:
 	@echo "... kv_store"
 	@echo "... proto_gen"
 	@echo "... raft"
+	@echo "... raftkv_bench"
 	@echo "... raftkv_cli"
 	@echo "... raftkv_server"
 	@echo "... rpc"

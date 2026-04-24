@@ -26,3 +26,11 @@ target_link_libraries(raftkv_cli PRIVATE
   spdlog::spdlog
   Threads::Threads
 )
+
+# ── Benchmark tool ───────────────────────────────────────────────
+add_executable(raftkv_bench benchmark.cpp)
+target_link_libraries(raftkv_bench PRIVATE
+  kv_client
+  spdlog::spdlog
+  Threads::Threads
+)

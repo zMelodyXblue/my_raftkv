@@ -1,0 +1,67 @@
+./bin/raftkv_bench   --peers 127.0.0.1:50050,... \                                                                      [130]
+             --clients 4 \
+             --requests 10000 \
+             --value-size 256 \
+             --read-ratio 0.5
+=== raftkv_bench ===
+Peers:       127.0.0.1:50050, ...
+Clients:     4
+Requests:    10000
+Value size:  256 bytes
+Read ratio:  0.5
+
+[2026-04-24 11:35:24.607] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:24.607] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:24.708] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:24.708] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:25.606] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:25.606] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:25.606] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:25.607] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:25.707] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:25.707] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:25.707] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:25.708] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:27.016] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:27.016] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:27.017] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:27.017] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:27.122] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:28.460] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:28.543] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:29.193] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:29.194] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:29.194] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:29.549] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:29.567] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:30.894] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:31.015] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:32.888] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:32.888] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:32.888] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:32.888] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:33.045] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:34.169] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:34.424] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:35.195] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:40.746] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:40.747] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:40.747] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:40.747] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:40.987] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:41.835] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:47.991] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:48.931] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:49.619] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:49.619] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:49.619] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:49.619] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:35:50.757] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:35:51.474] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:36:02.865] [debug] PutAppend RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:36:05.266] [debug] Get RPC to server 1 failed: Name resolution failure
+[2026-04-24 11:36:05.873] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:36:05.873] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:36:05.873] [debug] PutAppend RPC to server 0 failed: Connect Failed
+[2026-04-24 11:36:05.874] [debug] Get RPC to server 0 failed: Connect Failed
+[2026-04-24 11:36:07.446] [debug] PutAppend RPC to server 1 failed: Name resolution failure

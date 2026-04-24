@@ -36,6 +36,12 @@
   "output": "src/CMakeFiles/raftkv_cli.dir/cli.cpp.o"
 },
 {
+  "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -std=gnu++14 -o CMakeFiles/raftkv_bench.dir/benchmark.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/benchmark.cpp",
+  "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/benchmark.cpp",
+  "output": "src/CMakeFiles/raftkv_bench.dir/benchmark.cpp.o"
+},
+{
   "directory": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build/src/raft",
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/proto -I/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/.. -std=gnu++14 -o CMakeFiles/raft.dir/persister.cpp.o -c /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.cpp",
   "file": "/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/persister.cpp",

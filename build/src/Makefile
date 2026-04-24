@@ -154,6 +154,44 @@ raftkv_cli/fast:
 	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_cli.dir/build.make src/CMakeFiles/raftkv_cli.dir/build
 .PHONY : raftkv_cli/fast
 
+# Convenience name for target.
+src/CMakeFiles/raftkv_bench.dir/rule:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/raftkv_bench.dir/rule
+.PHONY : src/CMakeFiles/raftkv_bench.dir/rule
+
+# Convenience name for target.
+raftkv_bench: src/CMakeFiles/raftkv_bench.dir/rule
+.PHONY : raftkv_bench
+
+# fast build rule for target.
+raftkv_bench/fast:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/build
+.PHONY : raftkv_bench/fast
+
+benchmark.o: benchmark.cpp.o
+.PHONY : benchmark.o
+
+# target to build an object file
+benchmark.cpp.o:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/benchmark.cpp.o
+.PHONY : benchmark.cpp.o
+
+benchmark.i: benchmark.cpp.i
+.PHONY : benchmark.i
+
+# target to preprocess a source file
+benchmark.cpp.i:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/benchmark.cpp.i
+.PHONY : benchmark.cpp.i
+
+benchmark.s: benchmark.cpp.s
+.PHONY : benchmark.s
+
+# target to generate assembly for a file
+benchmark.cpp.s:
+	cd /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/raftkv_bench.dir/build.make src/CMakeFiles/raftkv_bench.dir/benchmark.cpp.s
+.PHONY : benchmark.cpp.s
+
 cli.o: cli.cpp.o
 .PHONY : cli.o
 
@@ -211,8 +249,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... raftkv_bench"
 	@echo "... raftkv_cli"
 	@echo "... raftkv_server"
+	@echo "... benchmark.o"
+	@echo "... benchmark.i"
+	@echo "... benchmark.s"
 	@echo "... cli.o"
 	@echo "... cli.i"
 	@echo "... cli.s"
