@@ -194,6 +194,8 @@ src/raft/CMakeFiles/raft.dir/persister.cpp.o: /home/zmagex/5.Projects/raft_based
   /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
   /usr/include/c++/9/bits/fstream.tcc \
+  /usr/include/c++/9/sstream \
+  /usr/include/c++/9/bits/sstream.tcc \
   /usr/include/x86_64-linux-gnu/sys/stat.h \
   /usr/include/x86_64-linux-gnu/bits/stat.h \
   /usr/include/x86_64-linux-gnu/bits/statx.h \
@@ -211,7 +213,13 @@ src/raft/CMakeFiles/raft.dir/persister.cpp.o: /home/zmagex/5.Projects/raft_based
   /usr/include/asm-generic/posix_types.h \
   /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h
+  /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+  /usr/include/dirent.h \
+  /usr/include/x86_64-linux-gnu/bits/dirent.h \
+  /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+  /usr/include/linux/limits.h \
+  /usr/include/x86_64-linux-gnu/bits/dirent_ext.h
 
 src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft.cpp \
   /usr/include/stdc-predef.h \
@@ -622,8 +630,6 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /usr/include/x86_64-linux-gnu/bits/uio_lim.h:
 
-/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/struct_sigstack.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
@@ -712,8 +718,6 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/thread_safe_queue.h:
 
-/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/config.h:
-
 /usr/include/c++/9/bits/vector.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/sigaction.h:
@@ -736,8 +740,6 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /usr/include/c++/9/ext/concurrence.h:
 
-/usr/include/c++/9/bits/stl_raw_storage_iter.h:
-
 /usr/include/c++/9/bits/stl_tempbuf.h:
 
 /usr/include/spdlog/fmt/bundled/format.h:
@@ -754,6 +756,14 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/raft/raft.h:
 
+/usr/include/x86_64-linux-gnu/bits/dirent_ext.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/c++/9/bits/stl_raw_storage_iter.h:
+
+/usr/include/x86_64-linux-gnu/bits/dirent.h:
+
 /usr/include/google/protobuf/message_lite.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
@@ -762,6 +772,8 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /usr/include/linux/posix_types.h:
 
+/usr/include/dirent.h:
+
 /usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/asm-generic/int-ll64.h:
@@ -769,6 +781,10 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 /usr/include/google/protobuf/stubs/hash.h:
 
 /usr/include/asm-generic/types.h:
+
+/usr/include/c++/9/bits/unordered_set.h:
+
+/usr/include/linux/stat.h:
 
 /usr/include/c++/9/backward/binders.h:
 
@@ -859,6 +875,10 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/config.h:
+
+/usr/include/c++/9/bits/sstream.tcc:
 
 /usr/include/wchar.h:
 
@@ -954,6 +974,12 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /usr/include/c++/9/tuple:
 
+/usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
+
+/usr/include/linux/types.h:
+
+/usr/include/c++/9/bits/functexcept.h:
+
 /usr/include/c++/9/stdexcept:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
@@ -1047,12 +1073,6 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 /usr/include/c++/9/bits/cxxabi_init_exception.h:
 
 /usr/include/c++/9/bits/exception_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/sigval_t.h:
-
-/usr/include/c++/9/bits/functexcept.h:
-
-/usr/include/linux/types.h:
 
 /usr/include/google/protobuf/arena.h:
 
@@ -1182,10 +1202,6 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 
 /usr/include/c++/9/bits/std_abs.h:
 
-/usr/include/c++/9/bits/unordered_set.h:
-
-/usr/include/linux/stat.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/ss_flags.h:
@@ -1309,6 +1325,8 @@ src/raft/CMakeFiles/raft.dir/raft.cpp.o: /home/zmagex/5.Projects/raft_based_kv_s
 /usr/include/c++/9/bits/istream.tcc:
 
 /usr/include/google/protobuf/arena_impl.h:
+
+/usr/include/c++/9/sstream:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 

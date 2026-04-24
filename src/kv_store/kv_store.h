@@ -71,6 +71,11 @@ class KvStore {
   void        restore_snapshot(const std::string& data);
 
   // ── Deduplication ────────────────────────────────────────────
+  struct DedupEntry {
+    int64_t request_id;
+    std::string value;  // cached return value (Get result; empty for Put/Append)
+  };
+
   bool is_duplicate(const std::string& client_id, int64_t request_id);
 
   // ── Waiting for apply ────────────────────────────────────────
@@ -106,8 +111,8 @@ class KvStore {
   // The actual KV data store (pluggable via KvEngine interface)
   std::unique_ptr<KvEngine> data_;
 
-  // Deduplication: client_id → last applied request_id
-  std::unordered_map<std::string, int64_t> last_request_id_;
+  // Deduplication: client_id → last applied entry (request_id + cached result)
+  std::unordered_map<std::string, DedupEntry> last_applied_;
 
   // Wait channels: log_index → channel
   // Lifetime: created by the RPC handler (while holding mu_),

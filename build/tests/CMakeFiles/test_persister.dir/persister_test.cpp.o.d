@@ -239,6 +239,10 @@ tests/CMakeFiles/test_persister.dir/persister_test.cpp.o: \
  /usr/include/gtest/gtest_prod.h /usr/include/gtest/gtest-test-part.h \
  /usr/include/gtest/gtest-typed-test.h \
  /usr/include/gtest/gtest_pred_impl.h /usr/include/c++/9/cstring \
+ /usr/include/c++/9/fstream \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/9/bits/c++io.h \
+ /usr/include/c++/9/bits/fstream.tcc \
  /home/zmagex/5.Projects/raft_based_kv_storage/my_raftkv/src/common/../raft/persister.h \
  /usr/include/c++/9/mutex /usr/include/c++/9/chrono \
  /usr/include/c++/9/ratio /usr/include/c++/9/bits/parse_numbers.h \

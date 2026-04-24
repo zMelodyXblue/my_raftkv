@@ -20,8 +20,8 @@
 // @@protoc_insertion_point(includes)
 
 namespace protobuf_kv_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_kv_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_DedupEntry;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_kv_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_KvSnapshot_DataEntry_DoNotUse;
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_kv_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_KvSnapshot_LastRequestIdEntry_DoNotUse;
 }  // namespace protobuf_kv_2eproto
 namespace raftkv {
 namespace kv {
@@ -50,16 +50,16 @@ class KvOpDataDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<KvOpData>
       _instance;
 } _KvOpData_default_instance_;
+class DedupEntryDefaultTypeInternal {
+ public:
+  ::google::protobuf::internal::ExplicitlyConstructed<DedupEntry>
+      _instance;
+} _DedupEntry_default_instance_;
 class KvSnapshot_DataEntry_DoNotUseDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<KvSnapshot_DataEntry_DoNotUse>
       _instance;
 } _KvSnapshot_DataEntry_DoNotUse_default_instance_;
-class KvSnapshot_LastRequestIdEntry_DoNotUseDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<KvSnapshot_LastRequestIdEntry_DoNotUse>
-      _instance;
-} _KvSnapshot_LastRequestIdEntry_DoNotUse_default_instance_;
 class KvSnapshotDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<KvSnapshot>
@@ -138,6 +138,20 @@ static void InitDefaultsKvOpData() {
 ::google::protobuf::internal::SCCInfo<0> scc_info_KvOpData =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsKvOpData}, {}};
 
+static void InitDefaultsDedupEntry() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::raftkv::kv::_DedupEntry_default_instance_;
+    new (ptr) ::raftkv::kv::DedupEntry();
+    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::raftkv::kv::DedupEntry::InitAsDefaultInstance();
+}
+
+::google::protobuf::internal::SCCInfo<0> scc_info_DedupEntry =
+    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsDedupEntry}, {}};
+
 static void InitDefaultsKvSnapshot_DataEntry_DoNotUse() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -150,19 +164,6 @@ static void InitDefaultsKvSnapshot_DataEntry_DoNotUse() {
 
 ::google::protobuf::internal::SCCInfo<0> scc_info_KvSnapshot_DataEntry_DoNotUse =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsKvSnapshot_DataEntry_DoNotUse}, {}};
-
-static void InitDefaultsKvSnapshot_LastRequestIdEntry_DoNotUse() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::raftkv::kv::_KvSnapshot_LastRequestIdEntry_DoNotUse_default_instance_;
-    new (ptr) ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse();
-  }
-  ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_KvSnapshot_LastRequestIdEntry_DoNotUse =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsKvSnapshot_LastRequestIdEntry_DoNotUse}, {}};
 
 static void InitDefaultsKvSnapshot() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -178,7 +179,7 @@ static void InitDefaultsKvSnapshot() {
 ::google::protobuf::internal::SCCInfo<2> scc_info_KvSnapshot =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsKvSnapshot}, {
       &protobuf_kv_2eproto::scc_info_KvSnapshot_DataEntry_DoNotUse.base,
-      &protobuf_kv_2eproto::scc_info_KvSnapshot_LastRequestIdEntry_DoNotUse.base,}};
+      &protobuf_kv_2eproto::scc_info_DedupEntry.base,}};
 
 void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_GetRequest.base);
@@ -186,8 +187,8 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_PutAppendRequest.base);
   ::google::protobuf::internal::InitSCC(&scc_info_PutAppendReply.base);
   ::google::protobuf::internal::InitSCC(&scc_info_KvOpData.base);
+  ::google::protobuf::internal::InitSCC(&scc_info_DedupEntry.base);
   ::google::protobuf::internal::InitSCC(&scc_info_KvSnapshot_DataEntry_DoNotUse.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_KvSnapshot_LastRequestIdEntry_DoNotUse.base);
   ::google::protobuf::internal::InitSCC(&scc_info_KvSnapshot.base);
 }
 
@@ -235,6 +236,14 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvOpData, value_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvOpData, client_id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvOpData, request_id_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::DedupEntry, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::DedupEntry, client_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::DedupEntry, request_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::DedupEntry, value_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_DataEntry_DoNotUse, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_DataEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -244,22 +253,13 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_DataEntry_DoNotUse, value_),
   0,
   1,
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse, _has_bits_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse, key_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse, value_),
-  0,
-  1,
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot, data_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot, last_request_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::raftkv::kv::KvSnapshot, dedup_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::raftkv::kv::GetRequest)},
@@ -267,9 +267,9 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 15, -1, sizeof(::raftkv::kv::PutAppendRequest)},
   { 25, -1, sizeof(::raftkv::kv::PutAppendReply)},
   { 31, -1, sizeof(::raftkv::kv::KvOpData)},
-  { 41, 48, sizeof(::raftkv::kv::KvSnapshot_DataEntry_DoNotUse)},
-  { 50, 57, sizeof(::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse)},
-  { 59, -1, sizeof(::raftkv::kv::KvSnapshot)},
+  { 41, -1, sizeof(::raftkv::kv::DedupEntry)},
+  { 49, 56, sizeof(::raftkv::kv::KvSnapshot_DataEntry_DoNotUse)},
+  { 58, -1, sizeof(::raftkv::kv::KvSnapshot)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -278,8 +278,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_PutAppendRequest_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_PutAppendReply_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_KvOpData_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_DedupEntry_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_KvSnapshot_DataEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_KvSnapshot_LastRequestIdEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::raftkv::kv::_KvSnapshot_default_instance_),
 };
 
@@ -312,20 +312,19 @@ void AddDescriptorsImpl() {
       "id\030\004 \001(\t\022\022\n\nrequest_id\030\005 \001(\003\"\037\n\016PutAppen"
       "dReply\022\r\n\005error\030\001 \001(\t\"Y\n\010KvOpData\022\n\n\002op\030"
       "\001 \001(\t\022\013\n\003key\030\002 \001(\t\022\r\n\005value\030\003 \001(\t\022\021\n\tcli"
-      "ent_id\030\004 \001(\t\022\022\n\nrequest_id\030\005 \001(\003\"\341\001\n\nKvS"
-      "napshot\022-\n\004data\030\001 \003(\0132\037.raftkv.kv.KvSnap"
-      "shot.DataEntry\022A\n\017last_request_id\030\002 \003(\0132"
-      "(.raftkv.kv.KvSnapshot.LastRequestIdEntr"
-      "y\032+\n\tDataEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001"
-      "(\t:\0028\001\0324\n\022LastRequestIdEntry\022\013\n\003key\030\001 \001("
-      "\t\022\r\n\005value\030\002 \001(\003:\0028\0012\203\001\n\tKvService\0221\n\003Ge"
-      "t\022\025.raftkv.kv.GetRequest\032\023.raftkv.kv.Get"
-      "Reply\022C\n\tPutAppend\022\033.raftkv.kv.PutAppend"
-      "Request\032\031.raftkv.kv.PutAppendReplyb\006prot"
-      "o3"
+      "ent_id\030\004 \001(\t\022\022\n\nrequest_id\030\005 \001(\003\"B\n\nDedu"
+      "pEntry\022\021\n\tclient_id\030\001 \001(\t\022\022\n\nrequest_id\030"
+      "\002 \001(\003\022\r\n\005value\030\003 \001(\t\"\216\001\n\nKvSnapshot\022-\n\004d"
+      "ata\030\001 \003(\0132\037.raftkv.kv.KvSnapshot.DataEnt"
+      "ry\022$\n\005dedup\030\002 \003(\0132\025.raftkv.kv.DedupEntry"
+      "\032+\n\tDataEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001("
+      "\t:\0028\0012\203\001\n\tKvService\0221\n\003Get\022\025.raftkv.kv.G"
+      "etRequest\032\023.raftkv.kv.GetReply\022C\n\tPutApp"
+      "end\022\033.raftkv.kv.PutAppendRequest\032\031.raftk"
+      "v.kv.PutAppendReplyb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 722);
+      descriptor, 707);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "kv.proto", &protobuf_RegisterTypes);
 }
@@ -2137,6 +2136,345 @@ void KvOpData::InternalSwap(KvOpData* other) {
 
 // ===================================================================
 
+void DedupEntry::InitAsDefaultInstance() {
+}
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int DedupEntry::kClientIdFieldNumber;
+const int DedupEntry::kRequestIdFieldNumber;
+const int DedupEntry::kValueFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+DedupEntry::DedupEntry()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  ::google::protobuf::internal::InitSCC(
+      &protobuf_kv_2eproto::scc_info_DedupEntry.base);
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:raftkv.kv.DedupEntry)
+}
+DedupEntry::DedupEntry(const DedupEntry& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  client_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.client_id().size() > 0) {
+    client_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_id_);
+  }
+  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.value().size() > 0) {
+    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
+  }
+  request_id_ = from.request_id_;
+  // @@protoc_insertion_point(copy_constructor:raftkv.kv.DedupEntry)
+}
+
+void DedupEntry::SharedCtor() {
+  client_id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  request_id_ = GOOGLE_LONGLONG(0);
+}
+
+DedupEntry::~DedupEntry() {
+  // @@protoc_insertion_point(destructor:raftkv.kv.DedupEntry)
+  SharedDtor();
+}
+
+void DedupEntry::SharedDtor() {
+  client_id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void DedupEntry::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ::google::protobuf::Descriptor* DedupEntry::descriptor() {
+  ::protobuf_kv_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_kv_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
+}
+
+const DedupEntry& DedupEntry::default_instance() {
+  ::google::protobuf::internal::InitSCC(&protobuf_kv_2eproto::scc_info_DedupEntry.base);
+  return *internal_default_instance();
+}
+
+
+void DedupEntry::Clear() {
+// @@protoc_insertion_point(message_clear_start:raftkv.kv.DedupEntry)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  client_id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  request_id_ = GOOGLE_LONGLONG(0);
+  _internal_metadata_.Clear();
+}
+
+bool DedupEntry::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:raftkv.kv.DedupEntry)
+  for (;;) {
+    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string client_id = 1;
+      case 1: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_client_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->client_id().data(), static_cast<int>(this->client_id().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "raftkv.kv.DedupEntry.client_id"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int64 request_id = 2;
+      case 2: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &request_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string value = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_value()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->value().data(), static_cast<int>(this->value().length()),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "raftkv.kv.DedupEntry.value"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:raftkv.kv.DedupEntry)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:raftkv.kv.DedupEntry)
+  return false;
+#undef DO_
+}
+
+void DedupEntry::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:raftkv.kv.DedupEntry)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string client_id = 1;
+  if (this->client_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->client_id().data(), static_cast<int>(this->client_id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.kv.DedupEntry.client_id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->client_id(), output);
+  }
+
+  // int64 request_id = 2;
+  if (this->request_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->request_id(), output);
+  }
+
+  // string value = 3;
+  if (this->value().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->value().data(), static_cast<int>(this->value().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.kv.DedupEntry.value");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->value(), output);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+  }
+  // @@protoc_insertion_point(serialize_end:raftkv.kv.DedupEntry)
+}
+
+::google::protobuf::uint8* DedupEntry::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic; // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:raftkv.kv.DedupEntry)
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string client_id = 1;
+  if (this->client_id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->client_id().data(), static_cast<int>(this->client_id().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.kv.DedupEntry.client_id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->client_id(), target);
+  }
+
+  // int64 request_id = 2;
+  if (this->request_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->request_id(), target);
+  }
+
+  // string value = 3;
+  if (this->value().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->value().data(), static_cast<int>(this->value().length()),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "raftkv.kv.DedupEntry.value");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->value(), target);
+  }
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:raftkv.kv.DedupEntry)
+  return target;
+}
+
+size_t DedupEntry::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:raftkv.kv.DedupEntry)
+  size_t total_size = 0;
+
+  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+  }
+  // string client_id = 1;
+  if (this->client_id().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->client_id());
+  }
+
+  // string value = 3;
+  if (this->value().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->value());
+  }
+
+  // int64 request_id = 2;
+  if (this->request_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->request_id());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DedupEntry::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:raftkv.kv.DedupEntry)
+  GOOGLE_DCHECK_NE(&from, this);
+  const DedupEntry* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const DedupEntry>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:raftkv.kv.DedupEntry)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:raftkv.kv.DedupEntry)
+    MergeFrom(*source);
+  }
+}
+
+void DedupEntry::MergeFrom(const DedupEntry& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:raftkv.kv.DedupEntry)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::google::protobuf::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.client_id().size() > 0) {
+
+    client_id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.client_id_);
+  }
+  if (from.value().size() > 0) {
+
+    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
+  }
+  if (from.request_id() != 0) {
+    set_request_id(from.request_id());
+  }
+}
+
+void DedupEntry::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:raftkv.kv.DedupEntry)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void DedupEntry::CopyFrom(const DedupEntry& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:raftkv.kv.DedupEntry)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DedupEntry::IsInitialized() const {
+  return true;
+}
+
+void DedupEntry::Swap(DedupEntry* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void DedupEntry::InternalSwap(DedupEntry* other) {
+  using std::swap;
+  client_id_.Swap(&other->client_id_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  value_.Swap(&other->value_, &::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(request_id_, other->request_id_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::google::protobuf::Metadata DedupEntry::GetMetadata() const {
+  protobuf_kv_2eproto::protobuf_AssignDescriptorsOnce();
+  return ::protobuf_kv_2eproto::file_level_metadata[kIndexInFileMessages];
+}
+
+
+// ===================================================================
+
 KvSnapshot_DataEntry_DoNotUse::KvSnapshot_DataEntry_DoNotUse() {}
 KvSnapshot_DataEntry_DoNotUse::KvSnapshot_DataEntry_DoNotUse(::google::protobuf::Arena* arena) : SuperType(arena) {}
 void KvSnapshot_DataEntry_DoNotUse::MergeFrom(const KvSnapshot_DataEntry_DoNotUse& other) {
@@ -2144,26 +2482,9 @@ void KvSnapshot_DataEntry_DoNotUse::MergeFrom(const KvSnapshot_DataEntry_DoNotUs
 }
 ::google::protobuf::Metadata KvSnapshot_DataEntry_DoNotUse::GetMetadata() const {
   ::protobuf_kv_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_kv_2eproto::file_level_metadata[5];
-}
-void KvSnapshot_DataEntry_DoNotUse::MergeFrom(
-    const ::google::protobuf::Message& other) {
-  ::google::protobuf::Message::MergeFrom(other);
-}
-
-
-// ===================================================================
-
-KvSnapshot_LastRequestIdEntry_DoNotUse::KvSnapshot_LastRequestIdEntry_DoNotUse() {}
-KvSnapshot_LastRequestIdEntry_DoNotUse::KvSnapshot_LastRequestIdEntry_DoNotUse(::google::protobuf::Arena* arena) : SuperType(arena) {}
-void KvSnapshot_LastRequestIdEntry_DoNotUse::MergeFrom(const KvSnapshot_LastRequestIdEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::google::protobuf::Metadata KvSnapshot_LastRequestIdEntry_DoNotUse::GetMetadata() const {
-  ::protobuf_kv_2eproto::protobuf_AssignDescriptorsOnce();
   return ::protobuf_kv_2eproto::file_level_metadata[6];
 }
-void KvSnapshot_LastRequestIdEntry_DoNotUse::MergeFrom(
+void KvSnapshot_DataEntry_DoNotUse::MergeFrom(
     const ::google::protobuf::Message& other) {
   ::google::protobuf::Message::MergeFrom(other);
 }
@@ -2175,7 +2496,7 @@ void KvSnapshot::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int KvSnapshot::kDataFieldNumber;
-const int KvSnapshot::kLastRequestIdFieldNumber;
+const int KvSnapshot::kDedupFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 KvSnapshot::KvSnapshot()
@@ -2187,10 +2508,10 @@ KvSnapshot::KvSnapshot()
 }
 KvSnapshot::KvSnapshot(const KvSnapshot& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
+      _internal_metadata_(NULL),
+      dedup_(from.dedup_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   data_.MergeFrom(from.data_);
-  last_request_id_.MergeFrom(from.last_request_id_);
   // @@protoc_insertion_point(copy_constructor:raftkv.kv.KvSnapshot)
 }
 
@@ -2226,7 +2547,7 @@ void KvSnapshot::Clear() {
   (void) cached_has_bits;
 
   data_.Clear();
-  last_request_id_.Clear();
+  dedup_.Clear();
   _internal_metadata_.Clear();
 }
 
@@ -2267,23 +2588,12 @@ bool KvSnapshot::MergePartialFromCodedStream(
         break;
       }
 
-      // map<string, int64> last_request_id = 2;
+      // repeated .raftkv.kv.DedupEntry dedup = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          KvSnapshot_LastRequestIdEntry_DoNotUse::Parser< ::google::protobuf::internal::MapField<
-              KvSnapshot_LastRequestIdEntry_DoNotUse,
-              ::std::string, ::google::protobuf::int64,
-              ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-              ::google::protobuf::internal::WireFormatLite::TYPE_INT64,
-              0 >,
-            ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 > > parser(&last_request_id_);
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, &parser));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            parser.key().data(), static_cast<int>(parser.key().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "raftkv.kv.KvSnapshot.LastRequestIdEntry.key"));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
+                input, add_dedup()));
         } else {
           goto handle_unusual;
         }
@@ -2369,53 +2679,13 @@ void KvSnapshot::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, int64> last_request_id = 2;
-  if (!this->last_request_id().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "raftkv.kv.KvSnapshot.LastRequestIdEntry.key");
-      }
-    };
-
-    if (output->IsSerializationDeterministic() &&
-        this->last_request_id().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->last_request_id().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::size_type size_type;
-      size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-          it = this->last_request_id().begin();
-          it != this->last_request_id().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      ::std::unique_ptr<KvSnapshot_LastRequestIdEntry_DoNotUse> entry;
-      for (size_type i = 0; i < n; i++) {
-        entry.reset(last_request_id_.NewEntryWrapper(
-            items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second));
-        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-            2, *entry, output);
-        Utf8Check::Check(items[static_cast<ptrdiff_t>(i)]);
-      }
-    } else {
-      ::std::unique_ptr<KvSnapshot_LastRequestIdEntry_DoNotUse> entry;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-          it = this->last_request_id().begin();
-          it != this->last_request_id().end(); ++it) {
-        entry.reset(last_request_id_.NewEntryWrapper(
-            it->first, it->second));
-        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-            2, *entry, output);
-        Utf8Check::Check(&*it);
-      }
-    }
+  // repeated .raftkv.kv.DedupEntry dedup = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->dedup_size()); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2,
+      this->dedup(static_cast<int>(i)),
+      output);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2489,57 +2759,12 @@ void KvSnapshot::SerializeWithCachedSizes(
     }
   }
 
-  // map<string, int64> last_request_id = 2;
-  if (!this->last_request_id().empty()) {
-    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-          "raftkv.kv.KvSnapshot.LastRequestIdEntry.key");
-      }
-    };
-
-    if (deterministic &&
-        this->last_request_id().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->last_request_id().size()]);
-      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::size_type size_type;
-      size_type n = 0;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-          it = this->last_request_id().begin();
-          it != this->last_request_id().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      ::std::unique_ptr<KvSnapshot_LastRequestIdEntry_DoNotUse> entry;
-      for (size_type i = 0; i < n; i++) {
-        entry.reset(last_request_id_.NewEntryWrapper(
-            items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second));
-        target = ::google::protobuf::internal::WireFormatLite::
-                   InternalWriteMessageNoVirtualToArray(
-                       2, *entry, deterministic, target);
-;
-        Utf8Check::Check(items[static_cast<ptrdiff_t>(i)]);
-      }
-    } else {
-      ::std::unique_ptr<KvSnapshot_LastRequestIdEntry_DoNotUse> entry;
-      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-          it = this->last_request_id().begin();
-          it != this->last_request_id().end(); ++it) {
-        entry.reset(last_request_id_.NewEntryWrapper(
-            it->first, it->second));
-        target = ::google::protobuf::internal::WireFormatLite::
-                   InternalWriteMessageNoVirtualToArray(
-                       2, *entry, deterministic, target);
-;
-        Utf8Check::Check(&*it);
-      }
-    }
+  // repeated .raftkv.kv.DedupEntry dedup = 2;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->dedup_size()); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageToArray(
+        2, this->dedup(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2573,17 +2798,14 @@ size_t KvSnapshot::ByteSizeLong() const {
     }
   }
 
-  // map<string, int64> last_request_id = 2;
-  total_size += 1 *
-      ::google::protobuf::internal::FromIntSize(this->last_request_id_size());
+  // repeated .raftkv.kv.DedupEntry dedup = 2;
   {
-    ::std::unique_ptr<KvSnapshot_LastRequestIdEntry_DoNotUse> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-        it = this->last_request_id().begin();
-        it != this->last_request_id().end(); ++it) {
-      entry.reset(last_request_id_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
+    unsigned int count = static_cast<unsigned int>(this->dedup_size());
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSize(
+          this->dedup(static_cast<int>(i)));
     }
   }
 
@@ -2615,7 +2837,7 @@ void KvSnapshot::MergeFrom(const KvSnapshot& from) {
   (void) cached_has_bits;
 
   data_.MergeFrom(from.data_);
-  last_request_id_.MergeFrom(from.last_request_id_);
+  dedup_.MergeFrom(from.dedup_);
 }
 
 void KvSnapshot::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2643,7 +2865,7 @@ void KvSnapshot::Swap(KvSnapshot* other) {
 void KvSnapshot::InternalSwap(KvSnapshot* other) {
   using std::swap;
   data_.Swap(&other->data_);
-  last_request_id_.Swap(&other->last_request_id_);
+  CastToBase(&dedup_)->InternalSwap(CastToBase(&other->dedup_));
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
@@ -2673,11 +2895,11 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::PutAppendReply* Aren
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::KvOpData* Arena::CreateMaybeMessage< ::raftkv::kv::KvOpData >(Arena* arena) {
   return Arena::CreateInternal< ::raftkv::kv::KvOpData >(arena);
 }
+template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::DedupEntry* Arena::CreateMaybeMessage< ::raftkv::kv::DedupEntry >(Arena* arena) {
+  return Arena::CreateInternal< ::raftkv::kv::DedupEntry >(arena);
+}
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::KvSnapshot_DataEntry_DoNotUse* Arena::CreateMaybeMessage< ::raftkv::kv::KvSnapshot_DataEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateInternal< ::raftkv::kv::KvSnapshot_DataEntry_DoNotUse >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse* Arena::CreateMaybeMessage< ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateInternal< ::raftkv::kv::KvSnapshot_LastRequestIdEntry_DoNotUse >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::raftkv::kv::KvSnapshot* Arena::CreateMaybeMessage< ::raftkv::kv::KvSnapshot >(Arena* arena) {
   return Arena::CreateInternal< ::raftkv::kv::KvSnapshot >(arena);

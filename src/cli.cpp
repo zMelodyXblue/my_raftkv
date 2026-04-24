@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -60,26 +61,31 @@ int main(int argc, char* argv[]) {
   raftkv::KvClient client(peers);
   std::string cmd = argv[cmd_start];
 
-  if (cmd == "get") {
-    if (cmd_start + 1 >= argc) { usage(); return 1; }
-    std::string key = argv[cmd_start + 1];
-    std::string val = client.get(key);
-    std::cout << val << "\n";
-  } else if (cmd == "put") {
-    if (cmd_start + 2 >= argc) { usage(); return 1; }
-    std::string key = argv[cmd_start + 1];
-    std::string val = argv[cmd_start + 2];
-    client.put(key, val);
-    std::cout << "OK\n";
-  } else if (cmd == "append") {
-    if (cmd_start + 2 >= argc) { usage(); return 1; }
-    std::string key = argv[cmd_start + 1];
-    std::string val = argv[cmd_start + 2];
-    client.append(key, val);
-    std::cout << "OK\n";
-  } else {
-    std::cerr << "Unknown command: " << cmd << "\n";
-    usage();
+  try {
+    if (cmd == "get") {
+      if (cmd_start + 1 >= argc) { usage(); return 1; }
+      std::string key = argv[cmd_start + 1];
+      std::string val = client.get(key);
+      std::cout << val << "\n";
+    } else if (cmd == "put") {
+      if (cmd_start + 2 >= argc) { usage(); return 1; }
+      std::string key = argv[cmd_start + 1];
+      std::string val = argv[cmd_start + 2];
+      client.put(key, val);
+      std::cout << "OK\n";
+    } else if (cmd == "append") {
+      if (cmd_start + 2 >= argc) { usage(); return 1; }
+      std::string key = argv[cmd_start + 1];
+      std::string val = argv[cmd_start + 2];
+      client.append(key, val);
+      std::cout << "OK\n";
+    } else {
+      std::cerr << "Unknown command: " << cmd << "\n";
+      usage();
+      return 1;
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << "\n";
     return 1;
   }
 

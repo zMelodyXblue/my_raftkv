@@ -36,10 +36,19 @@ message KvOpData {
   int64   request_id = 5;
 }
 
+// ── Dedup entry (cached result for exactly-once semantics) ──────
+// Workaround: protobuf 3.6 does not support map<string, Message>.
+// Use repeated key-value pairs instead.
+message DedupEntry {
+  string client_id  = 1;
+  int64  request_id = 2;  // last applied request_id for this client
+  string value      = 3;  // cached return value (Get result; empty for Put/Append)
+}
+
 // ── KV snapshot (serialized state for log compaction) ───────────
 message KvSnapshot {
-  map<string, string> data            = 1;  // key → value
-  map<string, int64>  last_request_id = 2;  // client_id → last applied request_id
+  map<string, string>  data       = 1;  // key → value
+  repeated DedupEntry  dedup      = 2;  // client_id → last applied entry
 }
 
 // ── KV service (client-facing) ──────────────────────────────────

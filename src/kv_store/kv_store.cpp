@@ -175,11 +175,8 @@ void KvStore::apply_command(const ApplyMsg& msg) {
 
     result.error = ErrCode::OK;
     if (is_duplicate(op.client_id, op.request_id)) {
-      // Duplicate — skip mutation but still read for Get.
-      if (op.op == "Get") {
-        std::string val;
-        if (data_->get(op.key, &val)) result.value = val;
-      }
+      // Duplicate — return cached result from last applied entry.
+      result.value = last_applied_[op.client_id].value;
     } else {
       if (op.op == "Get") {
         std::string val;
@@ -191,7 +188,7 @@ void KvStore::apply_command(const ApplyMsg& msg) {
       } else {
         result.error = ErrCode::ErrNoKey;
       }
-      last_request_id_[op.client_id] = op.request_id;
+      last_applied_[op.client_id] = {op.request_id, result.value};
     }
 
     // Notify the RPC handler waiting on this log index.
@@ -234,7 +231,7 @@ void KvStore::maybe_take_snapshot(int applied_index) {
   raft_->snapshot(applied_index, snap);
 }
 
-// Serialize data_ and last_request_id_ into a kv::KvSnapshot protobuf string.
+// Serialize data_ and last_applied_ into a kv::KvSnapshot protobuf string.
 // Requires mu_ held.
 std::string KvStore::serialize_snapshot() {
   kv::KvSnapshot snapshot;
@@ -242,9 +239,11 @@ std::string KvStore::serialize_snapshot() {
   data_->for_each([data_map](const std::string& k, const std::string& v) {
     (*data_map)[k] = v;
   });
-  auto* req_map = snapshot.mutable_last_request_id();
-  for (const auto& kv : last_request_id_) {
-    (*req_map)[kv.first] = kv.second;
+  for (const auto& kv : last_applied_) {
+    kv::DedupEntry* entry = snapshot.add_dedup();
+    entry->set_client_id(kv.first);
+    entry->set_request_id(kv.second.request_id);
+    entry->set_value(kv.second.value);
   }
   std::string bytes;
   snapshot.SerializeToString(&bytes);
@@ -261,9 +260,10 @@ void KvStore::restore_snapshot(const std::string& data) {
   for (const auto& kv : snapshot.data()) {
     data_->put(kv.first, kv.second);
   }
-  last_request_id_.clear();
-  for (const auto& kv : snapshot.last_request_id()) {
-    last_request_id_[kv.first] = kv.second;
+  last_applied_.clear();
+  for (int i = 0; i < snapshot.dedup_size(); ++i) {
+    const kv::DedupEntry& e = snapshot.dedup(i);
+    last_applied_[e.client_id()] = {e.request_id(), e.value()};
   }
 }
 
@@ -272,8 +272,8 @@ void KvStore::restore_snapshot(const std::string& data) {
 // Returns true if the request has already been applied.
 // Requires mu_ held.
 bool KvStore::is_duplicate(const std::string& client_id, int64_t request_id) {
-  auto it = last_request_id_.find(client_id);
-  return it != last_request_id_.end() && it->second >= request_id;
+  auto it = last_applied_.find(client_id);
+  return it != last_applied_.end() && it->second.request_id >= request_id;
 }
 
 // ── Wait Channel Helpers ─────────────────────────────────────────

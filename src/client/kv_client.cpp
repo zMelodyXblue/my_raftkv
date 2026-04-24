@@ -3,6 +3,7 @@
 #include <chrono>
 #include <random>
 #include <sstream>
+#include <stdexcept>
 #include <thread>
 
 #include <spdlog/spdlog.h>
@@ -12,7 +13,9 @@ namespace raftkv {
 
 // ── Constructor ──────────────────────────────────────────────────
 // Creates gRPC stubs for all servers and generates a unique client_id.
-KvClient::KvClient(const std::vector<std::string>& server_addrs) {
+KvClient::KvClient(const std::vector<std::string>& server_addrs,
+                   const ClientOptions& opts)
+    : opts_(opts) {
   for (const auto& addr : server_addrs) {
     auto channel = grpc::CreateChannel(addr, grpc::InsecureChannelCredentials());
     stubs_.push_back(kv::KvService::NewStub(channel));
@@ -29,9 +32,27 @@ KvClient::KvClient(const std::vector<std::string>& server_addrs) {
 
 // ── Get ──────────────────────────────────────────────────────────
 // Sends a Get request, retrying on ErrWrongLeader / failure.
+// Throws std::runtime_error if max_retries or total_timeout is exceeded.
 std::string KvClient::get(const std::string& key) {
   int64_t rid = next_request_id_++;
-  while (true) {
+  auto start = std::chrono::steady_clock::now();
+
+  for (int attempt = 0;; ++attempt) {
+    // Check retry limit.
+    if (opts_.max_retries > 0 && attempt >= opts_.max_retries) {
+      throw std::runtime_error(
+          "KvClient::get: failed after " + std::to_string(attempt) + " retries");
+    }
+    // Check total timeout.
+    if (opts_.total_timeout_ms > 0) {
+      auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+          std::chrono::steady_clock::now() - start).count();
+      if (elapsed >= opts_.total_timeout_ms) {
+        throw std::runtime_error(
+            "KvClient::get: timed out after " + std::to_string(elapsed) + "ms");
+      }
+    }
+
     kv::GetRequest request;
     request.set_key(key);
     request.set_client_id(client_id_);
@@ -42,11 +63,10 @@ std::string KvClient::get(const std::string& key) {
     grpc::Status status = stubs_[leader_hint_]->Get(&ctx, request, &reply);
 
     if (!status.ok()) {
-      // gRPC transport failure — try next server
       spdlog::debug("Get RPC to server {} failed: {}",
                     leader_hint_, status.error_message());
       leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
       continue;
     }
 
@@ -54,7 +74,7 @@ std::string KvClient::get(const std::string& key) {
       return reply.value();
     } else if (reply.error() == ErrCode::ErrWrongLeader) {
       leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
       continue;
     } else if (reply.error() == ErrCode::ErrTimeout) {
       continue;
@@ -62,7 +82,7 @@ std::string KvClient::get(const std::string& key) {
 
     // Unknown error — retry with next server
     leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
   }
 }
 
@@ -78,11 +98,27 @@ void KvClient::append(const std::string& key, const std::string& value) {
 
 // Shared implementation for Put and Append.
 // Same retry logic as get().
+// Throws std::runtime_error if max_retries or total_timeout is exceeded.
 std::string KvClient::put_append(const std::string& key,
                                  const std::string& value,
                                  const std::string& op) {
   int64_t rid = next_request_id_++;
-  while (true) {
+  auto start = std::chrono::steady_clock::now();
+
+  for (int attempt = 0;; ++attempt) {
+    if (opts_.max_retries > 0 && attempt >= opts_.max_retries) {
+      throw std::runtime_error(
+          "KvClient::" + op + ": failed after " + std::to_string(attempt) + " retries");
+    }
+    if (opts_.total_timeout_ms > 0) {
+      auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+          std::chrono::steady_clock::now() - start).count();
+      if (elapsed >= opts_.total_timeout_ms) {
+        throw std::runtime_error(
+            "KvClient::" + op + ": timed out after " + std::to_string(elapsed) + "ms");
+      }
+    }
+
     kv::PutAppendRequest request;
     request.set_key(key);
     request.set_value(value);
@@ -98,7 +134,7 @@ std::string KvClient::put_append(const std::string& key,
       spdlog::debug("PutAppend RPC to server {} failed: {}",
                     leader_hint_, status.error_message());
       leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
       continue;
     }
 
@@ -106,7 +142,7 @@ std::string KvClient::put_append(const std::string& key,
       return "";
     } else if (reply.error() == ErrCode::ErrWrongLeader) {
       leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
       continue;
     } else if (reply.error() == ErrCode::ErrTimeout) {
       continue;
@@ -114,7 +150,7 @@ std::string KvClient::put_append(const std::string& key,
 
     // Unknown error — retry with next server
     leader_hint_ = (leader_hint_ + 1) % stubs_.size();
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(opts_.retry_interval_ms));
   }
 }
 

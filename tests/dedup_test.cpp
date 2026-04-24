@@ -209,19 +209,26 @@ TEST(DedupTest, DuplicatePutIgnored) {
   EXPECT_EQ("second", r2.first) << "duplicate put should not change value";
 }
 
-// Duplicate Get should still return the correct value (no error).
-TEST(DedupTest, DuplicateGetReturnsValue) {
+// Duplicate Get returns the cached result from first execution,
+// even if the underlying value has changed since then.
+TEST(DedupTest, DuplicateGetReturnsCachedResult) {
   DedupCluster c(63100);
   ASSERT_NE(-1, c.wait_leader());
 
-  c.raw_put("key", "val", "clientB", 1);
+  c.raw_put("key", "old_val", "clientB", 1);
 
+  // First Get: reads "old_val", result is cached in dedup table.
   auto r1 = c.raw_get("key", "clientB", 2);
-  EXPECT_EQ("val", r1.first);
+  EXPECT_EQ("old_val", r1.first);
 
-  // Replay same Get with same request_id.
+  // Overwrite the value via a different client.
+  c.raw_put("key", "new_val", "clientC", 1);
+
+  // Replay same Get (clientB, request_id=2): should return the cached
+  // "old_val", NOT the current "new_val".
   auto r2 = c.raw_get("key", "clientB", 2);
-  EXPECT_EQ("val", r2.first) << "duplicate Get should still return value";
+  EXPECT_EQ("old_val", r2.first)
+      << "duplicate Get should return cached result, not current value";
 }
 
 // Two different client_ids with the same request_id: NOT duplicates.

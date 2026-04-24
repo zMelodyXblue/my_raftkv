@@ -1,3 +1,4 @@
+#include <csignal>
 #include <memory>
 #include <string>
 #include <vector>
@@ -67,6 +68,15 @@ static raftkv::ServerConfig parse_args(int argc, char* argv[]) {
   }
 
   return cfg;
+}
+
+// ── Signal handling for graceful shutdown ─────────────────────────
+
+static grpc::Server* g_server = nullptr;
+
+static void signal_handler(int sig) {
+  (void)sig;
+  if (g_server) g_server->Shutdown();
 }
 
 // ── main ──────────────────────────────────────────────────────────
@@ -141,9 +151,25 @@ int main(int argc, char* argv[]) {
   }
   spdlog::info("[Node {}] gRPC server listening on {}", config.node_id, config.listen_addr);
 
-  // Block until Ctrl+C or the server is shut down externally.
+  // Register signal handlers for graceful shutdown.
+  g_server = server.get();
+  std::signal(SIGINT,  signal_handler);
+  std::signal(SIGTERM, signal_handler);
+
+  // Block until signal triggers Shutdown().
   server->Wait();
 
+  // ── Orderly teardown ───────────────────────────────────────────
+  // Destruction order matters:
+  //   1. gRPC server (already shut down, stops accepting new RPCs)
+  //   2. KvStore (stops apply_loop, closes wait channels)
+  //   3. Raft (stops election/heartbeat/applier threads)
+  //   4. Persister, apply_channel (shared_ptr ref-counted)
   spdlog::info("[Node {}] shutting down", config.node_id);
+  server.reset();
+  kv_store.reset();
+  raft_node.reset();
+
+  spdlog::info("[Node {}] shutdown complete", config.node_id);
   return 0;
 }

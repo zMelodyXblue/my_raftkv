@@ -1,6 +1,6 @@
 # my_raftkv
 
-基于 Raft 共识算法的分布式 KV 存储系统。支持 Leader 选举、日志复制、快照压缩、崩溃恢复、请求去重（exactly-once 语义），以及可插拔存储引擎。
+基于 Raft 共识算法的分布式 KV 存储系统。支持 Leader 选举、日志复制、快照压缩、崩溃恢复、请求去重（基于结果缓存的 exactly-once 语义），以及可插拔存储引擎。
 
 ## 架构
 
@@ -36,7 +36,7 @@
 - **日志复制**：AppendEntries RPC + 快速回退优化
 - **快照**：KvStore 驱动触发，Raft 截断日志，InstallSnapshot 同步落后节点
 - **崩溃恢复**：持久化 Raft 状态 + 快照，重启后自动恢复
-- **Exactly-once 语义**：client_id + request_id 去重，去重表随快照持久化
+- **Exactly-once 语义**：client_id + request_id 去重，缓存每个 client 最后请求结果，重复请求直接返回缓存值；去重表随快照持久化，跨崩溃存活
 - **可插拔存储引擎**：HashMap（默认）或自写 SkipList，通过配置一行切换
 - **Figure 8 保护**：只 commit 当前 term 的日志条目
 
@@ -268,5 +268,5 @@ my_raftkv/
 1. **wait_channel 无竞争创建**：`start()` 与 wait_channel 创建在同一临界区内，防止通知丢失
 2. **Figure 8 保护**：只 commit 当前 term 日志，防止已提交日志被覆盖
 3. **快照分层**：KvStore 驱动（知道状态大小），Raft 截断（不接触业务数据）
-4. **去重表快照持久化**：exactly-once 语义跨崩溃存活
+4. **去重结果缓存**：每个 client 最后请求的结果被缓存，重复请求返回相同结果（含 Get），去重表随快照持久化跨崩溃存活
 5. **锁外 push 避免死锁**：在 Raft 互斥锁外 push apply_channel，防止 ABBA 死锁

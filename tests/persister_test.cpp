@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <memory>
 #include <string>
 
@@ -118,4 +119,64 @@ TEST_F(PersisterTest, BinaryDataRoundTrip) {
   }
   p->save_raft_state(binary);
   EXPECT_EQ(p->load_raft_state(), binary);
+}
+
+// ── manifest-based crash recovery ─────────────────────────────────
+
+TEST_F(PersisterTest, ManifestCreatedAfterSave) {
+  std::unique_ptr<raftkv::Persister> p = make_persister();
+  p->save("raft_data", "snap_data");
+
+  // Manifest file should exist
+  std::string manifest = dir_ + "/manifest_0.dat";
+  std::ifstream f(manifest.c_str());
+  ASSERT_TRUE(f.good()) << "manifest file should exist after save()";
+}
+
+TEST_F(PersisterTest, CrashBeforeManifestRollsBack) {
+  // Step 1: write version 1 via normal save
+  {
+    std::unique_ptr<raftkv::Persister> p = make_persister();
+    p->save("raft_v1", "snap_v1");
+  }
+
+  // Step 2: simulate a crash after writing new data files but BEFORE
+  // updating the manifest.  Write v2 data files manually, but leave
+  // the manifest pointing at v1.
+  {
+    std::ofstream rf((dir_ + "/raft_state_0_v2.dat").c_str(),
+                     std::ios::binary);
+    rf << "raft_v2_ORPHAN";
+  }
+  {
+    std::ofstream sf((dir_ + "/snapshot_0_v2.dat").c_str(),
+                     std::ios::binary);
+    sf << "snap_v2_ORPHAN";
+  }
+
+  // Step 3: recover — should load v1 (manifest still says v1), and
+  // GC should clean up the orphaned v2 files.
+  std::unique_ptr<raftkv::Persister> p2 = make_persister();
+  EXPECT_EQ(p2->load_raft_state(), "raft_v1");
+  EXPECT_EQ(p2->load_snapshot(),   "snap_v1");
+
+  // Verify orphan files were cleaned up
+  std::ifstream rf2((dir_ + "/raft_state_0_v2.dat").c_str());
+  EXPECT_FALSE(rf2.good()) << "orphaned raft v2 file should be cleaned up";
+  std::ifstream sf2((dir_ + "/snapshot_0_v2.dat").c_str());
+  EXPECT_FALSE(sf2.good()) << "orphaned snap v2 file should be cleaned up";
+}
+
+TEST_F(PersisterTest, IndependentVersionCounters) {
+  // raft_state and snapshot versions advance independently
+  std::unique_ptr<raftkv::Persister> p = make_persister();
+  p->save_raft_state("r1");
+  p->save_raft_state("r2");
+  p->save_raft_state("r3");
+  p->save_snapshot("s1");
+
+  // Reload from disk — should recover correctly
+  std::unique_ptr<raftkv::Persister> p2 = make_persister();
+  EXPECT_EQ(p2->load_raft_state(), "r3");
+  EXPECT_EQ(p2->load_snapshot(),   "s1");
 }
