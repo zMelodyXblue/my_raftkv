@@ -7,8 +7,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BUILD_DIR="${1:-$PROJECT_DIR/build}"
-SERVER="$BUILD_DIR/bin/raftkv_server"
+SERVER="$PROJECT_DIR/bin/raftkv_server"
 
 if [[ ! -x "$SERVER" ]]; then
   echo "ERROR: $SERVER not found. Build the project first." >&2

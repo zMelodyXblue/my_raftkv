@@ -6,8 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BUILD_DIR="${1:-$PROJECT_DIR/build}"
-CLI="$BUILD_DIR/bin/raftkv_cli"
+CLI="$PROJECT_DIR/bin/raftkv_cli"
 PEERS="127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052"
 PID_DIR="$PROJECT_DIR/logs"
 
@@ -25,7 +24,7 @@ trap cleanup EXIT
 
 # ── Step 1: Start cluster ────────────────────────────────────────
 echo "=== Step 1: Starting 3-node cluster ==="
-"$SCRIPT_DIR/start_cluster.sh" "$BUILD_DIR"
+"$SCRIPT_DIR/start_cluster.sh"
 echo "Waiting for leader election..."
 sleep 3
 

@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libraft.a CMakeFiles/raft.dir/persister.cpp.o CMakeFiles/raft.dir/raft.cpp.o
-/usr/bin/ranlib ../../lib/libraft.a

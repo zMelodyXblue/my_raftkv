@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <grpcpp/grpcpp.h>
-#include "kv.grpc.pb.h"
+#include "common/kv_rpc_client.h"
 
 namespace raftkv {
 
@@ -27,7 +26,8 @@ struct ClientOptions {
 //
 class KvClient {
  public:
-  explicit KvClient(const std::vector<std::string>& server_addrs,
+  // Takes ownership of per-server RPC clients.
+  explicit KvClient(std::vector<std::unique_ptr<KvRpcClient>> clients,
                     const ClientOptions& opts = ClientOptions());
 
   std::string get(const std::string& key);
@@ -39,9 +39,9 @@ class KvClient {
                          const std::string& value,
                          const std::string& op);
 
-  std::vector<std::unique_ptr<kv::KvService::Stub>> stubs_;
+  std::vector<std::unique_ptr<KvRpcClient>> clients_;
   ClientOptions opts_;
-  int         leader_hint_ = 0;  // Last known leader index
+  int         leader_hint_ = 0;
   std::string client_id_;
   int64_t     next_request_id_ = 1;
 };

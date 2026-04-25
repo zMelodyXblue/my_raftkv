@@ -8,6 +8,7 @@
 
 #include "client/kv_client.h"
 #include "common/config_loader.h"
+#include "rpc/grpc/grpc_kv_client.h"
 
 // ── Command-line parsing ─────────────────────────────────────────
 // Usage:
@@ -58,7 +59,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  raftkv::KvClient client(peers);
+  raftkv::KvClient client(raftkv::make_grpc_kv_clients(peers));
   std::string cmd = argv[cmd_start];
 
   try {

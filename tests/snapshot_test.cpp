@@ -14,8 +14,10 @@
 #include "raft/persister.h"
 #include "raft/raft.h"
 #include "kv_store/kv_store.h"
-#include "rpc/raft_service.h"
-#include "rpc/kv_service.h"
+#include "rpc/grpc/grpc_raft_peer.h"
+#include "rpc/grpc/grpc_raft_service.h"
+#include "rpc/grpc/grpc_kv_service.h"
+#include "rpc/grpc/grpc_kv_client.h"
 #include "client/kv_client.h"
 
 namespace raftkv {
@@ -128,7 +130,7 @@ class SnapshotCluster {
     return -1;
   }
 
-  KvClient make_client() { return KvClient(addrs_); }
+  KvClient make_client() { return KvClient(make_grpc_kv_clients(addrs_)); }
 
   Raft* raft(int i) { return nodes_[i].raft.get(); }
 

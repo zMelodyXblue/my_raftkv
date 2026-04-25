@@ -14,7 +14,8 @@
 #include "common/types.h"
 #include "raft/persister.h"
 #include "raft/raft.h"
-#include "rpc/raft_service.h"
+#include "rpc/grpc/grpc_raft_peer.h"
+#include "rpc/grpc/grpc_raft_service.h"
 
 namespace raftkv {
 namespace {

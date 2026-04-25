@@ -6,8 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BUILD_DIR="${1:-$PROJECT_DIR/build}"
-GATEWAY="$BUILD_DIR/bin/raftkv_gateway"
+GATEWAY="$PROJECT_DIR/bin/raftkv_gateway"
 PEERS="127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052"
 PORT=8080
 PID_DIR="$PROJECT_DIR/logs"
@@ -32,7 +31,7 @@ trap cleanup EXIT
 
 # ── Start cluster ────────────────────────────────────────────────
 echo "=== Starting cluster ==="
-"$SCRIPT_DIR/start_cluster.sh" "$BUILD_DIR"
+"$SCRIPT_DIR/start_cluster.sh"
 echo "Waiting for leader election..."
 sleep 3
 

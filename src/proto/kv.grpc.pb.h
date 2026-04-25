@@ -7,23 +7,24 @@
 #include "kv.pb.h"
 
 #include <functional>
+#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace raftkv {
 namespace kv {
@@ -55,8 +56,36 @@ class KvService final {
      public:
       virtual ~experimental_async_interface() {}
       virtual void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
       virtual void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    typedef class experimental_async_interface async_interface;
+    #endif
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    async_interface* async() { return experimental_async(); }
+    #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::raftkv::kv::GetReply>* AsyncGetRaw(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -85,7 +114,29 @@ class KvService final {
       public StubInterface::experimental_async_interface {
      public:
       void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)>) override;
+      void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
       void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)>) override;
+      void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -116,7 +167,7 @@ class KvService final {
   template <class BaseClass>
   class WithAsyncMethod_Get : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Get() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -125,7 +176,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get(::grpc::ServerContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response) override {
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -136,7 +187,7 @@ class KvService final {
   template <class BaseClass>
   class WithAsyncMethod_PutAppend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_PutAppend() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -145,7 +196,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PutAppend(::grpc::ServerContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response) override {
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -155,9 +206,108 @@ class KvService final {
   };
   typedef WithAsyncMethod_Get<WithAsyncMethod_PutAppend<Service > > AsyncService;
   template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Get : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_Get() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response) { return this->Get(context, request, response); }));}
+    void SetMessageAllocatorFor_Get(
+        ::grpc::experimental::MessageAllocator< ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Get() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Get(
+      ::grpc::CallbackServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Get(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_PutAppend : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_PutAppend() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response) { return this->PutAppend(context, request, response); }));}
+    void SetMessageAllocatorFor_PutAppend(
+        ::grpc::experimental::MessageAllocator< ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_PutAppend() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* PutAppend(
+      ::grpc::CallbackServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* PutAppend(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+  typedef ExperimentalWithCallbackMethod_Get<ExperimentalWithCallbackMethod_PutAppend<Service > > CallbackService;
+  #endif
+
+  typedef ExperimentalWithCallbackMethod_Get<ExperimentalWithCallbackMethod_PutAppend<Service > > ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_Get : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Get() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -166,7 +316,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get(::grpc::ServerContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response) override {
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -174,7 +324,7 @@ class KvService final {
   template <class BaseClass>
   class WithGenericMethod_PutAppend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_PutAppend() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -183,7 +333,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PutAppend(::grpc::ServerContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response) override {
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -191,7 +341,7 @@ class KvService final {
   template <class BaseClass>
   class WithRawMethod_Get : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Get() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -200,7 +350,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Get(::grpc::ServerContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response) override {
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -211,7 +361,7 @@ class KvService final {
   template <class BaseClass>
   class WithRawMethod_PutAppend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_PutAppend() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -220,7 +370,7 @@ class KvService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PutAppend(::grpc::ServerContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response) override {
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -229,19 +379,102 @@ class KvService final {
     }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Get : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Get() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Get(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Get() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Get(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Get(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_PutAppend : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_PutAppend() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PutAppend(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_PutAppend() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* PutAppend(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* PutAppend(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Get : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Get() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>(std::bind(&WithStreamedUnaryMethod_Get<BaseClass>::StreamedGet, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>(
+            [this](::grpc_impl::ServerContext* context,
+                   ::grpc_impl::ServerUnaryStreamer<
+                     ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>* streamer) {
+                       return this->StreamedGet(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_Get() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Get(::grpc::ServerContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response) override {
+    ::grpc::Status Get(::grpc::ServerContext* /*context*/, const ::raftkv::kv::GetRequest* /*request*/, ::raftkv::kv::GetReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -251,17 +484,24 @@ class KvService final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_PutAppend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_PutAppend() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>(std::bind(&WithStreamedUnaryMethod_PutAppend<BaseClass>::StreamedPutAppend, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>(
+            [this](::grpc_impl::ServerContext* context,
+                   ::grpc_impl::ServerUnaryStreamer<
+                     ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>* streamer) {
+                       return this->StreamedPutAppend(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_PutAppend() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status PutAppend(::grpc::ServerContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response) override {
+    ::grpc::Status PutAppend(::grpc::ServerContext* /*context*/, const ::raftkv::kv::PutAppendRequest* /*request*/, ::raftkv::kv::PutAppendReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

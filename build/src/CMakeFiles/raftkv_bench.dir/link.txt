@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/raftkv_bench.dir/benchmark.cpp.o -o ../bin/raftkv_bench  ../lib/libkv_client.a /usr/lib/x86_64-linux-gnu/libspdlog.so.1.5.0 ../lib/libproto_gen.a -lpthread /usr/lib/x86_64-linux-gnu/libprotobuf.so -lgrpc++ -lgrpc 

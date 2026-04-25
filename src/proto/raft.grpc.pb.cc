@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace raftkv {
@@ -43,15 +47,27 @@ RaftService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channe
 }
 
 void RaftService::Stub::experimental_async::AppendEntries(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest* request, ::raftkv::raft::AppendEntriesReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AppendEntries_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AppendEntries_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::AppendEntries(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::AppendEntriesReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AppendEntries_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::AppendEntries(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest* request, ::raftkv::raft::AppendEntriesReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AppendEntries_, context, request, response, reactor);
+}
+
+void RaftService::Stub::experimental_async::AppendEntries(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::AppendEntriesReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AppendEntries_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::AppendEntriesReply>* RaftService::Stub::AsyncAppendEntriesRaw(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::AppendEntriesReply>::Create(channel_.get(), cq, rpcmethod_AppendEntries_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::AppendEntriesReply>::Create(channel_.get(), cq, rpcmethod_AppendEntries_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::AppendEntriesReply>* RaftService::Stub::PrepareAsyncAppendEntriesRaw(::grpc::ClientContext* context, const ::raftkv::raft::AppendEntriesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::AppendEntriesReply>::Create(channel_.get(), cq, rpcmethod_AppendEntries_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::AppendEntriesReply>::Create(channel_.get(), cq, rpcmethod_AppendEntries_, context, request, false);
 }
 
 ::grpc::Status RaftService::Stub::RequestVote(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest& request, ::raftkv::raft::RequestVoteReply* response) {
@@ -59,15 +75,27 @@ void RaftService::Stub::experimental_async::AppendEntries(::grpc::ClientContext*
 }
 
 void RaftService::Stub::experimental_async::RequestVote(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest* request, ::raftkv::raft::RequestVoteReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RequestVote_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RequestVote_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::RequestVote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::RequestVoteReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RequestVote_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::RequestVote(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest* request, ::raftkv::raft::RequestVoteReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_RequestVote_, context, request, response, reactor);
+}
+
+void RaftService::Stub::experimental_async::RequestVote(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::RequestVoteReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_RequestVote_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::RequestVoteReply>* RaftService::Stub::AsyncRequestVoteRaw(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::RequestVoteReply>::Create(channel_.get(), cq, rpcmethod_RequestVote_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::RequestVoteReply>::Create(channel_.get(), cq, rpcmethod_RequestVote_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::RequestVoteReply>* RaftService::Stub::PrepareAsyncRequestVoteRaw(::grpc::ClientContext* context, const ::raftkv::raft::RequestVoteRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::RequestVoteReply>::Create(channel_.get(), cq, rpcmethod_RequestVote_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::RequestVoteReply>::Create(channel_.get(), cq, rpcmethod_RequestVote_, context, request, false);
 }
 
 ::grpc::Status RaftService::Stub::InstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::raftkv::raft::InstallSnapshotReply* response) {
@@ -75,15 +103,27 @@ void RaftService::Stub::experimental_async::RequestVote(::grpc::ClientContext* c
 }
 
 void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_InstallSnapshot_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_InstallSnapshot_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::InstallSnapshotReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_InstallSnapshot_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest* request, ::raftkv::raft::InstallSnapshotReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_InstallSnapshot_, context, request, response, reactor);
+}
+
+void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::InstallSnapshotReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_InstallSnapshot_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>* RaftService::Stub::AsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::InstallSnapshotReply>::Create(channel_.get(), cq, rpcmethod_InstallSnapshot_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::InstallSnapshotReply>::Create(channel_.get(), cq, rpcmethod_InstallSnapshot_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::InstallSnapshotReply>* RaftService::Stub::PrepareAsyncInstallSnapshotRaw(::grpc::ClientContext* context, const ::raftkv::raft::InstallSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::InstallSnapshotReply>::Create(channel_.get(), cq, rpcmethod_InstallSnapshot_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::InstallSnapshotReply>::Create(channel_.get(), cq, rpcmethod_InstallSnapshot_, context, request, false);
 }
 
 ::grpc::Status RaftService::Stub::GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::raftkv::raft::GetStatusReply* response) {
@@ -91,15 +131,27 @@ void RaftService::Stub::experimental_async::InstallSnapshot(::grpc::ClientContex
 }
 
 void RaftService::Stub::experimental_async::GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::GetStatus(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::GetStatusReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, std::move(f));
+}
+
+void RaftService::Stub::experimental_async::GetStatus(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest* request, ::raftkv::raft::GetStatusReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, reactor);
+}
+
+void RaftService::Stub::experimental_async::GetStatus(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::raft::GetStatusReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_GetStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* RaftService::Stub::AsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::raft::GetStatusReply>* RaftService::Stub::PrepareAsyncGetStatusRaw(::grpc::ClientContext* context, const ::raftkv::raft::GetStatusRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::raft::GetStatusReply>::Create(channel_.get(), cq, rpcmethod_GetStatus_, context, request, false);
 }
 
 RaftService::Service::Service() {
@@ -107,22 +159,42 @@ RaftService::Service::Service() {
       RaftService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::AppendEntriesRequest, ::raftkv::raft::AppendEntriesReply>(
-          std::mem_fn(&RaftService::Service::AppendEntries), this)));
+          [](RaftService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::raft::AppendEntriesRequest* req,
+             ::raftkv::raft::AppendEntriesReply* resp) {
+               return service->AppendEntries(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       RaftService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::RequestVoteRequest, ::raftkv::raft::RequestVoteReply>(
-          std::mem_fn(&RaftService::Service::RequestVote), this)));
+          [](RaftService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::raft::RequestVoteRequest* req,
+             ::raftkv::raft::RequestVoteReply* resp) {
+               return service->RequestVote(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       RaftService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::InstallSnapshotRequest, ::raftkv::raft::InstallSnapshotReply>(
-          std::mem_fn(&RaftService::Service::InstallSnapshot), this)));
+          [](RaftService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::raft::InstallSnapshotRequest* req,
+             ::raftkv::raft::InstallSnapshotReply* resp) {
+               return service->InstallSnapshot(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       RaftService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< RaftService::Service, ::raftkv::raft::GetStatusRequest, ::raftkv::raft::GetStatusReply>(
-          std::mem_fn(&RaftService::Service::GetStatus), this)));
+          [](RaftService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::raft::GetStatusRequest* req,
+             ::raftkv::raft::GetStatusReply* resp) {
+               return service->GetStatus(ctx, req, resp);
+             }, this)));
 }
 
 RaftService::Service::~Service() {

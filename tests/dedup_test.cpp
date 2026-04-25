@@ -14,8 +14,9 @@
 #include "raft/persister.h"
 #include "raft/raft.h"
 #include "kv_store/kv_store.h"
-#include "rpc/raft_service.h"
-#include "rpc/kv_service.h"
+#include "rpc/grpc/grpc_raft_peer.h"
+#include "rpc/grpc/grpc_raft_service.h"
+#include "rpc/grpc/grpc_kv_service.h"
 #include "kv.grpc.pb.h"
 
 namespace raftkv {

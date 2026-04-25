@@ -13,6 +13,7 @@
 
 #include "client/kv_client.h"
 #include "common/config_loader.h"
+#include "rpc/grpc/grpc_kv_client.h"
 
 // ── Command-line options ────────────────────────────────────────
 struct BenchOptions {
@@ -122,7 +123,7 @@ static void worker(const BenchOptions& opts,
   raftkv::ClientOptions copts;
   copts.max_retries      = 100;
   copts.total_timeout_ms = 60000;
-  raftkv::KvClient client(opts.peers, copts);
+  raftkv::KvClient client(raftkv::make_grpc_kv_clients(opts.peers), copts);
 
   std::string value(opts.value_size, 'x');
 

@@ -5,7 +5,7 @@ add_library(raft STATIC
 
 target_link_libraries(raft PUBLIC
   common
-  proto_gen
+  proto_msg
   spdlog::spdlog
   Threads::Threads
 )

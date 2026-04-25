@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace raftkv {
@@ -39,15 +43,27 @@ KvService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
 }
 
 void KvService::Stub::experimental_async::Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, std::move(f));
+}
+
+void KvService::Stub::experimental_async::Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, std::move(f));
+}
+
+void KvService::Stub::experimental_async::Get(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, reactor);
+}
+
+void KvService::Stub::experimental_async::Get(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::GetReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Get_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::kv::GetReply>* KvService::Stub::AsyncGetRaw(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::GetReply>::Create(channel_.get(), cq, rpcmethod_Get_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::GetReply>::Create(channel_.get(), cq, rpcmethod_Get_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::kv::GetReply>* KvService::Stub::PrepareAsyncGetRaw(::grpc::ClientContext* context, const ::raftkv::kv::GetRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::GetReply>::Create(channel_.get(), cq, rpcmethod_Get_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::GetReply>::Create(channel_.get(), cq, rpcmethod_Get_, context, request, false);
 }
 
 ::grpc::Status KvService::Stub::PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest& request, ::raftkv::kv::PutAppendReply* response) {
@@ -55,15 +71,27 @@ void KvService::Stub::experimental_async::Get(::grpc::ClientContext* context, co
 }
 
 void KvService::Stub::experimental_async::PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_PutAppend_, context, request, response, std::move(f));
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_PutAppend_, context, request, response, std::move(f));
+}
+
+void KvService::Stub::experimental_async::PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_PutAppend_, context, request, response, std::move(f));
+}
+
+void KvService::Stub::experimental_async::PutAppend(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_PutAppend_, context, request, response, reactor);
+}
+
+void KvService::Stub::experimental_async::PutAppend(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::raftkv::kv::PutAppendReply* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_PutAppend_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::kv::PutAppendReply>* KvService::Stub::AsyncPutAppendRaw(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::PutAppendReply>::Create(channel_.get(), cq, rpcmethod_PutAppend_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::PutAppendReply>::Create(channel_.get(), cq, rpcmethod_PutAppend_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::raftkv::kv::PutAppendReply>* KvService::Stub::PrepareAsyncPutAppendRaw(::grpc::ClientContext* context, const ::raftkv::kv::PutAppendRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::PutAppendReply>::Create(channel_.get(), cq, rpcmethod_PutAppend_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::raftkv::kv::PutAppendReply>::Create(channel_.get(), cq, rpcmethod_PutAppend_, context, request, false);
 }
 
 KvService::Service::Service() {
@@ -71,12 +99,22 @@ KvService::Service::Service() {
       KvService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< KvService::Service, ::raftkv::kv::GetRequest, ::raftkv::kv::GetReply>(
-          std::mem_fn(&KvService::Service::Get), this)));
+          [](KvService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::kv::GetRequest* req,
+             ::raftkv::kv::GetReply* resp) {
+               return service->Get(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       KvService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< KvService::Service, ::raftkv::kv::PutAppendRequest, ::raftkv::kv::PutAppendReply>(
-          std::mem_fn(&KvService::Service::PutAppend), this)));
+          [](KvService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::raftkv::kv::PutAppendRequest* req,
+             ::raftkv::kv::PutAppendReply* resp) {
+               return service->PutAppend(ctx, req, resp);
+             }, this)));
 }
 
 KvService::Service::~Service() {

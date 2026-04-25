@@ -8,13 +8,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/proto)
 add_subdirectory(common)
 add_subdirectory(raft)         # Phase 1+
 add_subdirectory(kv_store)     # Phase 4
-add_subdirectory(rpc)          # Phase 2+
+add_subdirectory(rpc)          # RPC backend(s)
 add_subdirectory(client)       # Phase 4
 
 # ── Server executable ─────────────────────────────────────────────
 add_executable(raftkv_server main.cpp)
 target_link_libraries(raftkv_server PRIVATE
-  rpc
+  ${RPC_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -23,6 +23,7 @@ target_link_libraries(raftkv_server PRIVATE
 add_executable(raftkv_cli cli.cpp)
 target_link_libraries(raftkv_cli PRIVATE
   kv_client
+  ${RPC_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -31,6 +32,7 @@ target_link_libraries(raftkv_cli PRIVATE
 add_executable(raftkv_bench benchmark.cpp)
 target_link_libraries(raftkv_bench PRIVATE
   kv_client
+  ${RPC_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -39,7 +41,8 @@ target_link_libraries(raftkv_bench PRIVATE
 add_executable(raftkv_gateway gateway/gateway.cpp)
 target_link_libraries(raftkv_gateway PRIVATE
   kv_client
-  proto_gen
+  ${RPC_LIB}
+  proto_grpc
   spdlog::spdlog
   Threads::Threads
 )

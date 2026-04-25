@@ -54,9 +54,10 @@
 Ubuntu/Debian 安装：
 
 ```bash
-sudo apt install cmake build-essential libgrpc++-dev libprotobuf-dev \
+sudo apt install libgrpc++-dev libprotobuf-dev \
                  protobuf-compiler protobuf-compiler-grpc \
-                 libspdlog-dev libgtest-dev
+                 libspdlog-dev libgtest-dev \
+                 cmake build-essential
 ```
 
 ## 构建
