@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -22,15 +23,22 @@ class Raft;  // Forward declaration
 // Receives committed commands from Raft via apply_channel and
 // applies them to an in-memory key-value store.
 //
-// Client-facing RPCs (Get, PutAppend) go through:
-//   1. KvStore submits command to Raft via raft_->start()
-//   2. Waits for the command to appear on the apply channel
-//   3. Returns result to client
+// Two client-facing paths:
+//
+//   Writes (Put, Append):
+//     1. Serialize command, submit to Raft via raft_->start()
+//     2. Wait for commit + apply via wait_channel
+//     3. Return result
+//
+//   Reads (Get) — ReadIndex optimization:
+//     1. Confirm leadership via raft_->read_index()
+//     2. Wait for state machine to catch up to commit_index
+//     3. Read directly from data_ (no log entry written)
 //
 // Features:
-//   - Request deduplication via client_id + request_id
+//   - ReadIndex for linearizable reads without log writes
+//   - Request deduplication for writes via client_id + request_id
 //   - Snapshot serialization for Raft log compaction
-//   - Thread-safe access to KV data
 //
 class KvStore {
  public:
@@ -60,6 +68,10 @@ class KvStore {
                          int64_t request_id);
 
  private:
+  // ── ReadIndex (read optimization) ─────────────────────────────
+  GetResult read_index_get(const std::string& key);
+  void wait_until_applied(int index);
+
   // ── Apply Loop ───────────────────────────────────────────────
   void apply_loop();           // Main loop: reads from apply_channel
   void apply_command(const ApplyMsg& msg);
@@ -120,6 +132,10 @@ class KvStore {
   std::unordered_map<int, std::shared_ptr<WaitChannel>> wait_channels_;
 
   int last_snapshot_index_ = 0;
+
+  // ReadIndex: tracks the highest applied command index for read optimization.
+  int applied_index_ = 0;
+  std::condition_variable applied_cv_;
 
   // Background thread
   std::atomic<bool> running_{false};

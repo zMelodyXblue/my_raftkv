@@ -7,8 +7,8 @@
 #include "common/raft_peer.h"
 #include "raft/persister.h"
 
-// Raft no longer touches protobuf directly — serialization is handled
-// by the Persister (WAL incremental persistence).
+// Raft abstracts away all serialization — Persister handles encoding
+// LogEntry structs to protobuf/binary WAL format on disk.
 
 namespace raftkv {
 
@@ -95,6 +95,77 @@ Raft::RaftStatus Raft::get_status() const {
   return s;
 }
 
+// ── ReadIndex ─────────────────────────────────────────────────────
+
+int Raft::read_index() {
+  int ri, term;
+  {
+    std::lock_guard<std::mutex> lock(mu_);
+    if (role_ != Role::Leader) return -1;
+    // Raft §8: a leader must commit an entry from its own term before
+    // serving reads.  Without this, commit_index_ may lag behind and
+    // ReadIndex could return stale data after a leader change.
+    if (commit_index_ > 0 && term_at(commit_index_) != current_term_) return -1;
+    ri = commit_index_;
+    term = current_term_;
+  }
+
+  // Single-node cluster: no peers to confirm, already have majority.
+  if (static_cast<int>(peers_.size()) == 1) {
+    return ri;
+  }
+
+  // Send heartbeats to all peers in parallel; wait for majority ACK.
+  auto ack_count = std::make_shared<std::atomic<int>>(1);  // Count self
+  auto done = std::make_shared<std::mutex>();
+  auto done_cv = std::make_shared<std::condition_variable>();
+
+  for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
+    if (i == config_.node_id) continue;
+
+    // Build heartbeat args under lock.
+    AppendEntriesArgs args;
+    {
+      std::lock_guard<std::mutex> lock(mu_);
+      if (role_ != Role::Leader || current_term_ != term) return -1;
+      args.term = current_term_;
+      args.leader_id = config_.node_id;
+      args.prev_log_index = next_index_[i] - 1;
+      args.prev_log_term = term_at(args.prev_log_index);
+      args.leader_commit = commit_index_;
+      // Empty entries — pure heartbeat
+    }
+
+    std::thread([this, i, args, term, ack_count, done_cv]() {
+      AppendEntriesReply reply;
+      bool ok = peers_[i]->append_entries(args, &reply,
+                                          config_.raft.rpc_timeout_ms);
+      if (ok && reply.success && reply.term == term) {
+        ack_count->fetch_add(1);
+      }
+      done_cv->notify_one();
+    }).detach();
+  }
+
+  // Wait until majority or all peers have responded.
+  int majority = static_cast<int>(peers_.size()) / 2 + 1;
+  {
+    std::unique_lock<std::mutex> lock(*done);
+    done_cv->wait_for(lock,
+        std::chrono::milliseconds(config_.raft.rpc_timeout_ms),
+        [&] { return ack_count->load() >= majority; });
+  }
+
+  if (ack_count->load() < majority) return -1;
+
+  // Verify leadership hasn't changed during the wait.
+  {
+    std::lock_guard<std::mutex> lock(mu_);
+    if (role_ != Role::Leader || current_term_ != term) return -1;
+  }
+  return ri;
+}
+
 // ── Log Helpers ───────────────────────────────────────────────────
 // All helpers below require mu_ to be held by the caller.
 
@@ -150,12 +221,23 @@ void Raft::become_follower(int term) {
 
 // Called when this node wins an election.
 // Initializes leader-only volatile state (nextIndex, matchIndex).
-// Does NOT persist — role is volatile state.
+// Appends a no-op entry so that the leader can commit entries from its
+// own term, which is required for ReadIndex correctness (Raft §8).
 void Raft::become_leader() {
   role_ = Role::Leader;
   int n = static_cast<int>(peers_.size());
   next_index_.assign(n, last_log_index() + 1);
   match_index_.assign(n, 0);
+
+  // Append no-op entry for the new term.
+  LogEntry noop;
+  noop.command = "";
+  noop.term = current_term_;
+  noop.index = last_log_index() + 1;
+  logs_.push_back(noop);
+  persister_->append_logs({noop});
+  persist();
+
   spdlog::info("[Node {}] [term={}] [Leader] became leader", config_.node_id, current_term_);
 }
 
@@ -572,7 +654,7 @@ void Raft::applier() {
   }
 }
 
-// ── Phase 5: Snapshot ─────────────────────────────────────────────
+// ── Snapshot ──────────────────────────────────────────────────────
 
 // Called by KvStore when it wants to compact the log.
 // Truncates logs_ up to `index`, updates the sentinel, and persists

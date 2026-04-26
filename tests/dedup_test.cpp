@@ -212,24 +212,25 @@ TEST(DedupTest, DuplicatePutIgnored) {
 
 // Duplicate Get returns the cached result from first execution,
 // even if the underlying value has changed since then.
-TEST(DedupTest, DuplicateGetReturnsCachedResult) {
+TEST(DedupTest, GetAlwaysReturnsCurrentValue) {
+  // With ReadIndex optimization, GET reads directly from the state machine
+  // without going through the Raft log, so dedup does not apply to reads.
+  // A GET should always return the latest committed value.
   DedupCluster c(63100);
   ASSERT_NE(-1, c.wait_leader());
 
   ASSERT_EQ("", c.raw_put("key", "old_val", "clientB", 1));
 
-  // First Get: reads "old_val", result is cached in dedup table.
   auto r1 = c.raw_get("key", "clientB", 2);
   EXPECT_EQ("old_val", r1.first);
 
   // Overwrite the value via a different client.
   ASSERT_EQ("", c.raw_put("key", "new_val", "clientC", 1));
 
-  // Replay same Get (clientB, request_id=2): should return the cached
-  // "old_val", NOT the current "new_val".
+  // Same request_id: should still return the current value, not cached.
   auto r2 = c.raw_get("key", "clientB", 2);
-  EXPECT_EQ("old_val", r2.first)
-      << "duplicate Get should return cached result, not current value";
+  EXPECT_EQ("new_val", r2.first)
+      << "Get should return current value (ReadIndex bypasses dedup)";
 }
 
 // Two different client_ids with the same request_id: NOT duplicates.

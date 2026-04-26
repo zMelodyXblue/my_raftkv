@@ -23,12 +23,12 @@ KvStore::KvStore(const ServerConfig& config,
       data_(config.engine_type == "skiplist"
                 ? static_cast<KvEngine*>(new SkipListEngine())
                 : static_cast<KvEngine*>(new HashMapEngine())) {
-  // Phase 5: restore from persisted snapshot before starting the apply thread.
-  // This ensures the KV state is consistent before any new commands are applied.
+  // Restore from persisted snapshot before starting the apply thread.
   std::string snap = raft_->read_persisted_snapshot();
   if (!snap.empty()) {
     restore_snapshot(snap);
     last_snapshot_index_ = raft_->snapshot_index();
+    applied_index_ = last_snapshot_index_;
   }
 
   running_ = true;
@@ -54,50 +54,17 @@ KvStore::~KvStore() {
 // ── Client API ───────────────────────────────────────────────────
 
 // Called by KvServiceImpl::Get().
-// Submits a Get operation through the Raft log to guarantee
-// linearizability, then waits for the result.
+// Uses ReadIndex optimization: confirms leadership via heartbeat,
+// waits for apply to catch up, then reads directly from state machine.
+// No log entry is written for GET requests.
 KvStore::GetResult KvStore::get(const std::string& key,
-                                const std::string& client_id,
-                                int64_t request_id) {
-  // ── Step 1: Serialize KvOp into a string ──────────────────────
-  kv::KvOpData op_data;
-  op_data.set_op("Get");
-  op_data.set_key(key);
-  op_data.set_client_id(client_id);
-  op_data.set_request_id(request_id);
-  std::string command;
-  op_data.SerializeToString(&command);
-
-  // ── Step 2: Submit to Raft and create wait channel ────────────
-  // CRITICAL: Both start() and wait channel creation MUST be in
-  // the same critical section.  See kv_store.h for the race-free
-  // creation rule explanation.
-  std::shared_ptr<WaitChannel> ch;
-  int idx;
-  {
-    std::lock_guard<std::mutex> lk(mu_);
-    StartResult sr = raft_->start(command);
-    if (!sr.is_leader) {
-      return {/*value=*/"", /*error=*/ErrCode::ErrWrongLeader};
-    }
-    ch = get_or_create_wait_channel(sr.index);
-    idx = sr.index;
-  }
-  // Lock released — now safe to block.
-
-  // ── Step 3: Wait for apply ────────────────────────────────────
-  ApplyResult result;
-  bool ok = ch->try_pop(result, std::chrono::milliseconds(5000));
-  if (!ok) {
-    result.error = ErrCode::ErrTimeout;
-  }
-
-  close_and_remove_wait_channel(idx);
-  return {result.value, result.error};
+                                const std::string& /* client_id */,
+                                int64_t /* request_id */) {
+  return read_index_get(key);
 }
 
 // Called by KvServiceImpl::PutAppend().
-// Same flow as get() but returns only an error string.
+// Submits command to Raft log, waits for commit + apply, returns error status.
 std::string KvStore::put_append(const std::string& key,
                                 const std::string& value,
                                 const std::string& op,
@@ -136,6 +103,31 @@ std::string KvStore::put_append(const std::string& key,
   return result.error;
 }
 
+// ── ReadIndex (read optimization) ─────────────────────────────────
+
+void KvStore::wait_until_applied(int index) {
+  std::unique_lock<std::mutex> lk(mu_);
+  applied_cv_.wait_for(lk, std::chrono::milliseconds(5000),
+      [this, index] { return applied_index_ >= index || !running_; });
+}
+
+KvStore::GetResult KvStore::read_index_get(const std::string& key) {
+  int ri = raft_->read_index();
+  if (ri < 0) {
+    return {"", ErrCode::ErrWrongLeader};
+  }
+
+  wait_until_applied(ri);
+
+  std::lock_guard<std::mutex> lk(mu_);
+  if (applied_index_ < ri) {
+    return {"", ErrCode::ErrTimeout};
+  }
+  std::string val;
+  data_->get(key, &val);
+  return {val, ErrCode::OK};
+}
+
 // ── Apply Loop ───────────────────────────────────────────────────
 
 // Background thread: reads committed entries from apply_channel and
@@ -158,6 +150,14 @@ void KvStore::apply_loop() {
 // Process a single committed command.
 // Deserialize the KvOp, check for duplicates, execute, notify waiter.
 void KvStore::apply_command(const ApplyMsg& msg) {
+  // No-op entry (empty command) — used by leader to commit its term.
+  if (msg.command.empty()) {
+    std::lock_guard<std::mutex> lk(mu_);
+    applied_index_ = msg.command_index;
+    applied_cv_.notify_all();
+    return;
+  }
+
   // ── Step 1: Deserialize KvOp ──────────────────────────────────
   kv::KvOpData op_data;
   op_data.ParseFromString(msg.command);
@@ -193,23 +193,31 @@ void KvStore::apply_command(const ApplyMsg& msg) {
 
     // Notify the RPC handler waiting on this log index.
     notify_wait_channel(msg.command_index, result);
+    applied_index_ = msg.command_index;
     spdlog::debug("[Node {}] [KvStore] applied {} key={} at index={}",
                   config_.node_id, op.op, op.key, msg.command_index);
   }
+  applied_cv_.notify_all();
 
-  // Phase 5: check if snapshot is needed.
+  // Check if snapshot is needed to compact the WAL.
   maybe_take_snapshot(msg.command_index);
 }
 
 // Apply a snapshot received from Raft (via InstallSnapshot RPC).
 // Called by apply_loop() when it receives a snapshot ApplyMsg.
 void KvStore::apply_snapshot(const ApplyMsg& msg) {
-  std::lock_guard<std::mutex> lk(mu_);
-  if (msg.snapshot_index <= last_snapshot_index_) return;
-  restore_snapshot(msg.snapshot);
-  last_snapshot_index_ = msg.snapshot_index;
-  spdlog::info("[Node {}] [KvStore] applied remote snapshot (index={})",
-               config_.node_id, msg.snapshot_index);
+  {
+    std::lock_guard<std::mutex> lk(mu_);
+    if (msg.snapshot_index <= last_snapshot_index_) return;
+    restore_snapshot(msg.snapshot);
+    last_snapshot_index_ = msg.snapshot_index;
+    if (msg.snapshot_index > applied_index_) {
+      applied_index_ = msg.snapshot_index;
+    }
+    spdlog::info("[Node {}] [KvStore] applied remote snapshot (index={})",
+                 config_.node_id, msg.snapshot_index);
+  }
+  applied_cv_.notify_all();
 }
 
 // ── Snapshot ─────────────────────────────────────────────────────

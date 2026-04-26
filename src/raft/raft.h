@@ -62,15 +62,22 @@ class Raft : public std::enable_shared_from_this<Raft> {
   // snapshot_data is the serialised KvStore state at that index.
   void snapshot(int index, const std::string& snapshot_data);
 
+  // ── ReadIndex ─────────────────────────────────────────────────
+  // Confirms leadership by sending a round of heartbeats, then returns
+  // the current commit_index as a safe read point.
+  // Returns >= 0 on success (the read index), or -1 if not leader or
+  // leadership confirmation failed.
+  int read_index();
+
   // ── State Queries ────────────────────────────────────────────
   int  current_term() const;
   bool is_leader() const;
   int  node_id() const { return config_.node_id; }
   int  raft_state_size() const;
-  int  snapshot_index() const;                    // Phase 5: expose last_snapshot_index_
-  std::string read_persisted_snapshot() const;    // Phase 5: read snapshot from Persister
+  int  snapshot_index() const;
+  std::string read_persisted_snapshot() const;
 
-  // Phase 6D: aggregated status for REST gateway
+  // Aggregated status for REST gateway.
   struct RaftStatus {
     int  node_id;
     int  term;
@@ -167,10 +174,10 @@ class Raft : public std::enable_shared_from_this<Raft> {
   std::chrono::steady_clock::time_point last_heartbeat_recv_;
   int election_timeout_ms_ = 0;   // Randomized on each reset
 
-  // ── Condition variables (for future sleep→notify optimization) ──
+  // ── Condition variables ────────────────────────────────────────
   std::condition_variable commit_cv_;      // notify when commit_index_ advances
   std::condition_variable replicate_cv_;   // notify replicators on new entry or leader election
-  std::condition_variable election_cv_;    // notify on shutdown for fast exit
+  std::condition_variable election_cv_;    // notify on shutdown or timer reset
 
   // ── Background threads ────────────────────────────────────────
   std::atomic<bool> running_{false};

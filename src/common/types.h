@@ -37,22 +37,16 @@ struct LogEntry {
 // ── KV Operation ────────────────────────────────────────────────
 // The command payload stored inside LogEntry::command.
 //
-// Design decision — does Get go through the Raft log?
+// Read/write split:
+//   - Writes (Put, Append) go through the Raft log: serialized as a
+//     LogEntry, replicated to a majority, applied via the apply loop.
+//     Writes are deduplicated via client_id + request_id.
+//   - Reads (Get) use the ReadIndex optimization: the Leader confirms
+//     its authority via a heartbeat round, then reads directly from
+//     the state machine without writing a log entry.
 //
-//   YES (chosen for my_raftkv): both reads and writes are submitted
-//   via Raft::start() and wait for the entry to be committed before
-//   returning. This guarantees linearizability with zero extra
-//   complexity: the leader cannot serve stale reads because it will
-//   only reply after a majority has confirmed the entry.
-//
-//   The alternative (leader lease / ReadIndex) avoids the log-write
-//   overhead for reads but requires additional protocol machinery.
-//   We defer that optimisation to a future phase.
-//
-// Consequence: op field values are exactly "Get", "Put", "Append".
-// The KvStore state machine executes Get against its local map and
-// returns the value through the same wait-channel mechanism used for
-// writes. This also means Get is deduplicated the same way.
+// KvOp is only serialized into LogEntry::command for writes.
+// Get requests do not appear in the Raft log.
 struct KvOp {
   std::string op;          // "Get" | "Put" | "Append"
   std::string key;
