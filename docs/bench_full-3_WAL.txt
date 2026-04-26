@@ -1,0 +1,108 @@
+ERROR: failed to fetch CONFIG from 127.0.0.1:6379
+WARN: could not fetch server CONFIG
+SET: 0.00SET: 1442.23SET: 1520.96SET: 1547.27SET: 1560.44SET: 1568.35SET: 1573.62SET: 1576.48SET: 1579.42SET: 1578.60SET: 1598.72SET: 1598.84SET: 1597.87SET: 1598.03SET: 1605.71SET: 1611.19SET: 1610.49SET: 1609.87SET: 1607.90SET: 1607.48SET: 1606.47SET: 1615.66SET: 1606.24SET: 1614.30SET: 1613.71====== SET ======
+  10000 requests completed in 6.19 seconds
+  50 parallel clients
+  4096 bytes payload
+  keep alive: 1
+  multi-thread: no
+
+0.01% <= 7 milliseconds
+0.03% <= 8 milliseconds
+0.06% <= 11 milliseconds
+0.11% <= 12 milliseconds
+0.16% <= 13 milliseconds
+0.39% <= 14 milliseconds
+1.23% <= 15 milliseconds
+1.29% <= 16 milliseconds
+1.50% <= 17 milliseconds
+1.65% <= 18 milliseconds
+2.68% <= 19 milliseconds
+3.35% <= 20 milliseconds
+3.85% <= 21 milliseconds
+5.33% <= 22 milliseconds
+6.76% <= 23 milliseconds
+9.10% <= 24 milliseconds
+11.10% <= 25 milliseconds
+14.15% <= 26 milliseconds
+18.94% <= 27 milliseconds
+22.07% <= 28 milliseconds
+26.84% <= 29 milliseconds
+40.26% <= 30 milliseconds
+57.31% <= 31 milliseconds
+64.83% <= 32 milliseconds
+70.33% <= 33 milliseconds
+81.10% <= 34 milliseconds
+84.71% <= 35 milliseconds
+88.01% <= 36 milliseconds
+90.78% <= 37 milliseconds
+92.39% <= 38 milliseconds
+93.84% <= 39 milliseconds
+94.96% <= 40 milliseconds
+95.32% <= 41 milliseconds
+96.77% <= 42 milliseconds
+97.27% <= 43 milliseconds
+98.10% <= 44 milliseconds
+98.40% <= 45 milliseconds
+98.72% <= 46 milliseconds
+98.94% <= 47 milliseconds
+99.01% <= 48 milliseconds
+99.04% <= 50 milliseconds
+99.13% <= 51 milliseconds
+99.64% <= 52 milliseconds
+99.84% <= 53 milliseconds
+99.85% <= 54 milliseconds
+100.00% <= 54 milliseconds
+1615.77 requests per second
+
+GET: 1414.29GET: 1549.69GET: 1568.94GET: 1579.59GET: 1630.01GET: 1611.49GET: 1620.47GET: 1617.66GET: 1615.53GET: 1613.86GET: 1612.51GET: 1611.41GET: 1607.55GET: 1606.50GET: 1606.04GET: 1605.91GET: 1617.57GET: 1615.81GET: 1614.95GET: 1614.17GET: 1613.48GET: 1612.84GET: 1611.98GET: 1611.46GET: 1610.99====== GET ======
+  10000 requests completed in 6.20 seconds
+  50 parallel clients
+  4096 bytes payload
+  keep alive: 1
+  multi-thread: no
+
+0.01% <= 10 milliseconds
+0.06% <= 13 milliseconds
+0.08% <= 14 milliseconds
+0.11% <= 15 milliseconds
+0.12% <= 16 milliseconds
+0.26% <= 17 milliseconds
+0.63% <= 18 milliseconds
+0.83% <= 19 milliseconds
+0.89% <= 20 milliseconds
+1.22% <= 21 milliseconds
+1.55% <= 22 milliseconds
+2.96% <= 23 milliseconds
+5.31% <= 24 milliseconds
+7.03% <= 25 milliseconds
+8.02% <= 26 milliseconds
+11.81% <= 27 milliseconds
+17.30% <= 28 milliseconds
+23.62% <= 29 milliseconds
+40.76% <= 30 milliseconds
+70.90% <= 31 milliseconds
+78.10% <= 32 milliseconds
+81.70% <= 33 milliseconds
+84.44% <= 34 milliseconds
+86.51% <= 35 milliseconds
+88.67% <= 36 milliseconds
+90.05% <= 37 milliseconds
+92.05% <= 38 milliseconds
+94.63% <= 39 milliseconds
+96.45% <= 40 milliseconds
+97.02% <= 41 milliseconds
+97.45% <= 42 milliseconds
+98.18% <= 43 milliseconds
+98.53% <= 44 milliseconds
+99.02% <= 45 milliseconds
+99.35% <= 46 milliseconds
+99.67% <= 47 milliseconds
+99.71% <= 49 milliseconds
+99.80% <= 50 milliseconds
+99.85% <= 52 milliseconds
+99.99% <= 53 milliseconds
+100.00% <= 53 milliseconds
+1612.90 requests per second
+
+

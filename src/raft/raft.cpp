@@ -7,10 +7,8 @@
 #include "common/raft_peer.h"
 #include "raft/persister.h"
 
-// persist() / restore() are the only places that touch protobuf.
-// They are explicit serialization boundaries: everything else in this
-// file uses internal types only.
-#include "proto/raft.pb.h"
+// Raft no longer touches protobuf directly — serialization is handled
+// by the Persister (WAL incremental persistence).
 
 namespace raftkv {
 
@@ -67,7 +65,7 @@ bool Raft::is_leader() const {
 }
 
 int Raft::raft_state_size() const {
-  return persister_->raft_state_size();
+  return persister_->wal_size();
 }
 
 int Raft::snapshot_index() const {
@@ -397,17 +395,31 @@ void Raft::handle_append_entries(const AppendEntriesArgs& args,
   // Only truncate on actual conflict (term mismatch at a given index).
   // Do NOT blindly truncate — an out-of-order RPC with fewer entries
   // must not erase entries already confirmed by a later RPC.
-  for (size_t i = 0; i < args.entries.size(); ++i) {
-    int new_log_idx = args.entries[i].index;
-    if (new_log_idx > last_log_index()) {
-      logs_.push_back(args.entries[i]);
-    } else if (args.entries[i].term != term_at(new_log_idx)) {
-      logs_.erase(logs_.begin() + to_physical(new_log_idx), logs_.end());
-      logs_.push_back(args.entries[i]);
+  {
+    int truncate_from = -1;
+    std::vector<LogEntry> new_entries;
+    for (size_t i = 0; i < args.entries.size(); ++i) {
+      int idx = args.entries[i].index;
+      if (idx > last_log_index()) {
+        new_entries.push_back(args.entries[i]);
+        logs_.push_back(args.entries[i]);
+      } else if (args.entries[i].term != term_at(idx)) {
+        truncate_from = idx;
+        logs_.erase(logs_.begin() + to_physical(idx), logs_.end());
+        for (size_t j = i; j < args.entries.size(); ++j) {
+          new_entries.push_back(args.entries[j]);
+          logs_.push_back(args.entries[j]);
+        }
+        break;
+      }
     }
-  }
-  if (!args.entries.empty()) {
-    persist();
+    if (truncate_from > 0) {
+      persister_->truncate_suffix(truncate_from);
+    }
+    if (!new_entries.empty()) {
+      persister_->append_logs(new_entries);
+      persist();
+    }
   }
 
   // ── Step 4: Update commit_index_ ──────────────────────────────
@@ -420,47 +432,31 @@ void Raft::handle_append_entries(const AppendEntriesArgs& args,
 
 // ── Persistence ───────────────────────────────────────────────────
 
-// Serialize all persistent Raft state (including snapshot metadata) to protobuf bytes.
-// Requires mu_ held.  Used by persist() and snapshot().
-std::string Raft::encode_raft_state() const {
-    raft::RaftPersistState state;
-    state.set_current_term(current_term_);
-    state.set_voted_for(voted_for_);
-    state.set_last_snapshot_index(last_snapshot_index_);
-    state.set_last_snapshot_term(last_snapshot_term_);
-    for (const LogEntry& e : logs_) {
-      raft::LogEntry* pe = state.add_logs();
-      pe->set_command(e.command);
-      pe->set_term(e.term);
-      pe->set_index(e.index);
-    }
-    std::string bytes;
-    state.SerializeToString(&bytes);
-    return bytes;
-}
-
-// Save raft state only (no snapshot data).  Must be called while holding mu_.
+// Save only metadata (term, votedFor, snapshot info).  O(1).
+// Must be called while holding mu_.
 void Raft::persist() {
-    persister_->save_raft_state(encode_raft_state());
+    persister_->save_meta(current_term_, voted_for_,
+                          last_snapshot_index_, last_snapshot_term_);
 }
 
 // Load persisted state from disk. Called during initialization, before threads start.
 void Raft::restore() {
-    std::string bytes = persister_->load_raft_state();
-    if (bytes.empty()) return;
-    raft::RaftPersistState state;
-    if (!state.ParseFromString(bytes)) return;
+    int term, voted_for, snap_idx, snap_term;
+    if (!persister_->load_meta(&term, &voted_for, &snap_idx, &snap_term)) return;
 
-    current_term_ = state.current_term();
-    voted_for_ = state.voted_for();
-    last_snapshot_index_ = state.last_snapshot_index();
-    last_snapshot_term_ = state.last_snapshot_term();
+    current_term_ = term;
+    voted_for_ = voted_for;
+    last_snapshot_index_ = snap_idx;
+    last_snapshot_term_ = snap_term;
+
+    // Rebuild log from WAL.  logs_[0] is the sentinel.
+    std::vector<LogEntry> wal_entries = persister_->load_logs();
     logs_.clear();
-    for (int i = 0; i < state.logs_size(); ++i) {
-      LogEntry e;
-      e.command = state.logs(i).command();
-      e.term = state.logs(i).term();
-      e.index = state.logs(i).index();
+    LogEntry sentinel;
+    sentinel.index = last_snapshot_index_;
+    sentinel.term  = last_snapshot_term_;
+    logs_.push_back(sentinel);
+    for (const LogEntry& e : wal_entries) {
       logs_.push_back(e);
     }
 
@@ -492,6 +488,7 @@ StartResult Raft::start(const std::string& command) {
   entry.index = last_log_index() + 1;
   logs_.push_back(entry);
 
+  persister_->append_logs({entry});
   persist();
 
   r.index = entry.index;
@@ -591,7 +588,10 @@ void Raft::snapshot(int index, const std::string& snapshot_data) {
 
   last_snapshot_index_ = index;
 
-  persister_->save(encode_raft_state(), snapshot_data);
+  // WAL: remove compacted entries, save meta + snapshot
+  persister_->truncate_prefix(index);
+  persist();
+  persister_->save_snapshot(snapshot_data);
   spdlog::info("[Node {}] [term={}] [{}] log compacted up to index {}",
                config_.node_id, current_term_, to_string(role_), index);
 }
@@ -655,7 +655,8 @@ void Raft::handle_install_snapshot(const InstallSnapshotArgs& args,
     if (args.last_included_index <= last_snapshot_index_) return;
 
     // Step 3: Truncate / replace log
-    if (last_log_index() > args.last_included_index) {
+    bool had_entries_beyond = last_log_index() > args.last_included_index;
+    if (had_entries_beyond) {
       int phys = to_physical(args.last_included_index);
       logs_.erase(logs_.begin(), logs_.begin() + phys);
       logs_[0].command.clear();
@@ -675,8 +676,14 @@ void Raft::handle_install_snapshot(const InstallSnapshotArgs& args,
     commit_index_ = std::max(commit_index_, args.last_included_index);
     last_applied_  = std::max(last_applied_,  args.last_included_index);
 
-    // Step 6: Persist both raft state and snapshot atomically
-    persister_->save(encode_raft_state(), args.data);
+    // Step 6: Persist via WAL — truncate log, save meta + snapshot
+    persister_->truncate_prefix(args.last_included_index);
+    if (had_entries_beyond) {
+      // WAL still has entries beyond the snapshot; keep them.
+      // truncate_prefix already removed entries < index.
+    }
+    persist();
+    persister_->save_snapshot(args.data);
 
     // Step 7: Prepare ApplyMsg to deliver snapshot to KvStore
     snap_msg.snapshot_valid = true;

@@ -7,7 +7,10 @@
 #include <sstream>
 #include <stdexcept>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <dirent.h>
+
+#include "proto/raft.pb.h"
 
 namespace raftkv {
 
@@ -109,7 +112,9 @@ Persister::Persister(int node_id, const std::string& data_dir)
     : node_id_(node_id),
       data_dir_(data_dir),
       raft_version_(0),
-      snap_version_(0) {
+      snap_version_(0),
+      wal_start_index_(0),
+      wal_file_size_(0) {
   ensure_dir(data_dir_);
 
   // Try to load from manifest.
@@ -120,6 +125,9 @@ Persister::Persister(int node_id, const std::string& data_dir)
     raft_state_ = read_file(raft_state_path(data_dir_, node_id_, rv));
     snapshot_   = read_file(snapshot_path(data_dir_, node_id_, sv));
   }
+
+  // Recover WAL state (meta file + WAL log).
+  recover_wal();
 
   // GC: remove stale versioned files left by incomplete writes.
   gc_old_files(-1, -1);
@@ -241,7 +249,289 @@ std::string Persister::load_snapshot() {
 
 int Persister::raft_state_size() {
   std::lock_guard<std::mutex> lock(mu_);
-  return static_cast<int>(raft_state_.size());
+  return static_cast<int>(wal_file_size_);
+}
+
+// ── WAL helpers ───────────────────────────────────────────────────
+
+std::string Persister::meta_path() const {
+  return data_dir_ + "/raft_meta_" + std::to_string(node_id_) + ".dat";
+}
+
+std::string Persister::wal_path() const {
+  return data_dir_ + "/raft_wal_" + std::to_string(node_id_) + ".log";
+}
+
+// Encode a single LogEntry into WAL record format:
+//   [4 bytes little-endian length][protobuf bytes]
+static std::string encode_wal_record(const LogEntry& entry) {
+  raft::LogEntry pe;
+  pe.set_command(entry.command);
+  pe.set_term(entry.term);
+  pe.set_index(entry.index);
+  std::string payload;
+  pe.SerializeToString(&payload);
+
+  uint32_t len = static_cast<uint32_t>(payload.size());
+  std::string record(4 + payload.size(), '\0');
+  record[0] = static_cast<char>(len & 0xFF);
+  record[1] = static_cast<char>((len >> 8) & 0xFF);
+  record[2] = static_cast<char>((len >> 16) & 0xFF);
+  record[3] = static_cast<char>((len >> 24) & 0xFF);
+  std::memcpy(&record[4], payload.data(), payload.size());
+  return record;
+}
+
+// Decode a LogEntry from protobuf bytes.
+static LogEntry decode_log_entry(const std::string& payload) {
+  raft::LogEntry pe;
+  pe.ParseFromString(payload);
+  LogEntry e;
+  e.command = pe.command();
+  e.term = pe.term();
+  e.index = pe.index();
+  return e;
+}
+
+// Read WAL file and populate wal_offsets_, wal_start_index_, wal_file_size_.
+// Returns the loaded entries. Truncates incomplete trailing records.
+void Persister::recover_wal() {
+  wal_offsets_.clear();
+  wal_start_index_ = 0;
+  wal_file_size_ = 0;
+
+  std::string path = wal_path();
+  std::ifstream f(path.c_str(), std::ios::binary);
+  if (!f) return;
+
+  // Get file size
+  f.seekg(0, std::ios::end);
+  int64_t file_size = static_cast<int64_t>(f.tellg());
+  f.seekg(0, std::ios::beg);
+
+  int64_t offset = 0;
+  bool first = true;
+  while (offset + 4 <= file_size) {
+    // Read length header
+    char len_buf[4];
+    f.read(len_buf, 4);
+    if (!f) break;
+
+    uint32_t len = static_cast<uint32_t>(
+        static_cast<unsigned char>(len_buf[0]) |
+        (static_cast<unsigned char>(len_buf[1]) << 8) |
+        (static_cast<unsigned char>(len_buf[2]) << 16) |
+        (static_cast<unsigned char>(len_buf[3]) << 24));
+
+    // Check if complete record exists
+    if (offset + 4 + static_cast<int64_t>(len) > file_size) {
+      break;  // Incomplete record — truncate
+    }
+
+    std::string payload(len, '\0');
+    f.read(&payload[0], len);
+    if (!f) break;
+
+    if (first) {
+      LogEntry e = decode_log_entry(payload);
+      wal_start_index_ = e.index;
+      first = false;
+    }
+
+    wal_offsets_.push_back(offset);
+    offset += 4 + static_cast<int64_t>(len);
+  }
+
+  wal_file_size_ = offset;
+
+  // Truncate file if there were incomplete trailing records
+  if (offset < file_size) {
+    f.close();
+    ::truncate(path.c_str(), static_cast<off_t>(offset));
+  }
+}
+
+// Rewrite WAL file with exactly these entries (used by truncate_prefix).
+void Persister::rewrite_wal(const std::vector<LogEntry>& entries) {
+  std::string path = wal_path();
+  wal_offsets_.clear();
+  wal_file_size_ = 0;
+
+  if (entries.empty()) {
+    wal_start_index_ = 0;
+    // Truncate the file to zero
+    std::ofstream f(path.c_str(), std::ios::binary | std::ios::trunc);
+    return;
+  }
+
+  wal_start_index_ = entries[0].index;
+
+  std::string all_data;
+  for (const LogEntry& e : entries) {
+    wal_offsets_.push_back(static_cast<int64_t>(all_data.size()));
+    all_data += encode_wal_record(e);
+  }
+  wal_file_size_ = static_cast<int64_t>(all_data.size());
+
+  atomic_write(path, all_data);
+}
+
+// Read WAL entries without locking. Requires mu_ held.
+std::vector<LogEntry> Persister::load_logs_internal() {
+  std::vector<LogEntry> result;
+  std::string path = wal_path();
+  std::ifstream f(path.c_str(), std::ios::binary);
+  if (!f) return result;
+
+  int64_t remaining = wal_file_size_;
+  while (remaining >= 4) {
+    char len_buf[4];
+    f.read(len_buf, 4);
+    if (!f) break;
+
+    uint32_t len = static_cast<uint32_t>(
+        static_cast<unsigned char>(len_buf[0]) |
+        (static_cast<unsigned char>(len_buf[1]) << 8) |
+        (static_cast<unsigned char>(len_buf[2]) << 16) |
+        (static_cast<unsigned char>(len_buf[3]) << 24));
+
+    if (static_cast<int64_t>(4 + len) > remaining) break;
+
+    std::string payload(len, '\0');
+    f.read(&payload[0], len);
+    if (!f) break;
+
+    result.push_back(decode_log_entry(payload));
+    remaining -= (4 + static_cast<int64_t>(len));
+  }
+  return result;
+}
+
+// ── WAL interface implementation ──────────────────────────────────
+
+void Persister::save_meta(int term, int voted_for,
+                          int last_snapshot_index, int last_snapshot_term) {
+  std::lock_guard<std::mutex> lock(mu_);
+  std::string content =
+      "term=" + std::to_string(term) + "\n" +
+      "voted_for=" + std::to_string(voted_for) + "\n" +
+      "last_snapshot_index=" + std::to_string(last_snapshot_index) + "\n" +
+      "last_snapshot_term=" + std::to_string(last_snapshot_term) + "\n";
+  atomic_write(meta_path(), content);
+}
+
+bool Persister::load_meta(int* term, int* voted_for,
+                          int* last_snapshot_index, int* last_snapshot_term) {
+  std::lock_guard<std::mutex> lock(mu_);
+  std::string content = read_file(meta_path());
+  if (content.empty()) return false;
+
+  std::istringstream ss(content);
+  std::string line;
+  int found = 0;
+  while (std::getline(ss, line)) {
+    if (line.compare(0, 5, "term=") == 0) {
+      *term = std::atoi(line.c_str() + 5);
+      ++found;
+    } else if (line.compare(0, 10, "voted_for=") == 0) {
+      *voted_for = std::atoi(line.c_str() + 10);
+      ++found;
+    } else if (line.compare(0, 20, "last_snapshot_index=") == 0) {
+      *last_snapshot_index = std::atoi(line.c_str() + 20);
+      ++found;
+    } else if (line.compare(0, 19, "last_snapshot_term=") == 0) {
+      *last_snapshot_term = std::atoi(line.c_str() + 19);
+      ++found;
+    }
+  }
+  return found == 4;
+}
+
+void Persister::append_logs(const std::vector<LogEntry>& entries) {
+  if (entries.empty()) return;
+  std::lock_guard<std::mutex> lock(mu_);
+
+  std::string path = wal_path();
+
+  // Build combined data for all entries, tracking offsets
+  std::string data;
+  if (wal_offsets_.empty()) {
+    wal_start_index_ = entries[0].index;
+  }
+  for (const LogEntry& e : entries) {
+    wal_offsets_.push_back(wal_file_size_ + static_cast<int64_t>(data.size()));
+    data += encode_wal_record(e);
+  }
+
+  // Append to WAL file
+  std::ofstream f(path.c_str(), std::ios::binary | std::ios::app);
+  if (!f) {
+    throw std::runtime_error("Persister: cannot open WAL file " + path);
+  }
+  f.write(data.data(), static_cast<std::streamsize>(data.size()));
+  if (!f) {
+    throw std::runtime_error("Persister: write failed for WAL file " + path);
+  }
+
+  wal_file_size_ += static_cast<int64_t>(data.size());
+}
+
+void Persister::truncate_suffix(int from_index) {
+  std::lock_guard<std::mutex> lock(mu_);
+
+  if (wal_offsets_.empty() || from_index < wal_start_index_) {
+    // Truncate everything
+    rewrite_wal({});
+    return;
+  }
+
+  int pos = from_index - wal_start_index_;
+  if (pos >= static_cast<int>(wal_offsets_.size())) {
+    return;  // Nothing to truncate
+  }
+
+  int64_t new_size = wal_offsets_[pos];
+  wal_offsets_.resize(pos);
+  wal_file_size_ = new_size;
+
+  std::string path = wal_path();
+  ::truncate(path.c_str(), static_cast<off_t>(new_size));
+
+  if (wal_offsets_.empty()) {
+    wal_start_index_ = 0;
+  }
+}
+
+void Persister::truncate_prefix(int to_index) {
+  std::lock_guard<std::mutex> lock(mu_);
+
+  if (wal_offsets_.empty()) return;
+
+  // to_index: remove entries with index < to_index
+  // Keep entries with index >= to_index
+  int keep_from = to_index - wal_start_index_;
+  if (keep_from <= 0) return;  // Nothing to remove
+
+  if (keep_from >= static_cast<int>(wal_offsets_.size())) {
+    // Remove all entries
+    rewrite_wal({});
+    return;
+  }
+
+  // Read the entries we want to keep, then rewrite
+  std::vector<LogEntry> kept = load_logs_internal();
+  std::vector<LogEntry> remaining(kept.begin() + keep_from, kept.end());
+  rewrite_wal(remaining);
+}
+
+std::vector<LogEntry> Persister::load_logs() {
+  std::lock_guard<std::mutex> lock(mu_);
+  return load_logs_internal();
+}
+
+int Persister::wal_size() {
+  std::lock_guard<std::mutex> lock(mu_);
+  return static_cast<int>(wal_file_size_);
 }
 
 }  // namespace raftkv

@@ -119,9 +119,8 @@ class Raft : public std::enable_shared_from_this<Raft> {
   void maybe_advance_commit_index();  // Requires mu_ held
 
   // ── Persistence ──────────────────────────────────────────────
-  std::string encode_raft_state() const;  // Serialize to protobuf bytes; requires mu_ held
-  void persist();   // Encode and save raft state only; call while holding mu_
-  void restore();   // Load and decode state; call during construction
+  void persist();   // Save metadata only (term, votedFor, snapshot info); requires mu_ held
+  void restore();   // Load metadata + WAL; call during construction
 
   // ── Log Helpers (all require mu_ held) ──────────────────────
   // Logical index: the index as seen by the rest of the system,
