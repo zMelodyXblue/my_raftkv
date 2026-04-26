@@ -3,6 +3,7 @@
 #include <atomic>
 #include <chrono>
 #include <memory>
+#include <set>
 #include <string>
 #include <thread>
 #include <vector>
@@ -261,8 +262,70 @@ TEST(StressTest, AppendUnderStress) {
 
   // Each token is 6 chars, total = 4 * 50 * 6 = 1200.
   size_t expected_len = static_cast<size_t>(num_clients) * appends_per_client * 6;
-  EXPECT_EQ(expected_len, result.size())
+  ASSERT_EQ(expected_len, result.size())
       << "total append length mismatch; got: " << result.size();
+
+  // Parse 6-char tokens and verify every expected token appears exactly once.
+  std::set<std::string> seen;
+  for (size_t i = 0; i + 6 <= result.size(); i += 6) {
+    std::string token = result.substr(i, 6);
+    EXPECT_EQ(0u, seen.count(token)) << "duplicate token: " << token;
+    seen.insert(token);
+  }
+  for (int t = 0; t < num_clients; ++t) {
+    for (int i = 0; i < appends_per_client; ++i) {
+      char buf[8];
+      snprintf(buf, sizeof(buf), "c%d_%02d,", t, i);
+      EXPECT_EQ(1u, seen.count(std::string(buf)))
+          << "missing token: " << buf;
+    }
+  }
+}
+
+// Multiple clients concurrently Append unique tokens to the SAME key.
+// Verifies linearizability: all tokens must appear exactly once.
+TEST(StressTest, ConcurrentSameKeyLinearizable) {
+  StressCluster c(3, 62400);
+  ASSERT_NE(-1, c.wait_leader());
+
+  const int num_clients = 4;
+  const int appends_per_client = 30;
+
+  std::vector<std::thread> threads;
+  for (int t = 0; t < num_clients; ++t) {
+    threads.emplace_back([&c, t, appends_per_client]() {
+      KvClient cli = c.make_client();
+      for (int i = 0; i < appends_per_client; ++i) {
+        char buf[8];
+        snprintf(buf, sizeof(buf), "c%d_%02d,", t, i);
+        cli.append("linear", std::string(buf));
+      }
+    });
+  }
+  for (auto& th : threads) th.join();
+
+  KvClient verifier = c.make_client();
+  std::string result = verifier.get("linear");
+
+  size_t expected_len = static_cast<size_t>(num_clients) * appends_per_client * 6;
+  ASSERT_EQ(expected_len, result.size())
+      << "total append length mismatch";
+
+  // Parse 6-char tokens and verify each appears exactly once.
+  std::set<std::string> seen;
+  for (size_t i = 0; i + 6 <= result.size(); i += 6) {
+    std::string token = result.substr(i, 6);
+    EXPECT_EQ(0u, seen.count(token)) << "duplicate token: " << token;
+    seen.insert(token);
+  }
+  for (int t = 0; t < num_clients; ++t) {
+    for (int i = 0; i < appends_per_client; ++i) {
+      char buf[8];
+      snprintf(buf, sizeof(buf), "c%d_%02d,", t, i);
+      EXPECT_EQ(1u, seen.count(std::string(buf)))
+          << "missing token: " << buf;
+    }
+  }
 }
 
 }  // namespace

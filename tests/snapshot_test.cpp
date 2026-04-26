@@ -165,6 +165,17 @@ TEST(SnapshotTest, BasicSnapshot) {
     EXPECT_EQ("v" + std::to_string(i), cli.get("k" + std::to_string(i)))
         << "key k" << i << " incorrect after snapshot";
   }
+
+  // Verify at least one node actually took a snapshot.
+  bool any_snapshot = false;
+  for (int i = 0; i < 3; ++i) {
+    if (c.raft(i) && c.raft(i)->snapshot_index() > 0) {
+      any_snapshot = true;
+      break;
+    }
+  }
+  EXPECT_TRUE(any_snapshot)
+      << "no node has snapshot_index > 0; snapshot may not have triggered";
 }
 
 // After snapshot, new writes and reads still work correctly.
@@ -276,8 +287,19 @@ TEST(SnapshotTest, InstallSnapshot) {
 
   // Step 3: restart the stale follower.
   c.start_node(victim);
-  // Give time for InstallSnapshot + catch-up.
-  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  // Poll until victim catches up via InstallSnapshot.
+  {
+    bool victim_caught_up = false;
+    for (int waited = 0; waited < 5000; waited += 50) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      if (c.raft(victim) && c.raft(victim)->snapshot_index() > 0) {
+        victim_caught_up = true;
+        break;
+      }
+    }
+    ASSERT_TRUE(victim_caught_up)
+        << "victim node did not receive InstallSnapshot";
+  }
 
   // Step 4: kill the current leader to force a new election.
   // The restarted node (victim) is now a valid candidate.
@@ -326,6 +348,45 @@ TEST(SnapshotTest, LeaderCrashAfterSnapshot) {
     EXPECT_EQ("v" + std::to_string(i), cli2.get("lc" + std::to_string(i)))
         << "key lc" << i << " lost after leader crash";
   }
+}
+
+// Write data without triggering snapshot (WAL-only), kill all nodes, restart,
+// verify all data is recovered from WAL alone.
+TEST(SnapshotTest, WalOnlyCrashRecovery) {
+  // max_raft_state = 10MB so snapshot never triggers.
+  SnapshotCluster c(3, 61600, 10 * 1024 * 1024);
+  ASSERT_NE(-1, c.wait_leader());
+
+  KvClient cli = c.make_client();
+  for (int i = 0; i < 20; ++i) {
+    cli.put("wal" + std::to_string(i), "data" + std::to_string(i));
+  }
+
+  // Confirm no snapshot was taken on any node.
+  for (int i = 0; i < 3; ++i) {
+    if (c.raft(i))
+      EXPECT_EQ(0, c.raft(i)->snapshot_index())
+          << "node " << i << " unexpectedly took a snapshot";
+  }
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+  // Kill all nodes.
+  for (int i = 0; i < 3; ++i) c.kill_node(i);
+
+  // Restart — recovery should use WAL only.
+  for (int i = 0; i < 3; ++i) c.start_node(i);
+  ASSERT_NE(-1, c.wait_leader());
+
+  KvClient cli2 = c.make_client();
+  for (int i = 0; i < 20; ++i) {
+    EXPECT_EQ("data" + std::to_string(i), cli2.get("wal" + std::to_string(i)))
+        << "key wal" << i << " lost after WAL-only recovery";
+  }
+
+  // New writes must also work after WAL recovery.
+  cli2.put("post_wal", "ok");
+  EXPECT_EQ("ok", cli2.get("post_wal"));
 }
 
 }  // namespace

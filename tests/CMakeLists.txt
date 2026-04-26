@@ -80,6 +80,25 @@ target_link_libraries(test_dedup PRIVATE
 )
 add_test(NAME dedup COMMAND test_dedup)
 
+# Phase 7: Raft safety tests (log conflict, term monotonicity, committed entry persistence)
+add_executable(test_raft_safety raft_safety_test.cpp)
+target_link_libraries(test_raft_safety PRIVATE
+  ${TRANSPORT_LIB}
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME raft_safety COMMAND test_raft_safety)
+
+# Phase 7: SkipList engine integration tests (full KV cluster with skiplist)
+add_executable(test_kv_skiplist kv_skiplist_test.cpp)
+target_link_libraries(test_kv_skiplist PRIVATE
+  ${TRANSPORT_LIB}
+  kv_client
+  GTest::GTest
+  GTest::Main
+)
+add_test(NAME kv_skiplist COMMAND test_kv_skiplist)
+
 # Phase 6B: SkipList unit tests (header-only, no runtime deps)
 add_executable(test_skiplist skiplist_test.cpp)
 target_link_libraries(test_skiplist PRIVATE

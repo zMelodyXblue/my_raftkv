@@ -15,6 +15,6 @@ redis-cli -p 6379 SET foo bar #→ OK
 redis-cli -p 6379 GET foo #→ "bar"
 #redis-benchmark -h 127.0.0.1 -p 6379 -t set,get -c 50 -n 10000 -d 256
 #redis-benchmark -p 6379 -t set,get -c 50 -n 10000 -d 4096 --csv > docs/bench_result.csv
-redis-benchmark -p 6379 -t set,get -c 50 -n 10000 -d 4096 2>&1 | tee docs/bench_full.txt
+redis-benchmark -p 6379 -t set,get -c 50 -n 10000 -d 4096 2>&1 | tee docs/bench/bench_full.txt
 
 ./scripts/stop_cluster.sh 
