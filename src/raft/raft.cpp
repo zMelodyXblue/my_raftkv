@@ -34,9 +34,12 @@ void Raft::start_threads() {
   restore();
   reset_election_timer();
   running_ = true;
-  election_thread_  = std::thread(&Raft::election_ticker,  this);
-  heartbeat_thread_ = std::thread(&Raft::heartbeat_ticker, this);
-  applier_thread_   = std::thread(&Raft::applier,          this);
+  election_thread_ = std::thread(&Raft::election_ticker, this);
+  for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
+    if (i == config_.node_id) continue;
+    replicator_threads_.emplace_back(&Raft::replicator, this, i);
+  }
+  applier_thread_ = std::thread(&Raft::applier, this);
 }
 
 // ── Destructor ────────────────────────────────────────────────────
@@ -47,9 +50,11 @@ Raft::~Raft() {
   commit_cv_.notify_all();
   replicate_cv_.notify_all();
   election_cv_.notify_all();
-  if (election_thread_.joinable())  election_thread_.join();
-  if (heartbeat_thread_.joinable()) heartbeat_thread_.join();
-  if (applier_thread_.joinable())   applier_thread_.join();
+  if (election_thread_.joinable()) election_thread_.join();
+  for (auto& t : replicator_threads_) {
+    if (t.joinable()) t.join();
+  }
+  if (applier_thread_.joinable()) applier_thread_.join();
 }
 
 // ── State Queries ─────────────────────────────────────────────────
@@ -212,12 +217,7 @@ void Raft::sendRequestVote(int server,
     ++(*voted_cnt);
     if (*voted_cnt > static_cast<int>(peers_.size()) / 2) {
       become_leader();
-      std::shared_ptr<Raft> self2;
-      try { self2 = shared_from_this(); } catch (const std::bad_weak_ptr&) { return; }
-      for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
-        if (i == config_.node_id) continue;
-        std::thread([self2, i]() { self2->replicate_to_peer(i); }).detach();
-      }
+      replicate_cv_.notify_all();
     }
   }
 }
@@ -282,21 +282,21 @@ void Raft::election_ticker() {
 
 // ── Replication ───────────────────────────────────────────────────
 
-// Background thread: Leader sends a round of AppendEntries every heartbeat_interval_ms.
-void Raft::heartbeat_ticker() {
+// Per-peer background thread: waits on replicate_cv_ for new entries or
+// heartbeat timeout, then sends AppendEntries/InstallSnapshot.
+// Replaces the old heartbeat_ticker + detached-thread-per-RPC model.
+void Raft::replicator(int peer_id) {
   while (running_) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(config_.raft.heartbeat_interval_ms));
     {
-      std::lock_guard<std::mutex> lock(mu_);
+      std::unique_lock<std::mutex> lock(mu_);
+      // Wait for: (1) new entries to replicate, (2) heartbeat timeout, or (3) shutdown.
+      // Spurious wakeups are harmless — an extra replicate attempt is a no-op.
+      replicate_cv_.wait_for(lock,
+          std::chrono::milliseconds(config_.raft.heartbeat_interval_ms));
+      if (!running_) break;
       if (role_ != Role::Leader) continue;
     }
-
-    std::shared_ptr<Raft> self;
-    try { self = shared_from_this(); } catch (const std::bad_weak_ptr&) { continue; }
-    for (int i = 0; i < static_cast<int>(peers_.size()); ++i) {
-      if (i == config_.node_id) continue;
-      std::thread([self, i]() { self->replicate_to_peer(i); }).detach();
-    }
+    replicate_to_peer(peer_id);
   }
 }
 
@@ -490,6 +490,8 @@ StartResult Raft::start(const std::string& command) {
 
   persister_->append_logs({entry});
   persist();
+
+  replicate_cv_.notify_all();
 
   r.index = entry.index;
   r.term = entry.term;

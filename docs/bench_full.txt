@@ -1,147 +1,0 @@
-ERROR: failed to fetch CONFIG from 127.0.0.1:6379
-WARN: could not fetch server CONFIG
-SET: 0.00SET: 984.13SET: 1241.04SET: 1323.14SET: 1373.25SET: 1398.41SET: 1401.99SET: 1419.89SET: 1417.91SET: 1433.19SET: 1432.67SET: 1445.21SET: 1441.79SET: 1453.29SET: 1454.65SET: 1458.72SET: 1461.04SET: 1468.95SET: 1481.07SET: 1473.46SET: 1472.79SET: 1476.74SET: 1475.98SET: 1481.71SET: 1478.98SET: 1478.38SET: 1479.98====== SET ======
-  10000 requests completed in 6.75 seconds
-  50 parallel clients
-  4096 bytes payload
-  keep alive: 1
-  multi-thread: no
-
-0.01% <= 7 milliseconds
-0.12% <= 11 milliseconds
-0.14% <= 12 milliseconds
-0.18% <= 13 milliseconds
-0.30% <= 14 milliseconds
-0.44% <= 15 milliseconds
-0.92% <= 16 milliseconds
-1.02% <= 17 milliseconds
-1.36% <= 18 milliseconds
-2.04% <= 19 milliseconds
-2.87% <= 20 milliseconds
-3.50% <= 21 milliseconds
-4.76% <= 22 milliseconds
-6.91% <= 23 milliseconds
-10.20% <= 24 milliseconds
-12.43% <= 25 milliseconds
-14.95% <= 26 milliseconds
-20.30% <= 27 milliseconds
-25.77% <= 28 milliseconds
-29.76% <= 29 milliseconds
-35.63% <= 30 milliseconds
-48.82% <= 31 milliseconds
-53.68% <= 32 milliseconds
-57.06% <= 33 milliseconds
-61.67% <= 34 milliseconds
-64.36% <= 35 milliseconds
-67.59% <= 36 milliseconds
-71.49% <= 37 milliseconds
-75.32% <= 38 milliseconds
-78.76% <= 39 milliseconds
-80.75% <= 40 milliseconds
-83.29% <= 41 milliseconds
-86.52% <= 42 milliseconds
-88.68% <= 43 milliseconds
-90.55% <= 44 milliseconds
-91.36% <= 45 milliseconds
-91.84% <= 46 milliseconds
-92.71% <= 47 milliseconds
-93.54% <= 48 milliseconds
-94.00% <= 49 milliseconds
-94.43% <= 50 milliseconds
-95.02% <= 51 milliseconds
-95.30% <= 52 milliseconds
-95.90% <= 53 milliseconds
-96.30% <= 54 milliseconds
-96.97% <= 55 milliseconds
-97.59% <= 56 milliseconds
-97.81% <= 57 milliseconds
-98.06% <= 58 milliseconds
-98.30% <= 59 milliseconds
-98.64% <= 60 milliseconds
-98.98% <= 61 milliseconds
-99.04% <= 62 milliseconds
-99.37% <= 63 milliseconds
-99.50% <= 64 milliseconds
-99.51% <= 92 milliseconds
-99.52% <= 93 milliseconds
-99.53% <= 95 milliseconds
-99.56% <= 96 milliseconds
-99.72% <= 97 milliseconds
-99.75% <= 102 milliseconds
-99.84% <= 103 milliseconds
-99.99% <= 104 milliseconds
-100.00% <= 104 milliseconds
-1481.48 requests per second
-
-GET: 0.00GET: 1117.42GET: 1265.50GET: 1361.62GET: 1414.71GET: 1455.91GET: 1465.13GET: 1472.32GET: 1479.70GET: 1497.36GET: 1501.98GET: 1513.72GET: 1520.53GET: 1519.57GET: 1515.06GET: 1521.49GET: 1526.37GET: 1530.68GET: 1533.29GET: 1534.58GET: 1537.22GET: 1540.77GET: 1535.30GET: 1537.58GET: 1534.20GET: 1535.86====== GET ======
-  10000 requests completed in 6.49 seconds
-  50 parallel clients
-  4096 bytes payload
-  keep alive: 1
-  multi-thread: no
-
-0.01% <= 5 milliseconds
-0.05% <= 6 milliseconds
-0.06% <= 9 milliseconds
-0.11% <= 10 milliseconds
-0.27% <= 11 milliseconds
-0.42% <= 12 milliseconds
-0.55% <= 13 milliseconds
-0.82% <= 14 milliseconds
-1.32% <= 15 milliseconds
-1.54% <= 16 milliseconds
-1.85% <= 17 milliseconds
-1.95% <= 18 milliseconds
-2.58% <= 19 milliseconds
-3.32% <= 20 milliseconds
-4.96% <= 21 milliseconds
-6.87% <= 22 milliseconds
-8.88% <= 23 milliseconds
-11.67% <= 24 milliseconds
-13.99% <= 25 milliseconds
-16.24% <= 26 milliseconds
-18.67% <= 27 milliseconds
-22.16% <= 28 milliseconds
-27.24% <= 29 milliseconds
-34.10% <= 30 milliseconds
-57.73% <= 31 milliseconds
-63.49% <= 32 milliseconds
-66.07% <= 33 milliseconds
-68.80% <= 34 milliseconds
-72.54% <= 35 milliseconds
-75.11% <= 36 milliseconds
-78.43% <= 37 milliseconds
-82.21% <= 38 milliseconds
-85.11% <= 39 milliseconds
-86.88% <= 40 milliseconds
-88.65% <= 41 milliseconds
-90.88% <= 42 milliseconds
-92.34% <= 43 milliseconds
-92.70% <= 44 milliseconds
-93.17% <= 45 milliseconds
-94.09% <= 46 milliseconds
-95.01% <= 47 milliseconds
-95.38% <= 48 milliseconds
-95.58% <= 49 milliseconds
-96.18% <= 50 milliseconds
-96.44% <= 51 milliseconds
-96.95% <= 52 milliseconds
-97.32% <= 53 milliseconds
-97.66% <= 54 milliseconds
-98.15% <= 55 milliseconds
-98.38% <= 56 milliseconds
-98.46% <= 57 milliseconds
-98.58% <= 58 milliseconds
-99.18% <= 59 milliseconds
-99.35% <= 60 milliseconds
-99.43% <= 61 milliseconds
-99.44% <= 65 milliseconds
-99.45% <= 68 milliseconds
-99.49% <= 69 milliseconds
-99.55% <= 70 milliseconds
-99.56% <= 85 milliseconds
-99.73% <= 86 milliseconds
-100.00% <= 88 milliseconds
-1541.07 requests per second
-
-

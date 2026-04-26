@@ -99,7 +99,7 @@ class Raft : public std::enable_shared_from_this<Raft> {
  private:
   // ── Background Loops ─────────────────────────────────────────
   void election_ticker();   // Detects election timeout; starts election
-  void heartbeat_ticker();  // Leader: sends periodic AppendEntries
+  void replicator(int peer_id);  // Per-peer: sends AppendEntries/InstallSnapshot
   void applier();           // Pushes committed entries to apply_channel
 
   // ── Election ─────────────────────────────────────────────────
@@ -169,14 +169,13 @@ class Raft : public std::enable_shared_from_this<Raft> {
 
   // ── Condition variables (for future sleep→notify optimization) ──
   std::condition_variable commit_cv_;      // notify when commit_index_ advances
-  std::condition_variable replicate_cv_;   // notify when new entry needs replication
+  std::condition_variable replicate_cv_;   // notify replicators on new entry or leader election
   std::condition_variable election_cv_;    // notify on shutdown for fast exit
-  bool need_replicate_ = false;           // flag for replicate_cv_ predicate
 
   // ── Background threads ────────────────────────────────────────
   std::atomic<bool> running_{false};
   std::thread election_thread_;
-  std::thread heartbeat_thread_;
+  std::vector<std::thread> replicator_threads_;  // One per peer (except self)
   std::thread applier_thread_;
 };
 

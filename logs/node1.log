@@ -1,93 +1,172 @@
-[16:14:00.639] [info] [Node 1] starting on 127.0.0.1:50051
-[16:14:00.639] [info] [Node 1] config: peers=3, data_dir=./data/node1, election_timeout=[300,500]ms, heartbeat=30ms, max_state=1048576B
-[16:14:00.659] [info] gRPC server listening on 127.0.0.1:50051
-[16:14:00.995] [info] [Node 1] [term=5] [Candidate] starting election
-[16:14:00.998] [info] [Node 1] [term=5] [Leader] became leader
-[16:14:08.253] [info] [Node 1] [KvStore] triggering snapshot at index 20211
-[16:14:08.261] [info] [Node 1] [term=5] [Leader] log compacted up to index 20211
-[16:14:08.427] [info] [Node 1] [KvStore] triggering snapshot at index 20448
-[16:14:08.431] [info] [Node 1] [term=5] [Leader] log compacted up to index 20448
-[16:14:08.586] [info] [Node 1] [KvStore] triggering snapshot at index 20686
-[16:14:08.590] [info] [Node 1] [term=5] [Leader] log compacted up to index 20686
-[16:14:08.735] [info] [Node 1] [KvStore] triggering snapshot at index 20908
-[16:14:08.739] [info] [Node 1] [term=5] [Leader] log compacted up to index 20908
-[16:14:08.896] [info] [Node 1] [KvStore] triggering snapshot at index 21149
-[16:14:08.899] [info] [Node 1] [term=5] [Leader] log compacted up to index 21149
-[16:14:09.044] [info] [Node 1] [KvStore] triggering snapshot at index 21389
-[16:14:09.047] [info] [Node 1] [term=5] [Leader] log compacted up to index 21389
-[16:14:09.196] [info] [Node 1] [KvStore] triggering snapshot at index 21635
-[16:14:09.200] [info] [Node 1] [term=5] [Leader] log compacted up to index 21635
-[16:14:09.350] [info] [Node 1] [KvStore] triggering snapshot at index 21868
-[16:14:09.353] [info] [Node 1] [term=5] [Leader] log compacted up to index 21868
-[16:14:09.525] [info] [Node 1] [KvStore] triggering snapshot at index 22103
-[16:14:09.528] [info] [Node 1] [term=5] [Leader] log compacted up to index 22103
-[16:14:09.664] [info] [Node 1] [KvStore] triggering snapshot at index 22312
-[16:14:09.669] [info] [Node 1] [term=5] [Leader] log compacted up to index 22312
-[16:14:09.825] [info] [Node 1] [KvStore] triggering snapshot at index 22562
-[16:14:09.829] [info] [Node 1] [term=5] [Leader] log compacted up to index 22562
-[16:14:09.993] [info] [Node 1] [KvStore] triggering snapshot at index 22800
-[16:14:09.998] [info] [Node 1] [term=5] [Leader] log compacted up to index 22800
-[16:14:10.138] [info] [Node 1] [KvStore] triggering snapshot at index 23013
-[16:14:10.142] [info] [Node 1] [term=5] [Leader] log compacted up to index 23013
-[16:14:10.298] [info] [Node 1] [KvStore] triggering snapshot at index 23252
-[16:14:10.302] [info] [Node 1] [term=5] [Leader] log compacted up to index 23252
-[16:14:10.447] [info] [Node 1] [KvStore] triggering snapshot at index 23478
-[16:14:10.450] [info] [Node 1] [term=5] [Leader] log compacted up to index 23478
-[16:14:10.608] [info] [Node 1] [KvStore] triggering snapshot at index 23709
-[16:14:10.612] [info] [Node 1] [term=5] [Leader] log compacted up to index 23709
-[16:14:10.761] [info] [Node 1] [KvStore] triggering snapshot at index 23959
-[16:14:10.764] [info] [Node 1] [term=5] [Leader] log compacted up to index 23959
-[16:14:10.923] [info] [Node 1] [KvStore] triggering snapshot at index 24197
-[16:14:10.927] [info] [Node 1] [term=5] [Leader] log compacted up to index 24197
-[16:14:11.076] [info] [Node 1] [KvStore] triggering snapshot at index 24410
-[16:14:11.084] [info] [Node 1] [term=5] [Leader] log compacted up to index 24410
-[16:14:11.230] [info] [Node 1] [KvStore] triggering snapshot at index 24658
-[16:14:11.233] [info] [Node 1] [term=5] [Leader] log compacted up to index 24658
-[16:14:11.392] [info] [Node 1] [KvStore] triggering snapshot at index 24908
-[16:14:11.395] [info] [Node 1] [term=5] [Leader] log compacted up to index 24908
-[16:14:11.540] [info] [Node 1] [KvStore] triggering snapshot at index 25128
-[16:14:11.545] [info] [Node 1] [term=5] [Leader] log compacted up to index 25128
-[16:14:11.694] [info] [Node 1] [KvStore] triggering snapshot at index 25372
-[16:14:11.698] [info] [Node 1] [term=5] [Leader] log compacted up to index 25372
-[16:14:11.850] [info] [Node 1] [KvStore] triggering snapshot at index 25592
-[16:14:11.854] [info] [Node 1] [term=5] [Leader] log compacted up to index 25592
-[16:14:12.012] [info] [Node 1] [KvStore] triggering snapshot at index 25831
-[16:14:12.015] [info] [Node 1] [term=5] [Leader] log compacted up to index 25831
-[16:14:12.134] [info] [Node 1] [KvStore] triggering snapshot at index 26061
-[16:14:12.137] [info] [Node 1] [term=5] [Leader] log compacted up to index 26061
-[16:14:12.292] [info] [Node 1] [KvStore] triggering snapshot at index 26281
-[16:14:12.296] [info] [Node 1] [term=5] [Leader] log compacted up to index 26281
-[16:14:12.445] [info] [Node 1] [KvStore] triggering snapshot at index 26527
-[16:14:12.450] [info] [Node 1] [term=5] [Leader] log compacted up to index 26527
-[16:14:12.599] [info] [Node 1] [KvStore] triggering snapshot at index 26753
-[16:14:12.603] [info] [Node 1] [term=5] [Leader] log compacted up to index 26753
-[16:14:12.754] [info] [Node 1] [KvStore] triggering snapshot at index 26987
-[16:14:12.757] [info] [Node 1] [term=5] [Leader] log compacted up to index 26987
-[16:14:12.919] [info] [Node 1] [KvStore] triggering snapshot at index 27237
-[16:14:12.923] [info] [Node 1] [term=5] [Leader] log compacted up to index 27237
-[16:14:13.072] [info] [Node 1] [KvStore] triggering snapshot at index 27452
-[16:14:13.075] [info] [Node 1] [term=5] [Leader] log compacted up to index 27452
-[16:14:13.226] [info] [Node 1] [KvStore] triggering snapshot at index 27691
-[16:14:13.229] [info] [Node 1] [term=5] [Leader] log compacted up to index 27691
-[16:14:13.384] [info] [Node 1] [KvStore] triggering snapshot at index 27936
-[16:14:13.388] [info] [Node 1] [term=5] [Leader] log compacted up to index 27936
-[16:14:13.542] [info] [Node 1] [KvStore] triggering snapshot at index 28155
-[16:14:13.545] [info] [Node 1] [term=5] [Leader] log compacted up to index 28155
-[16:14:13.698] [info] [Node 1] [KvStore] triggering snapshot at index 28405
-[16:14:13.701] [info] [Node 1] [term=5] [Leader] log compacted up to index 28405
-[16:14:13.847] [info] [Node 1] [KvStore] triggering snapshot at index 28642
-[16:14:13.850] [info] [Node 1] [term=5] [Leader] log compacted up to index 28642
-[16:14:14.021] [info] [Node 1] [KvStore] triggering snapshot at index 28884
-[16:14:14.025] [info] [Node 1] [term=5] [Leader] log compacted up to index 28884
-[16:14:14.175] [info] [Node 1] [KvStore] triggering snapshot at index 29104
-[16:14:14.179] [info] [Node 1] [term=5] [Leader] log compacted up to index 29104
-[16:14:14.334] [info] [Node 1] [KvStore] triggering snapshot at index 29328
-[16:14:14.337] [info] [Node 1] [term=5] [Leader] log compacted up to index 29328
-[16:14:14.490] [info] [Node 1] [KvStore] triggering snapshot at index 29578
-[16:14:14.494] [info] [Node 1] [term=5] [Leader] log compacted up to index 29578
-[16:14:14.649] [info] [Node 1] [KvStore] triggering snapshot at index 29784
-[16:14:14.653] [info] [Node 1] [term=5] [Leader] log compacted up to index 29784
-[16:14:15.668] [info] [Node 1] [KvStore] triggering snapshot at index 31297
-[16:14:15.673] [info] [Node 1] [term=5] [Leader] log compacted up to index 31297
-[16:14:28.023] [info] [Node 1] shutting down
-[16:14:28.049] [info] [Node 1] shutdown complete
+[16:37:20.846] [info] [Node 1] starting on 127.0.0.1:50051
+[16:37:20.846] [info] [Node 1] config: peers=3, data_dir=./data/node1, election_timeout=[300,500]ms, heartbeat=30ms, max_state=1048576B
+[16:37:20.849] [info] gRPC server listening on 127.0.0.1:50051
+[16:37:21.256] [info] [Node 1] [term=1] [Follower] stepped down
+[16:37:27.255] [info] [Node 1] [KvStore] triggering snapshot at index 245
+[16:37:27.259] [info] [Node 1] [term=1] [Follower] log compacted up to index 245
+[16:37:27.353] [info] [Node 1] [KvStore] triggering snapshot at index 486
+[16:37:27.358] [info] [Node 1] [term=1] [Follower] log compacted up to index 486
+[16:37:27.443] [info] [Node 1] [KvStore] triggering snapshot at index 734
+[16:37:27.444] [info] [Node 1] [term=1] [Follower] log compacted up to index 734
+[16:37:27.535] [info] [Node 1] [KvStore] triggering snapshot at index 980
+[16:37:27.537] [info] [Node 1] [term=1] [Follower] log compacted up to index 980
+[16:37:27.627] [info] [Node 1] [KvStore] triggering snapshot at index 1221
+[16:37:27.629] [info] [Node 1] [term=1] [Follower] log compacted up to index 1221
+[16:37:27.696] [info] [Node 1] [KvStore] triggering snapshot at index 1460
+[16:37:27.699] [info] [Node 1] [term=1] [Follower] log compacted up to index 1460
+[16:37:27.764] [info] [Node 1] [KvStore] triggering snapshot at index 1701
+[16:37:27.766] [info] [Node 1] [term=1] [Follower] log compacted up to index 1701
+[16:37:27.852] [info] [Node 1] [KvStore] triggering snapshot at index 1948
+[16:37:27.854] [info] [Node 1] [term=1] [Follower] log compacted up to index 1948
+[16:37:27.965] [info] [Node 1] [KvStore] triggering snapshot at index 2197
+[16:37:27.968] [info] [Node 1] [term=1] [Follower] log compacted up to index 2197
+[16:37:28.073] [info] [Node 1] [KvStore] triggering snapshot at index 2443
+[16:37:28.075] [info] [Node 1] [term=1] [Follower] log compacted up to index 2443
+[16:37:28.166] [info] [Node 1] [KvStore] triggering snapshot at index 2688
+[16:37:28.168] [info] [Node 1] [term=1] [Follower] log compacted up to index 2688
+[16:37:28.251] [info] [Node 1] [KvStore] triggering snapshot at index 2928
+[16:37:28.254] [info] [Node 1] [term=1] [Follower] log compacted up to index 2928
+[16:37:28.353] [info] [Node 1] [KvStore] triggering snapshot at index 3174
+[16:37:28.356] [info] [Node 1] [term=1] [Follower] log compacted up to index 3174
+[16:37:28.440] [info] [Node 1] [KvStore] triggering snapshot at index 3421
+[16:37:28.442] [info] [Node 1] [term=1] [Follower] log compacted up to index 3421
+[16:37:28.529] [info] [Node 1] [KvStore] triggering snapshot at index 3665
+[16:37:28.531] [info] [Node 1] [term=1] [Follower] log compacted up to index 3665
+[16:37:28.610] [info] [Node 1] [KvStore] triggering snapshot at index 3905
+[16:37:28.614] [info] [Node 1] [term=1] [Follower] log compacted up to index 3905
+[16:37:28.692] [info] [Node 1] [KvStore] triggering snapshot at index 4147
+[16:37:28.694] [info] [Node 1] [term=1] [Follower] log compacted up to index 4147
+[16:37:28.768] [info] [Node 1] [KvStore] triggering snapshot at index 4388
+[16:37:28.770] [info] [Node 1] [term=1] [Follower] log compacted up to index 4388
+[16:37:28.858] [info] [Node 1] [KvStore] triggering snapshot at index 4630
+[16:37:28.860] [info] [Node 1] [term=1] [Follower] log compacted up to index 4630
+[16:37:28.958] [info] [Node 1] [KvStore] triggering snapshot at index 4874
+[16:37:28.960] [info] [Node 1] [term=1] [Follower] log compacted up to index 4874
+[16:37:29.047] [info] [Node 1] [KvStore] triggering snapshot at index 5115
+[16:37:29.050] [info] [Node 1] [term=1] [Follower] log compacted up to index 5115
+[16:37:29.141] [info] [Node 1] [KvStore] triggering snapshot at index 5360
+[16:37:29.144] [info] [Node 1] [term=1] [Follower] log compacted up to index 5360
+[16:37:29.226] [info] [Node 1] [KvStore] triggering snapshot at index 5607
+[16:37:29.228] [info] [Node 1] [term=1] [Follower] log compacted up to index 5607
+[16:37:29.311] [info] [Node 1] [KvStore] triggering snapshot at index 5857
+[16:37:29.313] [info] [Node 1] [term=1] [Follower] log compacted up to index 5857
+[16:37:29.385] [info] [Node 1] [KvStore] triggering snapshot at index 6106
+[16:37:29.388] [info] [Node 1] [term=1] [Follower] log compacted up to index 6106
+[16:37:29.462] [info] [Node 1] [KvStore] triggering snapshot at index 6351
+[16:37:29.465] [info] [Node 1] [term=1] [Follower] log compacted up to index 6351
+[16:37:29.556] [info] [Node 1] [KvStore] triggering snapshot at index 6597
+[16:37:29.559] [info] [Node 1] [term=1] [Follower] log compacted up to index 6597
+[16:37:29.642] [info] [Node 1] [KvStore] triggering snapshot at index 6841
+[16:37:29.645] [info] [Node 1] [term=1] [Follower] log compacted up to index 6841
+[16:37:29.732] [info] [Node 1] [KvStore] triggering snapshot at index 7086
+[16:37:29.734] [info] [Node 1] [term=1] [Follower] log compacted up to index 7086
+[16:37:29.823] [info] [Node 1] [KvStore] triggering snapshot at index 7321
+[16:37:29.825] [info] [Node 1] [term=1] [Follower] log compacted up to index 7321
+[16:37:29.892] [info] [Node 1] [KvStore] triggering snapshot at index 7565
+[16:37:29.894] [info] [Node 1] [term=1] [Follower] log compacted up to index 7565
+[16:37:29.974] [info] [Node 1] [KvStore] triggering snapshot at index 7814
+[16:37:29.976] [info] [Node 1] [term=1] [Follower] log compacted up to index 7814
+[16:37:30.058] [info] [Node 1] [KvStore] triggering snapshot at index 8057
+[16:37:30.060] [info] [Node 1] [term=1] [Follower] log compacted up to index 8057
+[16:37:30.143] [info] [Node 1] [KvStore] triggering snapshot at index 8305
+[16:37:30.145] [info] [Node 1] [term=1] [Follower] log compacted up to index 8305
+[16:37:30.233] [info] [Node 1] [KvStore] triggering snapshot at index 8552
+[16:37:30.235] [info] [Node 1] [term=1] [Follower] log compacted up to index 8552
+[16:37:30.321] [info] [Node 1] [KvStore] triggering snapshot at index 8801
+[16:37:30.323] [info] [Node 1] [term=1] [Follower] log compacted up to index 8801
+[16:37:30.394] [info] [Node 1] [KvStore] triggering snapshot at index 9041
+[16:37:30.397] [info] [Node 1] [term=1] [Follower] log compacted up to index 9041
+[16:37:30.464] [info] [Node 1] [KvStore] triggering snapshot at index 9284
+[16:37:30.467] [info] [Node 1] [term=1] [Follower] log compacted up to index 9284
+[16:37:30.558] [info] [Node 1] [KvStore] triggering snapshot at index 9528
+[16:37:30.561] [info] [Node 1] [term=1] [Follower] log compacted up to index 9528
+[16:37:30.644] [info] [Node 1] [KvStore] triggering snapshot at index 9775
+[16:37:30.647] [info] [Node 1] [term=1] [Follower] log compacted up to index 9775
+[16:37:31.149] [info] [Node 1] [KvStore] triggering snapshot at index 11487
+[16:37:31.155] [info] [Node 1] [term=1] [Follower] log compacted up to index 11487
+[16:37:54.943] [info] [Node 1] [KvStore] triggering snapshot at index 20101
+[16:37:54.955] [info] [Node 1] [term=1] [Follower] log compacted up to index 20101
+[16:37:55.043] [info] [Node 1] [KvStore] triggering snapshot at index 20346
+[16:37:55.046] [info] [Node 1] [term=1] [Follower] log compacted up to index 20346
+[16:37:55.133] [info] [Node 1] [KvStore] triggering snapshot at index 20593
+[16:37:55.135] [info] [Node 1] [term=1] [Follower] log compacted up to index 20593
+[16:37:55.221] [info] [Node 1] [KvStore] triggering snapshot at index 20840
+[16:37:55.223] [info] [Node 1] [term=1] [Follower] log compacted up to index 20840
+[16:37:55.301] [info] [Node 1] [KvStore] triggering snapshot at index 21087
+[16:37:55.303] [info] [Node 1] [term=1] [Follower] log compacted up to index 21087
+[16:37:55.372] [info] [Node 1] [KvStore] triggering snapshot at index 21334
+[16:37:55.374] [info] [Node 1] [term=1] [Follower] log compacted up to index 21334
+[16:37:55.466] [info] [Node 1] [KvStore] triggering snapshot at index 21582
+[16:37:55.469] [info] [Node 1] [term=1] [Follower] log compacted up to index 21582
+[16:37:55.552] [info] [Node 1] [KvStore] triggering snapshot at index 21827
+[16:37:55.554] [info] [Node 1] [term=1] [Follower] log compacted up to index 21827
+[16:37:55.634] [info] [Node 1] [KvStore] triggering snapshot at index 22069
+[16:37:55.636] [info] [Node 1] [term=1] [Follower] log compacted up to index 22069
+[16:37:55.721] [info] [Node 1] [KvStore] triggering snapshot at index 22316
+[16:37:55.723] [info] [Node 1] [term=1] [Follower] log compacted up to index 22316
+[16:37:55.802] [info] [Node 1] [KvStore] triggering snapshot at index 22545
+[16:37:55.804] [info] [Node 1] [term=1] [Follower] log compacted up to index 22545
+[16:37:55.866] [info] [Node 1] [KvStore] triggering snapshot at index 22791
+[16:37:55.868] [info] [Node 1] [term=1] [Follower] log compacted up to index 22791
+[16:37:55.943] [info] [Node 1] [KvStore] triggering snapshot at index 23032
+[16:37:55.945] [info] [Node 1] [term=1] [Follower] log compacted up to index 23032
+[16:37:56.031] [info] [Node 1] [KvStore] triggering snapshot at index 23277
+[16:37:56.033] [info] [Node 1] [term=1] [Follower] log compacted up to index 23277
+[16:37:56.119] [info] [Node 1] [KvStore] triggering snapshot at index 23523
+[16:37:56.122] [info] [Node 1] [term=1] [Follower] log compacted up to index 23523
+[16:37:56.174] [info] [Node 1] [KvStore] triggering snapshot at index 23770
+[16:37:56.177] [info] [Node 1] [term=1] [Follower] log compacted up to index 23770
+[16:37:56.262] [info] [Node 1] [KvStore] triggering snapshot at index 24014
+[16:37:56.264] [info] [Node 1] [term=1] [Follower] log compacted up to index 24014
+[16:37:56.350] [info] [Node 1] [KvStore] triggering snapshot at index 24260
+[16:37:56.352] [info] [Node 1] [term=1] [Follower] log compacted up to index 24260
+[16:37:56.437] [info] [Node 1] [KvStore] triggering snapshot at index 24506
+[16:37:56.439] [info] [Node 1] [term=1] [Follower] log compacted up to index 24506
+[16:37:56.525] [info] [Node 1] [KvStore] triggering snapshot at index 24756
+[16:37:56.527] [info] [Node 1] [term=1] [Follower] log compacted up to index 24756
+[16:37:56.600] [info] [Node 1] [KvStore] triggering snapshot at index 24982
+[16:37:56.602] [info] [Node 1] [term=1] [Follower] log compacted up to index 24982
+[16:37:56.670] [info] [Node 1] [KvStore] triggering snapshot at index 25229
+[16:37:56.672] [info] [Node 1] [term=1] [Follower] log compacted up to index 25229
+[16:37:56.749] [info] [Node 1] [KvStore] triggering snapshot at index 25472
+[16:37:56.751] [info] [Node 1] [term=1] [Follower] log compacted up to index 25472
+[16:37:56.836] [info] [Node 1] [KvStore] triggering snapshot at index 25714
+[16:37:56.838] [info] [Node 1] [term=1] [Follower] log compacted up to index 25714
+[16:37:56.928] [info] [Node 1] [KvStore] triggering snapshot at index 25962
+[16:37:56.930] [info] [Node 1] [term=1] [Follower] log compacted up to index 25962
+[16:37:57.003] [info] [Node 1] [KvStore] triggering snapshot at index 26204
+[16:37:57.005] [info] [Node 1] [term=1] [Follower] log compacted up to index 26204
+[16:37:57.067] [info] [Node 1] [KvStore] triggering snapshot at index 26443
+[16:37:57.071] [info] [Node 1] [term=1] [Follower] log compacted up to index 26443
+[16:37:57.144] [info] [Node 1] [KvStore] triggering snapshot at index 26685
+[16:37:57.146] [info] [Node 1] [term=1] [Follower] log compacted up to index 26685
+[16:37:57.231] [info] [Node 1] [KvStore] triggering snapshot at index 26933
+[16:37:57.233] [info] [Node 1] [term=1] [Follower] log compacted up to index 26933
+[16:37:57.311] [info] [Node 1] [KvStore] triggering snapshot at index 27171
+[16:37:57.314] [info] [Node 1] [term=1] [Follower] log compacted up to index 27171
+[16:37:57.368] [info] [Node 1] [KvStore] triggering snapshot at index 27417
+[16:37:57.371] [info] [Node 1] [term=1] [Follower] log compacted up to index 27417
+[16:37:57.458] [info] [Node 1] [KvStore] triggering snapshot at index 27662
+[16:37:57.460] [info] [Node 1] [term=1] [Follower] log compacted up to index 27662
+[16:37:57.545] [info] [Node 1] [KvStore] triggering snapshot at index 27903
+[16:37:57.547] [info] [Node 1] [term=1] [Follower] log compacted up to index 27903
+[16:37:57.641] [info] [Node 1] [KvStore] triggering snapshot at index 28147
+[16:37:57.643] [info] [Node 1] [term=1] [Follower] log compacted up to index 28147
+[16:37:57.717] [info] [Node 1] [KvStore] triggering snapshot at index 28396
+[16:37:57.718] [info] [Node 1] [term=1] [Follower] log compacted up to index 28396
+[16:37:57.800] [info] [Node 1] [KvStore] triggering snapshot at index 28630
+[16:37:57.803] [info] [Node 1] [term=1] [Follower] log compacted up to index 28630
+[16:37:57.870] [info] [Node 1] [KvStore] triggering snapshot at index 28878
+[16:37:57.874] [info] [Node 1] [term=1] [Follower] log compacted up to index 28878
+[16:37:57.953] [info] [Node 1] [KvStore] triggering snapshot at index 29125
+[16:37:57.957] [info] [Node 1] [term=1] [Follower] log compacted up to index 29125
+[16:37:58.051] [info] [Node 1] [KvStore] triggering snapshot at index 29370
+[16:37:58.053] [info] [Node 1] [term=1] [Follower] log compacted up to index 29370
+[16:37:58.135] [info] [Node 1] [KvStore] triggering snapshot at index 29614
+[16:37:58.137] [info] [Node 1] [term=1] [Follower] log compacted up to index 29614
+[16:37:58.223] [info] [Node 1] [KvStore] triggering snapshot at index 29863
+[16:37:58.226] [info] [Node 1] [term=1] [Follower] log compacted up to index 29863
+[16:38:00.067] [info] [Node 1] [KvStore] triggering snapshot at index 36560
+[16:38:00.077] [info] [Node 1] [term=1] [Follower] log compacted up to index 36560
+[16:38:07.878] [info] [Node 1] shutting down
+[16:38:07.882] [info] [Node 1] shutdown complete
