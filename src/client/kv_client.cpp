@@ -11,17 +11,29 @@
 
 namespace raftkv {
 
-KvClient::KvClient(std::vector<std::unique_ptr<KvRpcClient>> clients,
-                   const ClientOptions& opts)
-    : clients_(std::move(clients)), opts_(opts) {
-  // Generate a unique client_id from random_device + mt19937.
+static std::string generate_client_id() {
   std::random_device rd;
   std::mt19937_64 gen(rd());
   std::uniform_int_distribution<uint64_t> dist;
   std::ostringstream oss;
   oss << std::hex << dist(gen) << "-" << dist(gen);
-  client_id_ = oss.str();
+  return oss.str();
 }
+
+KvClient::KvClient(std::vector<std::unique_ptr<KvServiceClient>> clients,
+                   const ClientOptions& opts)
+    : opts_(opts), client_id_(generate_client_id()) {
+  // Convert unique_ptr → shared_ptr for uniform internal storage.
+  clients_.reserve(clients.size());
+  for (auto& c : clients) {
+    clients_.push_back(std::shared_ptr<KvServiceClient>(c.release()));
+  }
+}
+
+KvClient::KvClient(std::vector<std::shared_ptr<KvServiceClient>> clients,
+                   const ClientOptions& opts)
+    : clients_(std::move(clients)), opts_(opts),
+      client_id_(generate_client_id()) {}
 
 std::string KvClient::get(const std::string& key) {
   int64_t rid = next_request_id_++;

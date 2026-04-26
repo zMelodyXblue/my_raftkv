@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "common/kv_rpc_client.h"
+#include "common/kv_service_client.h"
 
 namespace raftkv {
 
@@ -26,8 +26,13 @@ struct ClientOptions {
 //
 class KvClient {
  public:
-  // Takes ownership of per-server RPC clients.
-  explicit KvClient(std::vector<std::unique_ptr<KvRpcClient>> clients,
+  // Takes ownership of per-server clients (each KvClient owns its connections).
+  explicit KvClient(std::vector<std::unique_ptr<KvServiceClient>> clients,
+                    const ClientOptions& opts = ClientOptions());
+
+  // Shares per-server clients (multiple KvClients share the same connections).
+  // Useful when gRPC stubs are thread-safe and channel creation is expensive.
+  explicit KvClient(std::vector<std::shared_ptr<KvServiceClient>> clients,
                     const ClientOptions& opts = ClientOptions());
 
   std::string get(const std::string& key);
@@ -39,7 +44,8 @@ class KvClient {
                          const std::string& value,
                          const std::string& op);
 
-  std::vector<std::unique_ptr<KvRpcClient>> clients_;
+  // Shared clients (keeps both owned and shared alive).
+  std::vector<std::shared_ptr<KvServiceClient>> clients_;
   ClientOptions opts_;
   int         leader_hint_ = 0;
   std::string client_id_;

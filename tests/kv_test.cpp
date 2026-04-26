@@ -17,7 +17,7 @@
 #include "rpc/grpc/grpc_raft_peer.h"
 #include "rpc/grpc/grpc_raft_service.h"
 #include "rpc/grpc/grpc_kv_service.h"
-#include "rpc/grpc/grpc_kv_client.h"
+#include "rpc/grpc/grpc_kv_service_client.h"
 #include "client/kv_client.h"
 
 namespace raftkv {
@@ -123,7 +123,7 @@ class KvCluster {
   }
 
   // Create a KvClient connected to all servers.
-  KvClient make_client() { return KvClient(make_grpc_kv_clients(addrs_)); }
+  KvClient make_client() { return KvClient(make_grpc_kv_service_clients(addrs_)); }
 
   const std::vector<std::string>& addrs() const { return addrs_; }
 

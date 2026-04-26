@@ -23,7 +23,7 @@ struct RaftConfig {
   int rpc_timeout_ms = 500;
 
   // Snapshot threshold: trigger snapshot when log exceeds this size
-  int max_raft_state_bytes = 8 * 1024 * 1024;  // 8 MB
+  int max_raft_state_bytes = 1 * 1024 * 1024;  // 8 MB
 };
 
 // ── Server Configuration ────────────────────────────────────────

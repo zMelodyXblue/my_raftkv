@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-# Start a 3-node local Raft KV cluster.
-# Usage: ./scripts/start_cluster.sh [build_dir]
-#   build_dir defaults to ./build
+# Start the local Raft KV cluster defined in config/script_settings.sh.
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SCRIPT_CONFIG="$PROJECT_DIR/config/script_settings.sh"
 SERVER="$PROJECT_DIR/bin/raftkv_server"
 
 if [[ ! -x "$SERVER" ]]; then
@@ -14,31 +13,55 @@ if [[ ! -x "$SERVER" ]]; then
   exit 1
 fi
 
-PEERS="127.0.0.1:50050,127.0.0.1:50051,127.0.0.1:50052"
-LOG_DIR="$PROJECT_DIR/logs"
-PID_DIR="$PROJECT_DIR/logs"
-DATA_DIR="$PROJECT_DIR/data"
+if [[ ! -f "$SCRIPT_CONFIG" ]]; then
+  echo "ERROR: script config not found: $SCRIPT_CONFIG" >&2
+  exit 1
+fi
 
-mkdir -p "$LOG_DIR" "$DATA_DIR/node0" "$DATA_DIR/node1" "$DATA_DIR/node2"
+# shellcheck disable=SC1090
+source "$SCRIPT_CONFIG"
 
-for i in 0 1 2; do
-  if [[ -f "$PID_DIR/node${i}.pid" ]]; then
-    old_pid=$(cat "$PID_DIR/node${i}.pid")
+resolve_path() {
+  local path="$1"
+  if [[ "$path" = /* ]]; then
+    printf '%s\n' "$path"
+  else
+    printf '%s\n' "$PROJECT_DIR/$path"
+  fi
+}
+
+LOG_DIR="$(resolve_path "$CLUSTER_LOG_DIR")"
+PID_DIR="$(resolve_path "$CLUSTER_PID_DIR")"
+
+mkdir -p "$LOG_DIR" "$PID_DIR"
+
+for node in "${CLUSTER_NODES[@]}"; do
+  IFS=':' read -r node_id config_rel <<< "$node"
+  pid_file="$PID_DIR/node${node_id}.pid"
+  if [[ -f "$pid_file" ]]; then
+    old_pid=$(cat "$pid_file")
     if kill -0 "$old_pid" 2>/dev/null; then
-      echo "Node $i already running (PID $old_pid). Stop first."
+      echo "Node $node_id already running (PID $old_pid). Stop first."
       exit 1
     fi
-    rm -f "$PID_DIR/node${i}.pid"
+    rm -f "$pid_file"
   fi
 done
 
-echo "Starting 3-node cluster..."
+echo "Starting cluster..."
 
-for i in 0 1 2; do
-  "$SERVER" --id "$i" --peers "$PEERS" --data "$DATA_DIR/node${i}" \
-    > "$LOG_DIR/node${i}.log" 2>&1 &
-  echo $! > "$PID_DIR/node${i}.pid"
-  echo "  Node $i started (PID $!) -> $LOG_DIR/node${i}.log"
+for node in "${CLUSTER_NODES[@]}"; do
+  IFS=':' read -r node_id config_rel <<< "$node"
+  config_path="$(resolve_path "$config_rel")"
+  log_file="$LOG_DIR/node${node_id}.log"
+  pid_file="$PID_DIR/node${node_id}.pid"
+
+  (
+    cd "$PROJECT_DIR"
+    exec "$SERVER" --config "$config_path" > "$log_file" 2>&1
+  ) &
+  echo $! > "$pid_file"
+  echo "  Node $node_id started (PID $!) -> $log_file"
 done
 
 echo "Cluster started. Use 'scripts/stop_cluster.sh' to stop."

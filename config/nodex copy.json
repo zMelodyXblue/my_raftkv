@@ -1,0 +1,11 @@
+{
+  "node_id": 2,
+  "peers": [
+    "127.0.0.1:50050",
+    "127.0.0.1:50051",
+    "127.0.0.1:50052"
+  ],
+  "data_dir": "./data/node2",
+  "engine_type": "hashmap",
+  "max_raft_state_bytes": 8388608 //1048576
+}

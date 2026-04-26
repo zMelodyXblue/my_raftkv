@@ -6,5 +6,6 @@
     "127.0.0.1:50052"
   ],
   "data_dir": "./data/node2",
-  "engine_type": "skiplist"
+  "engine_type": "hashmap",
+  "max_raft_state_bytes": 8388608
 }

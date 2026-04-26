@@ -14,7 +14,7 @@ add_subdirectory(client)       # Phase 4
 # ── Server executable ─────────────────────────────────────────────
 add_executable(raftkv_server main.cpp)
 target_link_libraries(raftkv_server PRIVATE
-  ${RPC_LIB}
+  ${TRANSPORT_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -23,7 +23,7 @@ target_link_libraries(raftkv_server PRIVATE
 add_executable(raftkv_cli cli.cpp)
 target_link_libraries(raftkv_cli PRIVATE
   kv_client
-  ${RPC_LIB}
+  ${TRANSPORT_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -32,7 +32,16 @@ target_link_libraries(raftkv_cli PRIVATE
 add_executable(raftkv_bench benchmark.cpp)
 target_link_libraries(raftkv_bench PRIVATE
   kv_client
-  ${RPC_LIB}
+  ${TRANSPORT_LIB}
+  spdlog::spdlog
+  Threads::Threads
+)
+
+# ── Redis Protocol Proxy ──────────────────────────────────────────
+add_executable(raftkv_redis_proxy redis_proxy/redis_proxy.cpp)
+target_link_libraries(raftkv_redis_proxy PRIVATE
+  kv_client
+  ${TRANSPORT_LIB}
   spdlog::spdlog
   Threads::Threads
 )
@@ -41,7 +50,7 @@ target_link_libraries(raftkv_bench PRIVATE
 add_executable(raftkv_gateway gateway/gateway.cpp)
 target_link_libraries(raftkv_gateway PRIVATE
   kv_client
-  ${RPC_LIB}
+  ${TRANSPORT_LIB}
   proto_grpc
   spdlog::spdlog
   Threads::Threads

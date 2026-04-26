@@ -7,14 +7,14 @@
 
 #include "common/config.h"
 #include "common/config_loader.h"
-#include "common/rpc_server.h"
+#include "common/node_server.h"
 #include "common/thread_safe_queue.h"
 #include "common/types.h"
 #include "raft/persister.h"
 #include "raft/raft.h"
 #include "kv_store/kv_store.h"
 #include "rpc/grpc/grpc_raft_peer.h"
-#include "rpc/grpc/grpc_server.h"
+#include "rpc/grpc/grpc_node_server.h"
 
 // ── Command-line parsing ──────────────────────────────────────────
 // Usage:
@@ -72,17 +72,18 @@ static raftkv::ServerConfig parse_args(int argc, char* argv[]) {
 
 // ── Signal handling for graceful shutdown ─────────────────────────
 
-static raftkv::RpcServer* g_rpc_server = nullptr;
+static raftkv::NodeServer* g_node_server = nullptr;
 
 static void signal_handler(int sig) {
   (void)sig;
-  if (g_rpc_server) g_rpc_server->shutdown();
+  if (g_node_server) g_node_server->shutdown();
 }
 
 // ── main ──────────────────────────────────────────────────────────
 
 int main(int argc, char* argv[]) {
-  spdlog::set_level(spdlog::level::debug);
+  //spdlog::set_level(spdlog::level::debug);
+  spdlog::set_level(spdlog::level::info);
   spdlog::set_pattern("[%H:%M:%S.%e] [%l] %v");
 
   raftkv::ServerConfig config = parse_args(argc, argv);
@@ -132,22 +133,22 @@ int main(int argc, char* argv[]) {
   auto kv_store = std::make_shared<raftkv::KvStore>(
       config, raft_node, apply_channel);
 
-  // ── Create and start RPC server ─────────────────────────────────
-  std::unique_ptr<raftkv::RpcServer> rpc_server(new raftkv::GrpcRpcServer());
-  g_rpc_server = rpc_server.get();
+  // ── Create and start node server ─────────────────────────────────
+  std::unique_ptr<raftkv::NodeServer> node_server(new raftkv::GrpcNodeServer());
+  g_node_server = node_server.get();
 
   std::signal(SIGINT,  signal_handler);
   std::signal(SIGTERM, signal_handler);
 
-  rpc_server->start(config.listen_addr, raft_node, kv_store);
+  node_server->start(config.listen_addr, raft_node, kv_store);
 
   // Block until signal triggers shutdown.
-  rpc_server->wait();
+  node_server->wait();
 
   // ── Orderly teardown ───────────────────────────────────────────
   spdlog::info("[Node {}] shutting down", config.node_id);
-  g_rpc_server = nullptr;
-  rpc_server.reset();
+  g_node_server = nullptr;
+  node_server.reset();
   kv_store.reset();
   raft_node.reset();
 

@@ -11,7 +11,7 @@
 #include "common/config_loader.h"
 #include "common/nlohmann/json.hpp"
 #include "raft.grpc.pb.h"
-#include "rpc/grpc/grpc_kv_client.h"
+#include "rpc/grpc/grpc_kv_service_client.h"
 #include "gateway/httplib.h"
 
 // ── Command-line parsing ────────────────────────────────────────
@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  raftkv::KvClient kv_client(raftkv::make_grpc_kv_clients(args.peers));
+  raftkv::KvClient kv_client(raftkv::make_grpc_kv_service_clients(args.peers));
   // Keep a copy for status queries
   std::vector<std::string> peers = args.peers;
 

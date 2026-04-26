@@ -14,7 +14,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 # ── RPC backend selection ────────────────────────────────────────
 set(RAFTKV_RPC_BACKEND "grpc" CACHE STRING "RPC backend: grpc")
 if(RAFTKV_RPC_BACKEND STREQUAL "grpc")
-  set(RPC_LIB rpc_grpc)
+  set(TRANSPORT_LIB rpc_grpc)
 endif()
 
 # ── Dependencies ──────────────────────────────────────────────────
