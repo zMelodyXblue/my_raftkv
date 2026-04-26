@@ -99,6 +99,10 @@ static bool parse_manifest(const std::string& path,
   return found == 2;
 }
 
+// ── destructor ────────────────────────────────────────────────────
+
+Persister::~Persister() = default;
+
 // ── constructor ───────────────────────────────────────────────────
 
 Persister::Persister(int node_id, const std::string& data_dir)

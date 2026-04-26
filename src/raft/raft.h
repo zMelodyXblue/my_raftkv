@@ -1,6 +1,7 @@
 #pragma once
 
 #include <atomic>
+#include <condition_variable>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -166,6 +167,12 @@ class Raft : public std::enable_shared_from_this<Raft> {
   // ── Timing ────────────────────────────────────────────────────
   std::chrono::steady_clock::time_point last_heartbeat_recv_;
   int election_timeout_ms_ = 0;   // Randomized on each reset
+
+  // ── Condition variables (for future sleep→notify optimization) ──
+  std::condition_variable commit_cv_;      // notify when commit_index_ advances
+  std::condition_variable replicate_cv_;   // notify when new entry needs replication
+  std::condition_variable election_cv_;    // notify on shutdown for fast exit
+  bool need_replicate_ = false;           // flag for replicate_cv_ predicate
 
   // ── Background threads ────────────────────────────────────────
   std::atomic<bool> running_{false};

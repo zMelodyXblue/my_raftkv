@@ -26,23 +26,24 @@ namespace raftkv {
 class Persister {
  public:
   explicit Persister(int node_id, const std::string& data_dir);
+  virtual ~Persister();
 
   // Save Raft state (term + votedFor + log) and snapshot together.
   // Both files are committed via a single manifest update.
-  void save(const std::string& raft_state, const std::string& snapshot);
+  virtual void save(const std::string& raft_state, const std::string& snapshot);
 
   // Save only Raft state.
-  void save_raft_state(const std::string& raft_state);
+  virtual void save_raft_state(const std::string& raft_state);
 
   // Save only snapshot.
-  void save_snapshot(const std::string& snapshot);
+  virtual void save_snapshot(const std::string& snapshot);
 
   // Load from disk. Returns empty string if file doesn't exist.
-  std::string load_raft_state();
-  std::string load_snapshot();
+  virtual std::string load_raft_state();
+  virtual std::string load_snapshot();
 
   // Size of persisted raft state (for snapshot threshold check).
-  int raft_state_size();
+  virtual int raft_state_size();
 
  private:
   void write_manifest();

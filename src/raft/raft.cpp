@@ -45,9 +45,13 @@ void Raft::start_threads() {
 
 Raft::~Raft() {
   running_ = false;
-  election_thread_.join();
-  heartbeat_thread_.join();
-  applier_thread_.join();
+  // Wake all background threads so they exit without waiting for sleep timeout.
+  commit_cv_.notify_all();
+  replicate_cv_.notify_all();
+  election_cv_.notify_all();
+  if (election_thread_.joinable())  election_thread_.join();
+  if (heartbeat_thread_.joinable()) heartbeat_thread_.join();
+  if (applier_thread_.joinable())   applier_thread_.join();
 }
 
 // ── State Queries ─────────────────────────────────────────────────
@@ -124,6 +128,7 @@ void Raft::reset_election_timer() {
 
     election_timeout_ms_ = dist(rng);
     last_heartbeat_recv_ = std::chrono::steady_clock::now();
+    election_cv_.notify_one();  // wake election_ticker to recalculate remaining time
 }
 
 // ── Role Transitions ──────────────────────────────────────────────
@@ -251,20 +256,29 @@ void Raft::handle_request_vote(const RequestVoteArgs& args,
                 config_.node_id, current_term_, args.candidate_id);
 }
 
-// Background thread: polls every 10ms, starts an election if the
-// election timeout has elapsed and this node is not the leader.
+// Background thread: waits until election timeout expires, then starts election.
+// Calculates remaining time to sleep precisely instead of polling every 10ms.
 void Raft::election_ticker() {
   while (running_) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    bool timed_out = false;
     {
-      std::lock_guard<std::mutex> lock(mu_);
+      std::unique_lock<std::mutex> lock(mu_);
+      // Calculate how long until the election timeout fires.
+      auto remaining = [this] {
+        auto elapsed = std::chrono::steady_clock::now() - last_heartbeat_recv_;
+        auto timeout = std::chrono::milliseconds(election_timeout_ms_);
+        auto left = timeout - std::chrono::duration_cast<std::chrono::milliseconds>(elapsed);
+        return (left.count() > 0) ? left : std::chrono::milliseconds(0);
+      };
+      // Wait exactly the remaining time. Wakes early on shutdown or
+      // when reset_election_timer() is called (heartbeat received).
+      election_cv_.wait_for(lock, remaining(),
+                            [this] { return !running_; });
+      if (!running_) break;
       if (role_ == Role::Leader) continue;
-      auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
-          std::chrono::steady_clock::now() - last_heartbeat_recv_).count();
-      timed_out = (elapsed >= election_timeout_ms_);
+      // Re-check after wakeup: timer may have been reset while we waited.
+      if (remaining().count() > 0) continue;
     }
-    if (timed_out) start_election();
+    start_election();
   }
 }
 
@@ -399,6 +413,7 @@ void Raft::handle_append_entries(const AppendEntriesArgs& args,
   // ── Step 4: Update commit_index_ ──────────────────────────────
   if (args.leader_commit > commit_index_) {
     commit_index_ = std::min(args.leader_commit, last_log_index());
+    commit_cv_.notify_one();  // wake applier immediately
   }
   reply->success = true;
 }
@@ -478,6 +493,7 @@ StartResult Raft::start(const std::string& command) {
   logs_.push_back(entry);
 
   persist();
+
   r.index = entry.index;
   r.term = entry.term;
   r.is_leader = true;
@@ -517,6 +533,7 @@ void Raft::maybe_advance_commit_index() {
       int old_commit = commit_index_;
       commit_index_ = idx;
       if (commit_index_ > old_commit) {
+        commit_cv_.notify_one();  // wake applier immediately
         spdlog::debug("[Node {}] [term={}] [Leader] commitIndex advanced to {}",
                       config_.node_id, current_term_, commit_index_);
       }
@@ -530,12 +547,15 @@ void Raft::maybe_advance_commit_index() {
 // IMPORTANT: Do NOT hold mu_ while pushing — KV layer may call snapshot() back.
 void Raft::applier() {
   while (running_) {
-    std::this_thread::sleep_for(
-        std::chrono::milliseconds(config_.raft.apply_interval_ms));
-
     std::vector<ApplyMsg> msgs;
     {
-      std::lock_guard<std::mutex> lock(mu_);
+      std::unique_lock<std::mutex> lock(mu_);
+      // Wait until new entries are committed or shutdown.
+      // Max wait = apply_interval_ms (same as old sleep_for behavior),
+      // but wakes immediately when commit_cv_ is notified.
+      commit_cv_.wait_for(lock,
+          std::chrono::milliseconds(config_.raft.apply_interval_ms),
+          [this] { return last_applied_ < commit_index_ || !running_; });
       while (last_applied_ < commit_index_) {
         last_applied_++;
         ApplyMsg msg;
